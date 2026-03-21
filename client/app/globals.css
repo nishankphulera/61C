@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  overflow-x: clip; /* Better for animations than hidden */
+  position: relative; /* Framer useScroll + target needs non-static scroll root */
+  scroll-behavior: smooth;
+  /* Global snap on <html> breaks scroll-linked motion (e.g. TV parallax). Snap per-section in components instead. */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  overflow-x: clip; /* Better for animations than hidden */
+  width: 100%;
+  position: relative;
+}
+
+.artwork-collage-container {
+  width: 1440px;
+  height: 6341px;
+  background: #141414;
+  position: relative;
+}
+
+.artwork-img-1 {
+  width: 1634px;
+  height: 1634px;
+  transform: rotate(3.878deg);
+  aspect-ratio: 1633.76/1633.76;
+  position: absolute;
+  left: -150px;
+  top: 778px;
+}
+
+.artwork-img-2 {
+  width: 1467px;
+  height: 1467px;
+  transform: rotate(14.424deg);
+  aspect-ratio: 1467.04/1467.04;
+  position: absolute;
+  left: -155px;
+  top: 2519px;
+}
+
+.artwork-img-3 {
+  width: 971px;
+  height: 971px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: 651px;
+  top: 2092px;
+}
+
+.artwork-img-4 {
+  width: 1254px;
+  height: 1254px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: -422px;
+  top: 2061px;
+}
+
+.artwork-img-5 {
+  width: 1241px;
+  height: 698px;
+  aspect-ratio: 1241/698;
+  position: absolute;
+  left: 129px;
+  top: 80px;
+}
+
+.artwork-img-6 {
+  width: 956px;
+  height: 426px;
+  transform: rotate(27.587deg);
+  position: absolute;
+  left: 129px;
+  top: 2578px;
+}
+
+.artwork-img-7 {
+  width: 1142px;
+  height: 1142px;
+  transform: rotate(-170.519deg);
+  aspect-ratio: 1142.35/1142.35;
+  position: absolute;
+  left: 464px;
+  top: 3245px;
+}
+
+.artwork-img-8 {
+  width: 946px;
+  height: 422px;
+  position: absolute;
+  left: 403px;
+  top: 3726px;
+}
+
+.artwork-img-9 {
+  width: 381px;
+  height: 381px;
+  transform: rotate(19.558deg);
+  aspect-ratio: 381.31/381.31;
+  position: absolute;
+  left: 105px;
+  top: 3826px;
+}
+
+.artwork-img-10 {
+  width: 850px;
+  height: 850px;
+  transform: rotate(-3.514deg);
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: -295px;
+  top: 3079px;
+}
+
+.artwork-img-11 {
+  width: 1697px;
+  height: 1697px;
+  transform: rotate(7.422deg);
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: 245px;
+  top: 4439px;
+}
+
+.artwork-img-12 {
+  width: 1173px;
+  height: 1173px;
+  transform: rotate(26.662deg);
+  aspect-ratio: 1173.28/1173.28;
+  position: absolute;
+  left: -633px;
+  top: 3979px;
+}
+
+.artwork-img-13 {
+  width: 713px;
+  height: 713px;
+  transform: rotate(19.214deg);
+  aspect-ratio: 712.84/712.84;
+  position: absolute;
+  left: 299px;
+  top: 4273px;
+}
+
+.artwork-img-14 {
+  width: 946px;
+  height: 422px;
+  transform: rotate(26.345deg);
+  position: absolute;
+  left: 129px;
+  top: 4368px;
+}
+
+.artwork-img-15 {
+  width: 885px;
+  height: 885px;
+  transform: rotate(17.609deg);
+  aspect-ratio: 885.44/885.44;
+  position: absolute;
+  left: 581px;
+  top: 3801px;
+}
+
+.artwork-img-16 {
+  width: 965px;
+  height: 965px;
+  aspect-ratio: 964.69/964.69;
+  position: absolute;
+  left: 752px;
+  top: 778px;
+}
+
+.artwork-img-17 {
+  width: 740px;
+  height: 740px;
+  transform: rotate(13.581deg);
+  aspect-ratio: 739.56/739.56;
+  position: absolute;
+  left: -341px;
+  top: 248px;
+}
+
+.artwork-img-18 {
+  width: 407px;
+  height: 407px;
+  aspect-ratio: 407.16/407.16;
+  position: absolute;
+  left: 1162px;
+  top: -46px;
+}
+
+.artwork-img-19 {
+  width: 299px;
+  height: 299px;
+  transform: rotate(36.246deg);
+  aspect-ratio: 299.35/299.35;
+  position: absolute;
+  left: -72px;
+  top: -177px;
+}
+
+.studio-section-container {
+  width: 1591px;
+  height: 2519px;
+  background: #141414;
+  position: relative;
+}
+
+.studio-img-1 {
+  width: 1634px;
+  height: 1634px;
+  transform: rotate(3.878deg);
+  aspect-ratio: 1633.76/1633.76;
+  position: absolute;
+  left: -150px;
+  top: 778px;
+}
+
+.studio-img-2 {
+  width: 1241px;
+  height: 698px;
+  aspect-ratio: 1241/698;
+  position: absolute;
+  left: 129px;
+  top: 80px;
+}
+
+.studio-img-3 {
+  width: 965px;
+  height: 965px;
+  aspect-ratio: 964.69/964.69;
+  position: absolute;
+  left: 752px;
+  top: 778px;
+}
+
+.studio-img-4 {
+  width: 740px;
+  height: 740px;
+  transform: rotate(13.581deg);
+  aspect-ratio: 739.56/739.56;
+  position: absolute;
+  left: -341px;
+  top: 248px;
+}
+
+.studio-img-5 {
+  width: 407px;
+  height: 407px;
+  aspect-ratio: 407.16/407.16;
+  position: absolute;
+  left: 1162px;
+  top: -46px;
+}
+
+.studio-img-6 {
+  width: 299px;
+  height: 299px;
+  transform: rotate(36.246deg);
+  aspect-ratio: 299.35/299.35;
+  position: absolute;
+  left: -72px;
+  top: -177px;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
