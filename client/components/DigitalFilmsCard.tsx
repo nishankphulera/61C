@@ -170,7 +170,7 @@ export default function DigitalFilmsCard({
       className={`relative w-full cursor-pointer overflow-hidden rounded-lg shadow-lg ${className}`}
       style={{
         aspectRatio: "2/4", // Height > Width (portrait) - shorter height
-        maxHeight: "400px",
+        maxHeight: "420px",
         transformStyle: "preserve-3d",
       }}
       onClick={handleClick}

@@ -21,18 +21,14 @@ export default function FilmsGrid({
   videos,
   className = "",
 }: FilmsGridProps) {
-  // Limit to 9 videos for 3x3 grid
-  const displayVideos = videos.slice(0, 9);
+  // Up to 12 videos for a 3×4 grid (3 rows × 4 columns on md+)
+  const displayVideos = videos.slice(0, 12);
 
   return (
-    <section className={`mb-16 mt-50 ${className}`}>
-      {/* Title */}
-      {/* <h2 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-12 text-left">
-        {title}
-      </h2> */}
+    <section className={`mb-16 mt-10 ${className}`}>
+     
 
-      {/* 3x3 Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {displayVideos.map((video) => (
           <FilmsCard
             key={video.id}

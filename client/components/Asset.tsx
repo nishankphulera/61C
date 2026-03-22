@@ -175,6 +175,8 @@ interface AssetProps {
   scaleFactor?: number;
   zIndex?: number;
   scrollContainer?: React.RefObject<HTMLElement | null>;
+  /** When true, flips the image horizontally (mirror). */
+  reverse?: boolean;
 }
 
 // ----------------------
@@ -192,6 +194,7 @@ export default function Asset({
   scaleFactor = 0,
   zIndex = 10,
   scrollContainer,
+  reverse = false,
 }: AssetProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -240,7 +243,7 @@ export default function Asset({
         alt={alt}
         width={width}
         height={height}
-        className="w-full h-full object-contain pointer-events-none select-none"
+        className={`w-full h-full object-contain pointer-events-none select-none${reverse ? " -scale-x-100" : ""}`}
         draggable={false}
       />
     </motion.div>

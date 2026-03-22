@@ -8,7 +8,7 @@ export default function TitleWithSemicircleAssets() {
   // Select 8 interesting assets for the semicircle
   const assets = [
     "dancingBurger",
-    "directorsCut",
+    "Clapperboard",
     "flippingBowl",
     "flyingRibbons",
    "fork",

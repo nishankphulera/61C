@@ -8,6 +8,8 @@ import FilmsGrid from "@/components/FilmsGrid";
 import MusicVideosSection from "@/components/MusicVideosSection";
 import BrandMarquee from "@/components/BrandWork";
 import Header from "@/components/Header";
+import FilmRollStrip from "@/components/FilmRollStrip";
+import Asset from "@/components/Asset";
 
 export default function FilmsPage() {
   const filmsRef = useRef<HTMLDivElement>(null);
@@ -20,6 +22,7 @@ export default function FilmsPage() {
   const isDigitalFilmsInView = useInView(digitalFilmsRef, { once: true, amount: 0.2 });
   const isFilmsGridInView = useInView(filmsGridRef, { once: true, amount: 0.2 });
   const isMusicVideosInView = useInView(musicVideosRef, { once: true, amount: 0.2 });
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   // Scroll-based parallax for Digital Films section
   const { scrollYProgress } = useScroll({
@@ -125,6 +128,24 @@ export default function FilmsPage() {
       id: "g9",
       title: "City Lights",
       imageSrc: "https://picsum.photos/800/450?random=21",
+      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      id: "g10",
+      title: "Neon Nights",
+      imageSrc: "https://picsum.photos/800/450?random=34",
+      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      id: "g11",
+      title: "Coastal Drive",
+      imageSrc: "https://picsum.photos/800/450?random=35",
+      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    {
+      id: "g12",
+      title: "Winter Light",
+      imageSrc: "https://picsum.photos/800/450?random=36",
       youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     },
   ];
@@ -245,20 +266,35 @@ export default function FilmsPage() {
     },
   ];
 
+  const filmRollGifs = ["/HomePage.gif", "/HomePage.gif", "/HomePage.gif"] as const;
+
   return (
-    <main className="min-h-screen bg-black w-full">
+    <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
-      
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-6%" }} zIndex={10} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={20} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-6%" }} zIndex={10} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={20} />
+
+      <div className="flex justify-center px-4 pt-8 pb-2 md:pt-8 md:pb-4 ">
+        <FilmRollStrip
+          gifs={filmRollGifs}
+          className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
+          gifAlts={["Films highlight 1", "Films highlight 2", "Films highlight 3"]}
+        />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-16">
         {/* Films Section - Width > Height */}
         <motion.section
           ref={filmsRef}
-          className="mb-16 -mx-4 md:-mx-8 pt-[4.5rem]"
+          className="relative z-10 mb-16 -mx-6 md:-mx-10 pt-[4.5rem]"
           variants={sectionVariants}
           initial="hidden"
           animate={isFilmsInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-12 text-left px-4 md:px-8">
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0">
             Films
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-2 px-0 justify-items-start">
@@ -274,30 +310,37 @@ export default function FilmsPage() {
           </div>
         </motion.section>
 
-        {/* Digital Films Section - Height > Width */}
+    
+
+          {/* Music Videos Section — wider breakout than before (-mx-4 md:-mx-8) */}
+          <motion.div
+          ref={musicVideosRef}
+          className="-mx-4 md:-mx-10"
+          variants={sectionVariants}
+          initial="hidden"
+          animate={isMusicVideosInView ? "visible" : "hidden"}
+        >
+          <MusicVideosSection title="Music Videos" videos={musicVideos} />
+        </motion.div>
+
+        {/* Digital Films Section — wider breakout past container padding */}
         <motion.section
           ref={digitalFilmsRef}
+          className="-mx-5 md:-mx-9"
           variants={sectionVariants}
           initial="hidden"
           animate={isDigitalFilmsInView ? "visible" : "hidden"}
         >
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0">
+            Vertical Films
+          </h1>
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8"
+            className="grid grid-cols-1 md:grid-cols-5"
             style={{ y: smoothY }}
           >
-            {/* Left Column - 40% (2/5) */}
-            <div className="md:col-span-2">
-              <h2 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-6">
-                Digital Films
-              </h2>
-              <p className="text-yellow-200 text-lg md:text-2xl leading-relaxed">
-                More than content creators, we're creative partners equipped to deliver everything from strategy and concept to films, photography, branded design, and scalable content systems.
-              </p>
-            </div>
-
-            {/* Right Column - 60% (3/5) */}
-            <div className="md:col-span-3">
-              <div className="grid grid-cols-4 gap-2 md:gap-3">
+            
+            <div className="md:col-span-5">
+              <div className="grid grid-cols-4 gap-3 md:gap-4">
                 {digitalFilms.map((film) => (
                   <DigitalFilmsCard
                     key={film.id}
@@ -312,27 +355,20 @@ export default function FilmsPage() {
           </motion.div>
         </motion.section>
 
-        {/* Films Grid Section - 3x3 Grid at bottom */}
+
+
+
+      
+
         <motion.div
           ref={filmsGridRef}
+          className="-mx-4 md:-mx-9"
           variants={sectionVariants}
           initial="hidden"
           animate={isFilmsGridInView ? "visible" : "hidden"}
         >
           <FilmsGrid title="More Films" videos={gridFilms} />
         </motion.div>
-
-        {/* Music Videos Section - 4x3 Grid */}
-        <motion.div
-          ref={musicVideosRef}
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isMusicVideosInView ? "visible" : "hidden"}
-        >
-          <MusicVideosSection title="Music Videos" videos={musicVideos} />
-        </motion.div>
-
-
       </div>
 
     </main>
