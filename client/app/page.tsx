@@ -55,8 +55,9 @@ export default function LandingPage() {
         </motion.div>
       </div>
       {/* Image Marquee below the TV */}
-      <div className="relative mt-0">
+      <div className="relative mt-0 z-10 w-full">
         <ImageMarquee title="Our Work" imageSize={140} rows={4} />
+        {/* Giant Background Asset overlapping the Marquee */}
       </div>
 
       {/* Mobile: stacked nav cards (desktop uses parallax collage below) */}
@@ -99,30 +100,29 @@ export default function LandingPage() {
       >
 
         {/* --- GIANT BACKGROUND ASSETS (z-index: 5, deep parallax) --- */}
-        <Asset reverse={true} scrollContainer={scrollRef} src="/Lego.png" className="w-[32rem] md:w-[34rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "6%", right: "50%" }} zIndex={5} />
-        <Asset scrollContainer={scrollRef} src="/Cassette.png" className="w-[38rem] md:w-[36rem] opacity-45" parallax={0.18} scaleFactor={0.012} rotate={8} position={{ top: "40%", left: "72%" }} zIndex={5} />
-        {/* <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[30rem] md:w-[34rem] opacity-45" parallax={0.2} scaleFactor={0.013} rotate={18} position={{ top: "72%", left: "-8%" }} zIndex={5} /> */}
+        <Asset scrollContainer={scrollRef} src="/chair.png" className="w-[21rem] md:w-[24rem] opacity-98" parallax={0.18} scaleFactor={0.012} rotate={-0.8} position={{ top: "0.5%", left: "34.8%" }} zIndex={50} />
+        <Asset reverse={false} scrollContainer={scrollRef} src="/drone.png" className="w-[24rem] md:w-[29rem] opacity-98" parallax={0.2} scaleFactor={0.013} rotate={-2} position={{ top: "8.4%", left: "-8%" }} zIndex={200} />
 
         {/* --- FOREGROUND INTERACTIVE CARDS (z-index: 45) --- */}
-        <Card title="FILMS" imageSrc="/Films.png" width="46rem" onClick={() => router.push("/films")} rotate={-3} position={{ top: "12%", left: "-4%" }} zIndex={45} />
-        <Card title="PHOTOGRAPHY" imageSrc="/Photography.png" width="54rem" onClick={() => router.push("/photography")} rotate={-6} position={{ top: "50%", left: "44%" }} zIndex={45} />
+        <Card title="FILMS" imageSrc="/Films.png" width="40.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ top: "-3%", left: "-7%" }} zIndex={100} />
+        <Card title="PHOTOGRAPHY" imageSrc="/Photography.png" width="64rem" onClick={() => router.push("/photography")} rotate={2} position={{ top: "13%", left: "38%" }} zIndex={45} />
         <Card title="DESIGN" imageSrc="/Design.png" width="56rem" onClick={() => router.push("/music-videos")} rotate={-7} position={{ top: "84%", left: "-2%" }} zIndex={45} />
 
         {/* --- UPPER CHUNK (2% - 36%) : FILMS BOARD COMPOSITION --- */}
-        {/* <Asset scrollContainer={scrollRef} src="/Chair.png" className="w-[22rem] md:w-[34rem]" parallax={0.35} scaleFactor={0.01} rotate={3} position={{ top: "14%", left: "34%" }} zIndex={32} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[22rem] md:w-[30rem]" parallax={0.25} scaleFactor={0.014} rotate={18} position={{ top: "8%", left: "63%" }} zIndex={34} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[28rem]" parallax={0.28} scaleFactor={0.014} position={{ top: "18%", left: "72%" }} zIndex={33} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Pelican Case.png" className="w-[24rem] md:w-[34rem]" parallax={0.2} scaleFactor={0.01} rotate={-10} position={{ top: "31%", left: "14%" }} zIndex={31} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Megaphone.png" className="w-[18rem] md:w-[28rem]" parallax={0.3} scaleFactor={0.013} rotate={-18} position={{ top: "34%", left: "50%" }} zIndex={33} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/disk.png" className="w-[10rem] md:w-[14rem]" parallax={0.22} scaleFactor={0.012} rotate={-20} position={{ top: "24%", left: "44%" }} zIndex={30} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/disk.png" className="w-[8rem] md:w-[11rem]" parallax={0.22} scaleFactor={0.012} rotate={20} position={{ top: "28%", left: "58%" }} zIndex={30} /> */}
+        <Asset scrollContainer={scrollRef} src="/key.png" className="w-[0.5rem] md:w-[11.5rem] opacity-100" parallax={0.35} scaleFactor={0.01} rotate={1.5} position={{ top: "3%", left: "61.8%" }} zIndex={37} />
+        <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[7.4rem] md:w-[15.4rem] opacity-100" parallax={0.25} scaleFactor={0.014} rotate={1} position={{ top: "-2.6%", left: "61.6%" }} zIndex={34} />
+        <Asset scrollContainer={scrollRef} src="/Pot.png" className="w-[28rem] md:w-[36rem] opacity-100" parallax={0.28} scaleFactor={0.014} rotate={1} position={{ top: "0.5%", left: "63.3%" }} zIndex={33} />
+        <Asset scrollContainer={scrollRef} src="/Pelican Case.png" className="w-[16rem] md:w-[25rem] opacity-98" parallax={0.2} scaleFactor={0.01} rotate={-3} position={{ top: "10%", left: "17.9%" }} zIndex={31} />
+        <Asset scrollContainer={scrollRef} src="/Salad bowl.png" className="w-[19rem] md:w-[29rem] opacity-98" parallax={0.3} scaleFactor={0.013} rotate={-13} position={{ top: "10.4%", right: "39.5%" }} zIndex={20} />
+        <Asset scrollContainer={scrollRef} src="/Megaphone.png" className="w-[17rem] md:w-[21rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-13} position={{ top: "12.5%", left: "52%" }} zIndex={60} />
+        <Asset scrollContainer={scrollRef} src="/Coffee Machine.png" className="w-[22rem] md:w-[26rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-1} position={{ top: "17.8%", left: "-6%" }} zIndex={250} />
 
         {/* --- MID CHUNK (40% - 70%) : PHOTOGRAPHY BOARD COMPOSITION --- */}
-        {/* <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[18rem] md:w-[25rem]" parallax={0.33} scaleFactor={0.016} rotate={-3} position={{ top: "43%", left: "-2%" }} zIndex={34} /> */}
+        <Asset scrollContainer={scrollRef} src="/Camcorder.png" className="w-[11rem] md:w-[17rem] opacity-98" parallax={0.33} scaleFactor={0.016} rotate={5} position={{ top: "18%", left: "18%" }} zIndex={260} />
         {/* <Asset scrollContainer={scrollRef} src="/Vinyl.png" className="w-[18rem] md:w-[26rem]" parallax={0.36} scaleFactor={0.012} rotate={-20} position={{ top: "55%", left: "63%" }} zIndex={33} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Cassette.png" className="w-[26rem] md:w-[35rem]" parallax={0.26} scaleFactor={0.014} rotate={8} position={{ top: "62%", left: "-4%" }} zIndex={32} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Pelican Case.png" className="w-[20rem] md:w-[26rem]" parallax={0.26} scaleFactor={0.013} rotate={12} position={{ top: "58%", left: "72%" }} zIndex={31} /> */}
-        {/* <Asset scrollContainer={scrollRef} src="/Pot.png" className="w-[9rem] md:w-[13rem]" parallax={0.34} scaleFactor={0.013} rotate={10} position={{ top: "60%", left: "38%" }} zIndex={34} /> */}
+        <Asset scrollContainer={scrollRef} src="/Pizza.png" className="w-[19rem] md:w-[29rem] opacity-100" parallax={0.26} scaleFactor={0.014} rotate={-8} position={{ top: "22.9%", left: "13.9%" }} zIndex={280} />
+        <Asset scrollContainer={scrollRef} src="/Bread.png" className="w-[33rem] md:w-[39rem] opacity-100" parallax={0.26} scaleFactor={0.013} rotate={5} position={{ top: "28.8%", left: "-9.6%" }} zIndex={290} />
+        <Asset scrollContainer={scrollRef} src="/Lighter.png" className="w-[9rem] md:w-[13rem] opacity-100" parallax={0.34} scaleFactor={0.013} rotate={10} position={{ top: "45%", left: "38%" }} zIndex={34} />
         {/* <Asset scrollContainer={scrollRef} src="/disk.png" className="w-[9rem] md:w-[12rem]" parallax={0.3} scaleFactor={0.012} rotate={25} position={{ top: "53%", left: "20%" }} zIndex={33} /> */}
         {/* <Asset scrollContainer={scrollRef} src="/Megaphone.png" className="w-[12rem] md:w-[17rem]" parallax={0.4} scaleFactor={0.013} rotate={28} position={{ top: "47%", left: "47%" }} zIndex={34} /> */}
         {/* <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[35rem] md:w-[45rem]" rotate={14} parallax={0.4} scaleFactor={0.019} position={{ top: "54%", left: "5%" }} />
