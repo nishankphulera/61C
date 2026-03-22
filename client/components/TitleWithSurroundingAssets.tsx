@@ -87,7 +87,7 @@ export default function TitleWithSurroundingAssets({
       {/* Assets in fixed art-directed positions */}
       {assetsToRender.map((asset, index) => {
         // Build transform string with rotation and mirroring
-        let transformParts = [`translate(-50%, -50%)`, `rotate(${asset.rotate}deg)`];
+        const transformParts = [`translate(-50%, -50%)`, `rotate(${asset.rotate}deg)`];
 
         if (asset.mirror === "horizontal" || asset.mirror === "both") {
           transformParts.push("scaleX(-1)");
