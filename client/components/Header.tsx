@@ -9,7 +9,7 @@ export default function Header() {
   const navPanelId = useId();
 
   return (
-    <header className="fixed top-0 left-0 w-full z-[100]">
+    <header className="top-0 left-0 w-full z-[100]">
       {/* Subtle gradient fade so the header doesn't feel like a hard bar */}
       <div className="absolute inset-0 bg-black" />
 
