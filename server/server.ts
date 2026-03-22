@@ -18,6 +18,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("API is running...");
 });
 
+
+console.log("this is server")
+
 // Import your routes (example)
 // const workRoutes = require("./routes/workRoute");
 // app.use("/api/work", workRoutes);
