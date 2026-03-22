@@ -1,0 +1,81 @@
+"use client";
+
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Permanent_Marker } from "next/font/google";
+import Link from "next/link";
+
+const navFont = Permanent_Marker({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const LINKS: { href: string; label: string }[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About us" },
+  { href: "/films", label: "Films" },
+  { href: "/photography", label: "Photography" },
+  { href: "/design", label: "Design" },
+  { href: "/contact", label: "Contact" },
+];
+
+export type NavModalProps = {
+  panelId: string;
+  open: boolean;
+  onClose: () => void;
+};
+
+export function NavModal({ panelId, open, onClose }: NavModalProps) {
+  return (
+    <Dialog
+      open={open}
+      onClose={() => onClose()}
+      className="relative z-[200]"
+    >
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 z-[200] bg-black/60 transition duration-200 ease-out data-closed:opacity-0"
+      />
+
+      <div className="pointer-events-none fixed inset-0 z-[210] overflow-y-auto">
+        <DialogPanel
+          id={panelId}
+          transition
+          className={`${navFont.className} pointer-events-auto fixed top-16 right-6 z-[210] flex h-[min(70dvh,520px)] max-h-[calc(100dvh-5.5rem)] w-[min(calc(100vw-3rem),20rem)] min-h-[280px] flex-col overflow-hidden border-[3px] border-[#FF1493] transition duration-200 ease-out data-closed:opacity-0 data-closed:translate-y-1 sm:right-10 sm:w-[min(calc(100vw-5rem),24rem)] md:top-20`}
+        >
+          <DialogTitle className="sr-only">Navigation menu</DialogTitle>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-10 rounded-full p-2 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            aria-label="Close menu"
+          >
+            <XMarkIcon className="h-8 w-8" aria-hidden />
+          </button>
+
+          <nav
+            className="flex h-full min-h-0 flex-1 flex-col divide-y-[3px] divide-[#FF1493]"
+            aria-label="Primary"
+          >
+            {LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={onClose}
+                className="flex min-h-0 flex-1 items-center justify-center bg-[#0000FF] text-center text-base uppercase tracking-wide text-white transition-colors hover:bg-[#0000cc] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white sm:text-lg md:text-xl"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </DialogPanel>
+      </div>
+    </Dialog>
+  );
+}

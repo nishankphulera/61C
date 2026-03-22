@@ -10,7 +10,7 @@ export default function TitleWithSemicircleAssets() {
     "dancingBurger",
     "Clapperboard",
     "flippingBowl",
-    "flyingRibbons",
+    "Drone",
    "fork",
     "frogShoes",
     "harddiskToaster",

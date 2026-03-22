@@ -19,16 +19,14 @@ interface FilmsGridProps {
 export default function FilmsGrid({
   title,
   videos,
-  className = "",
+  className = "mt-10",
 }: FilmsGridProps) {
-  // Up to 12 videos for a 3×4 grid (3 rows × 4 columns on md+)
-  const displayVideos = videos.slice(0, 12);
+  // 3×3 grid: nine tiles, three columns from md+
+  const displayVideos = videos.slice(0, 9);
 
   return (
-    <section className={`mb-16 mt-10 ${className}`}>
-     
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    <section className={`mb-16 ${className}`}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {displayVideos.map((video) => (
           <FilmsCard
             key={video.id}

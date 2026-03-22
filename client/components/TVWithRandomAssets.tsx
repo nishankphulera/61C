@@ -28,7 +28,7 @@ export default function TVWithRandomAssets() {
     "dancingBurger",
     "Clapperboard",
     "flippingBowl",
-    "flyingRibbons",
+    "Drone",
     "fork",
     "frogShoes",
     "harddiskToaster",

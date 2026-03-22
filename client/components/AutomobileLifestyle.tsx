@@ -176,8 +176,8 @@ export default function AutomobileLifestyle() {
     <>
       <section ref={sectionRef} className="mb-16 bg-black py-12 px-4 md:px-8">
         {/* Title */}
-        <h2 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-12 text-left">
-          Automobile Lifestyle
+        <h2 className="text-5xl md:text-6xl  text-yellow-400 mb-12 text-left">
+          Automobile
         </h2>
 
         {/* Grid: 6 rows × 4 columns */}

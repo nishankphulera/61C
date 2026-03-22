@@ -1,9 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useId, useState } from "react";
+import { NavModal } from "@/components/NavModal";
 
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navPanelId = useId();
+
   return (
     <header className="fixed top-0 left-0 w-full z-[100]">
       {/* Subtle gradient fade so the header doesn't feel like a hard bar */}
@@ -36,8 +40,12 @@ export default function Header() {
 
         {/* Right: Hamburger Menu */}
         <button
+          type="button"
           className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none"
-          aria-label="Open menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls={navPanelId}
+          onClick={() => setMenuOpen((open) => !open)}
         >
           <Image
             src="/hamburger.png"
@@ -48,6 +56,12 @@ export default function Header() {
           />
         </button>
       </div>
+
+      <NavModal
+        panelId={navPanelId}
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      />
     </header>
   );
 }

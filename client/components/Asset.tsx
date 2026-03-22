@@ -19,7 +19,7 @@
 // // }
 
 // // const Asset: React.FC<FlyingRibbonProps> = ({
-// //   src = "/flyingRibbons.svg",
+// //   src = "/Drone.svg",
 // //   alt = "Flying Ribbon",
 // //   width = 400,
 // //   height = 400,
@@ -80,7 +80,7 @@
 // }
 
 // export default function Asset({
-//   src = "/flyingRibbons.svg",
+//   src = "/Drone.svg",
 //   alt = "Asset",
 //   width = 400,
 //   height = 400,
@@ -183,7 +183,7 @@ interface AssetProps {
 // Component
 // ----------------------
 export default function Asset({
-  src = "/flyingRibbons.svg",
+  src = "/Drone.svg",
   alt = "Asset",
   width = 400,
   height = 400,

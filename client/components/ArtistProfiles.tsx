@@ -313,7 +313,7 @@ export default function ArtistProfiles() {
     <>
       <section ref={sectionRef} className="mb-16 bg-black py-12 px-4 md:px-8">
         {/* Title */}
-        <h2 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-12 text-left">
+        <h2 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left">
           Artist Profiles
         </h2>
 

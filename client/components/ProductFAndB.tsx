@@ -15,24 +15,22 @@ interface ProductImage {
 export default function ProductFAndB() {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
-  const row1Ref = useRef<HTMLDivElement>(null);
-  const row2Ref = useRef<HTMLDivElement>(null);
-  const row1ContainerRef = useRef<HTMLDivElement>(null);
-  const row2ContainerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Sample product images - HD images
-  const row1Images: ProductImage[] = Array.from({ length: 20 }, (_, i) => ({
+  // 2×6 grid = 12 images (first row r1-1…r1-6, second row r2-1…r2-6)
+  const row1Images: ProductImage[] = Array.from({ length: 6 }, (_, i) => ({
     id: `r1-${i + 1}`,
     imageSrc: `https://picsum.photos/1920/1920?random=${i + 100}`,
   }));
 
-  const row2Images: ProductImage[] = Array.from({ length: 20 }, (_, i) => ({
+  const row2Images: ProductImage[] = Array.from({ length: 6 }, (_, i) => ({
     id: `r2-${i + 1}`,
     imageSrc: `https://picsum.photos/1920/1920?random=${i + 200}`,
   }));
+
+  const gridImages: ProductImage[] = [...row1Images, ...row2Images];
 
   // Modal animations
   useEffect(() => {
@@ -120,25 +118,16 @@ export default function ProductFAndB() {
     }
   };
 
-  // Scroll animations for rows
+  // Scroll: title + 2×6 grid cards (staggered)
   useEffect(() => {
     const section = sectionRef.current;
-    const row1 = row1Ref.current;
-    const row2 = row2Ref.current;
-    const row1Container = row1ContainerRef.current;
-    const row2Container = row2ContainerRef.current;
+    if (!section) return;
 
-    if (!section || !row1 || !row2 || !row1Container || !row2Container) return;
-
-    // Title animation on scroll into view
     const title = section.querySelector("h2");
     if (title) {
       gsap.fromTo(
         title,
-        {
-          opacity: 0,
-          x: -50,
-        },
+        { opacity: 0, x: -50 },
         {
           opacity: 1,
           x: 0,
@@ -154,101 +143,27 @@ export default function ProductFAndB() {
       );
     }
 
-    // Row 1 reveal animation on scroll into view
-    gsap.fromTo(
-      row1Container,
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: row1,
-          start: "top 85%",
-          end: "top 50%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    // Row 2 reveal animation on scroll into view
-    gsap.fromTo(
-      row2Container,
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: row2,
-          start: "top 85%",
-          end: "top 50%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    // Animate cards as they come into view during horizontal scroll
-    const row1Cards = row1Container.querySelectorAll(".product-card");
-    const row2Cards = row2Container.querySelectorAll(".product-card");
-
-    row1Cards.forEach((card, index) => {
+    const grid = section.querySelector(".product-grid");
+    const cards = grid?.querySelectorAll(".product-card");
+    if (grid && cards?.length) {
       gsap.fromTo(
-        card,
-        {
-          opacity: 0,
-          scale: 0.8,
-          y: 30,
-        },
+        cards,
+        { opacity: 0, y: 28, scale: 0.92 },
         {
           opacity: 1,
-          scale: 1,
           y: 0,
-          duration: 1.2,
+          scale: 1,
+          duration: 0.75,
+          stagger: 0.05,
           ease: "power2.out",
-          delay: index * 0.1,
           scrollTrigger: {
-            trigger: card as Element,
-            start: "left 80%",
-            end: "left 20%",
+            trigger: grid,
+            start: "top 88%",
             toggleActions: "play none none none",
           },
         }
       );
-    });
-
-    row2Cards.forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        {
-          opacity: 0,
-          scale: 0.8,
-          y: 30,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power2.out",
-          delay: index * 0.1,
-          scrollTrigger: {
-            trigger: card as Element,
-            start: "left 80%",
-            end: "left 20%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
+    }
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -259,52 +174,19 @@ export default function ProductFAndB() {
     <>
       <section ref={sectionRef} className="mb-16 -mx-4 md:-mx-8">
         {/* Title */}
-        <h2 className="text-5xl md:text-6xl font-bold text-yellow-400 mb-12 text-left px-4 md:px-8">
+        <h2 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-4 md:px-8">
           Product F&B
         </h2>
 
-        {/* Row 1 - Scrollable */}
-        <div ref={row1Ref} className="mb-8 w-full">
-          <div 
-            ref={row1ContainerRef}
-            className="overflow-x-auto scrollbar-hide w-full px-4 md:px-8" 
-            style={{ 
-              scrollBehavior: "smooth",
-              WebkitOverflowScrolling: "touch",
-            }}
-          >
-            <div className="flex gap-4 md:gap-6" style={{ width: "max-content" }}>
-              {row1Images.map((image) => (
-                <ProductImageCard
-                  key={image.id}
-                  image={image}
-                  onClick={() => handleImageClick(image.imageSrc)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2 - Scrollable */}
-        <div ref={row2Ref} className="mb-8 w-full">
-          <div 
-            ref={row2ContainerRef}
-            className="overflow-x-auto scrollbar-hide w-full px-4 md:px-8" 
-            style={{ 
-              scrollBehavior: "smooth",
-              WebkitOverflowScrolling: "touch",
-            }}
-          >
-            <div className="flex gap-4 md:gap-6" style={{ width: "max-content" }}>
-              {row2Images.map((image) => (
-                <ProductImageCard
-                  key={image.id}
-                  image={image}
-                  onClick={() => handleImageClick(image.imageSrc)}
-                />
-              ))}
-            </div>
-          </div>
+        {/* 2 rows × 6 columns on md+; smaller breakpoints use fewer columns */}
+        <div className="product-grid grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 md:grid-rows-2 gap-3 md:gap-4 lg:gap-6 px-4 md:px-8">
+          {gridImages.map((image) => (
+            <ProductImageCard
+              key={image.id}
+              image={image}
+              onClick={() => handleImageClick(image.imageSrc)}
+            />
+          ))}
         </div>
       </section>
 
@@ -373,24 +255,6 @@ function ProductImageCard({ image, onClick }: ProductImageCardProps) {
     const imageElement = imageRef.current;
 
     if (!card || !imageElement) return;
-
-    // Entrance animation
-    gsap.fromTo(
-      card,
-      {
-        opacity: 0,
-        scale: 0.9,
-        y: 20,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 1.0,
-        ease: "power2.out",
-        delay: parseFloat(image.id.replace(/\D/g, "")) * 0.04 || 0,
-      }
-    );
 
     // Hover effects
     const handleMouseEnter = () => {
@@ -487,13 +351,8 @@ function ProductImageCard({ image, onClick }: ProductImageCardProps) {
   return (
     <div
       ref={cardRef}
-      className="product-card relative cursor-pointer overflow-hidden rounded-lg shadow-lg flex-shrink-0"
-      style={{
-        width: "calc((100vw - 2rem) / 6)",
-        minWidth: "200px",
-        aspectRatio: "1/1",
-        transformStyle: "preserve-3d",
-      }}
+      className="product-card relative min-w-0 aspect-square w-full cursor-pointer overflow-hidden rounded-lg shadow-lg"
+      style={{ transformStyle: "preserve-3d" }}
       onClick={handleClick}
     >
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
@@ -502,7 +361,7 @@ function ProductImageCard({ image, onClick }: ProductImageCardProps) {
           alt={`Product ${image.id}`}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 50vw, 16vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 16vw"
         />
       </div>
     </div>

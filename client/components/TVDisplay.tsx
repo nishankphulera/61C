@@ -4,7 +4,7 @@ import React from 'react';
 
 const TVDisplay = () => {
   // Replace this with your actual YouTube Video ID
-  const YOUTUBE_VIDEO_ID = "mqm3yOFK-qs";
+  const YOUTUBE_VIDEO_ID = "eQRyZE2r7oM";
 
   return (
     <div className="absolute top-0 left-1/2 -translate-x-1/2 md:top-[-20%] flex items-center justify-center w-full z-40 px-4 md:px-12">

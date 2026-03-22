@@ -20,7 +20,7 @@ export default function FilmsPage() {
   // In view hooks for scroll animations
   const isFilmsInView = useInView(filmsRef, { once: true, amount: 0.2 });
   const isDigitalFilmsInView = useInView(digitalFilmsRef, { once: true, amount: 0.2 });
-  const isFilmsGridInView = useInView(filmsGridRef, { once: true, amount: 0.2 });
+  const isFilmsGridInView = useInView(filmsGridRef, { once: true, amount: "some" });
   const isMusicVideosInView = useInView(musicVideosRef, { once: true, amount: 0.2 });
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -272,12 +272,13 @@ export default function FilmsPage() {
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
       <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-6%" }} zIndex={10} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={20} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-6%" }} zIndex={10} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={20} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={70} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/box.png" className="w-[22rem] md:w-[22rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "26%" }} zIndex={100} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={70} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.png" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "68%", left: "-8%" }} zIndex={10} />
 
-      <div className="flex justify-center px-4 pt-8 pb-2 md:pt-8 md:pb-4 ">
+      <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
         <FilmRollStrip
           gifs={filmRollGifs}
           className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
@@ -285,11 +286,11 @@ export default function FilmsPage() {
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-12 md:py-16">
+      <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">
         {/* Films Section - Width > Height */}
         <motion.section
           ref={filmsRef}
-          className="relative z-10 mb-16 -mx-6 md:-mx-10 pt-[4.5rem]"
+          className="relative z-10 mb-16 -mx-6 md:-mx-10 pt-[0.5rem]"
           variants={sectionVariants}
           initial="hidden"
           animate={isFilmsInView ? "visible" : "hidden"}
@@ -362,12 +363,13 @@ export default function FilmsPage() {
 
         <motion.div
           ref={filmsGridRef}
-          className="-mx-4 md:-mx-9"
+          className="relative z-[60] -mx-4 md:-mx-9 pt-3"
           variants={sectionVariants}
           initial="hidden"
           animate={isFilmsGridInView ? "visible" : "hidden"}
         >
-          <FilmsGrid title="More Films" videos={gridFilms} />
+         
+          <FilmsGrid className="mt-0" title="More Films" videos={gridFilms} />
         </motion.div>
       </div>
 

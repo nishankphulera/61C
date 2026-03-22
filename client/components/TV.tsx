@@ -272,7 +272,7 @@ export default function TV() {
       <div className="relative" style={{ width: '100%', height: '100%', zIndex: 20 }}>
         <div className="relative w-full h-full">
           <Image
-            src="/flyingRibbons.svg"
+            src="/Drone.svg"
             alt="Flying Ribbons"
             fill
             className="object-contain"
