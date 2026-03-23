@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionTemplate,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
@@ -45,28 +40,23 @@ const SOCIAL = [
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement | null>(null);
-
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "end start"],
   });
 
-  // ✨ Improved motion with overshoot
-  const shutterTranslateY = useTransform(
-    scrollYProgress,
-    [0, 0.8, 1],
-    [120, -10, 0]
-  );
-
-  const shutterTransform = useMotionTemplate`
-    translateY(${shutterTranslateY}px)
-  `;
-
-  // Top-edge fade only (never past ~38%): keeps the full shutter art readable; 100%
-  // + calc(0% - 12%) was hiding almost the whole image at rest.
-  const maskFadeStop = useTransform(scrollYProgress, [0, 1], ["0%", "38%"]);
-
-  const shutterMask = useMotionTemplate`linear-gradient(to bottom, transparent 0%, transparent ${maskFadeStop}, black ${maskFadeStop}, black 100%)`;
+  // Move a large portion of the shutter so the rise is obvious.
+  const shutterY = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  // Keep a small top fade at rest, then increase it as the shutter moves up.
+  const liftPercent = useTransform(scrollYProgress, [0, 1], ["10%", "130%"]);
+  const shutterMask = useMotionTemplate`linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent ${liftPercent},
+    rgba(0, 0, 0, 0.45) calc(${liftPercent} + 5%),
+    black calc(${liftPercent} + 12%),
+    black 100%
+  )`;
 
   return (
     <footer
@@ -84,14 +74,15 @@ export default function Footer() {
         />
       </div>
 
-      {/* Shutter Animation */}
+      {/* Static shutter layer */}
+
       <motion.div
-        className="pointer-events-none absolute inset-x-0 top-20 bottom-0 z-20 flex justify-center will-change-transform"
-        style={{ transform: shutterTransform }}
+        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-20 h-[100vh] w-full will-change-transform mt-[112px]"
         aria-hidden
+        style={{ y: shutterY }}
       >
         <motion.div
-          className="relative h-full w-full max-w-7xl"
+          className="relative h-full w-full"
           style={{
             WebkitMaskImage: shutterMask,
             maskImage: shutterMask,
@@ -103,7 +94,7 @@ export default function Footer() {
             src="/shutter.png"
             alt=""
             fill
-            className="select-none object-contain object-top"
+            className="object-cover object-top"
             sizes="100vw"
             priority={false}
           />
@@ -164,3 +155,4 @@ export default function Footer() {
     </footer>
   );
 }
+
