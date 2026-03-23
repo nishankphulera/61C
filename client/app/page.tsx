@@ -14,7 +14,7 @@ import ImageMarquee from "../components/ImageMarquee";
 export default function LandingPage() {
   const router = useRouter();
   const SCENE_HEIGHT_PX = 5000;
-  const SCENE_WIDTH_PX = 1920;
+  const SCENE_WIDTH_PX = window.innerWidth;
   const pctOf = (pct: number, total: number) => (pct * total) / 100;
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
