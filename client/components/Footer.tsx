@@ -48,7 +48,7 @@ export default function Footer() {
   // Move a large portion of the shutter so the rise is obvious.
   const shutterY = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
   // Keep a small top fade at rest, then increase it as the shutter moves up.
-  const liftPercent = useTransform(scrollYProgress, [0, 1], ["10%", "130%"]);
+  const liftPercent = useTransform(scrollYProgress, [0, 1], ["12%", "130%"]);
   const shutterMask = useMotionTemplate`linear-gradient(
     to bottom,
     transparent 0%,
