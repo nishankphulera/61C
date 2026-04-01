@@ -1,1 +1,7 @@
 .config/
+.env
+.env.*
+!.env.example
+!.env.production.example
+client/.env*
+server/.env

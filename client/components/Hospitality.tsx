@@ -17,8 +17,13 @@ const IMAGES: HospitalityImage[] = Array.from({ length: 6 }, (_, i) => ({
   imageSrc: `https://picsum.photos/1200/1200?random=${i + 700}`,
 }));
 
-export default function Hospitality() {
+type HospitalityProps = {
+  images?: string[];
+};
+
+export default function Hospitality({ images }: HospitalityProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const list = images?.length ? images.map((imageSrc, idx) => ({ id: `h-${idx + 1}`, imageSrc })) : IMAGES;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,7 +82,7 @@ export default function Hospitality() {
       </h2>
 
       <div className="hospitality-grid grid w-full grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-3 px-4 md:gap-4 lg:gap-6 md:px-8">
-        {IMAGES.map((img) => (
+        {list.map((img) => (
           <div
             key={img.id}
             className="hospitality-card group relative aspect-square w-full min-w-0 overflow-hidden rounded-lg shadow-lg"

@@ -12,7 +12,11 @@ interface ProductImage {
   imageSrc: string;
 }
 
-export default function ProductFAndB() {
+type ProductFAndBProps = {
+  images?: string[];
+};
+
+export default function ProductFAndB({ images }: ProductFAndBProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -20,17 +24,14 @@ export default function ProductFAndB() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 2×6 grid = 12 images (first row r1-1…r1-6, second row r2-1…r2-6)
-  const row1Images: ProductImage[] = Array.from({ length: 6 }, (_, i) => ({
-    id: `r1-${i + 1}`,
-    imageSrc: `https://picsum.photos/1920/1920?random=${i + 100}`,
-  }));
-
-  const row2Images: ProductImage[] = Array.from({ length: 6 }, (_, i) => ({
-    id: `r2-${i + 1}`,
-    imageSrc: `https://picsum.photos/1920/1920?random=${i + 200}`,
-  }));
-
-  const gridImages: ProductImage[] = [...row1Images, ...row2Images];
+  const fallbackImages: ProductImage[] = [
+    ...Array.from({ length: 6 }, (_, i) => ({ id: `r1-${i + 1}`, imageSrc: `https://picsum.photos/1920/1920?random=${i + 100}` })),
+    ...Array.from({ length: 6 }, (_, i) => ({ id: `r2-${i + 1}`, imageSrc: `https://picsum.photos/1920/1920?random=${i + 200}` })),
+  ];
+  const gridImages: ProductImage[] =
+    images && images.length
+      ? images.map((imageSrc, index) => ({ id: `p-${index + 1}`, imageSrc }))
+      : fallbackImages;
 
   // Modal animations
   useEffect(() => {

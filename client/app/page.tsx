@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -13,8 +13,8 @@ import ImageMarquee from "../components/ImageMarquee";
 
 export default function LandingPage() {
   const router = useRouter();
-  const SCENE_HEIGHT_PX = 5000;
-  const SCENE_WIDTH_PX = window.innerWidth;
+  const SCENE_HEIGHT_PX = 4000;
+  const [sceneWidthPx, setSceneWidthPx] = useState(1440);
   const pctOf = (pct: number, total: number) => (pct * total) / 100;
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -99,35 +99,35 @@ export default function LandingPage() {
 
       <div
         ref={scrollRef}
-        className="hidden md:block relative h-[400vh]"
+        className="hidden md:block relative h-[400vh] bg-black"
       >
 
         {/* --- GIANT BACKGROUND ASSETS (z-index: 5, deep parallax) --- */}
-        <Asset scrollContainer={scrollRef} src="/chair.png" className="w-[21rem] md:w-[24rem] opacity-98" parallax={0.18} scaleFactor={0.012} rotate={-0.8} position={{ topPx: pctOf(0.5, SCENE_HEIGHT_PX), leftPx: pctOf(34.8, SCENE_WIDTH_PX) }} zIndex={50} />
-        <Asset reverse={false} scrollContainer={scrollRef} src="/drone.png" className="w-[24rem] md:w-[29rem] opacity-98" parallax={0.2} scaleFactor={0.013} rotate={-2} position={{ topPx: pctOf(8.4, SCENE_HEIGHT_PX), leftPx: pctOf(-8, SCENE_WIDTH_PX) }} zIndex={200} />
+        <Asset scrollContainer={scrollRef} src="/chair.png" className="w-[21rem] md:w-[24rem] opacity-98" parallax={0.18} scaleFactor={0.012} rotate={-0.8} position={{ topPx: pctOf(0.5, SCENE_HEIGHT_PX), leftPx: pctOf(34.8, sceneWidthPx) }} zIndex={50} />
+        <Asset reverse={false} scrollContainer={scrollRef} src="/drone.png" className="w-[24rem] md:w-[29rem] opacity-98" parallax={0.2} scaleFactor={0.013} rotate={-2} position={{ topPx: pctOf(8.4, SCENE_HEIGHT_PX), leftPx: pctOf(-8, sceneWidthPx) }} zIndex={200} />
 
         {/* --- FOREGROUND INTERACTIVE CARDS (z-index: 45) --- */}
-        <Card title="FILMS" imageSrc="/Films.png" width="40.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ top: "-3%", left: "-7%" }} zIndex={100} />
-        <Card title="PHOTOGRAPHY" imageSrc="/Photography.png" width="64rem" onClick={() => router.push("/photography")} rotate={2} position={{ top: "13%", left: "38.5%" }} zIndex={45} />
-        <Card title="DESIGN" imageSrc="/Design.png" width="61.5rem" onClick={() => router.push("/music-videos")} rotate={-3} position={{ top: "33.6%", left: "-7%" }} zIndex={360} />
+        <Card title="FILMS" imageSrc="/Films.png" width="40.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ topPx: pctOf(-3, SCENE_HEIGHT_PX), leftPx: pctOf(-7, sceneWidthPx) }} zIndex={100} />
+        <Card title="PHOTOGRAPHY" imageSrc="/Photography.png" width="64rem" onClick={() => router.push("/photography")} rotate={2} position={{ topPx: pctOf(13, SCENE_HEIGHT_PX), leftPx: pctOf(38.5, sceneWidthPx) }} zIndex={45} />
+        <Card title="DESIGN" imageSrc="/Design.png" width="61.5rem" onClick={() => router.push("/music-videos")} rotate={-3} position={{ topPx: pctOf(33.6, SCENE_HEIGHT_PX), leftPx: pctOf(-7, sceneWidthPx) }} zIndex={360} />
 
         {/* --- UPPER CHUNK (2% - 36%) : FILMS BOARD COMPOSITION --- */}
-        <Asset scrollContainer={scrollRef} src="/key.png" className="w-[0.5rem] md:w-[11.5rem] opacity-100" parallax={0.35} scaleFactor={0.01} rotate={1.5} position={{ topPx: pctOf(3, SCENE_HEIGHT_PX), leftPx: pctOf(61.8, SCENE_WIDTH_PX) }} zIndex={37} />
-        <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[7.4rem] md:w-[15.4rem] opacity-100" parallax={0.25} scaleFactor={0.014} rotate={1} position={{ topPx: pctOf(-2.6, SCENE_HEIGHT_PX), leftPx: pctOf(61.6, SCENE_WIDTH_PX) }} zIndex={34} />
-        <Asset scrollContainer={scrollRef} src="/Pot.png" className="w-[28rem] md:w-[36rem] opacity-100" parallax={0.28} scaleFactor={0.014} rotate={1} position={{ topPx: pctOf(0.5, SCENE_HEIGHT_PX), leftPx: pctOf(63.3, SCENE_WIDTH_PX) }} zIndex={33} />
-        <Asset scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[16rem] md:w-[25rem] opacity-98" parallax={0.2} scaleFactor={0.01} rotate={-3} position={{ topPx: pctOf(10, SCENE_HEIGHT_PX), leftPx: pctOf(17.9, SCENE_WIDTH_PX) }} zIndex={31} />
-        <Asset scrollContainer={scrollRef} src="/Salad bowl.png" className="w-[19rem] md:w-[29rem] opacity-98" parallax={0.3} scaleFactor={0.013} rotate={-13} position={{ topPx: pctOf(10.4, SCENE_HEIGHT_PX), rightPx: pctOf(39.5, SCENE_WIDTH_PX) }} zIndex={20} />
-        <Asset scrollContainer={scrollRef} src="/Megaphone.png" className="w-[17rem] md:w-[21rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-13} position={{ topPx: pctOf(12.5, SCENE_HEIGHT_PX), leftPx: pctOf(52, SCENE_WIDTH_PX) }} zIndex={60} />
-        <Asset scrollContainer={scrollRef} src="/Coffee Machine.png" className="w-[22rem] md:w-[26rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-1} position={{ topPx: pctOf(17.8, SCENE_HEIGHT_PX), leftPx: pctOf(-6, SCENE_WIDTH_PX) }} zIndex={250} />
+        <Asset scrollContainer={scrollRef} src="/key.png" className="w-[0.5rem] md:w-[11.5rem] opacity-100" parallax={0.35} scaleFactor={0.01} rotate={1.5} position={{ topPx: pctOf(3, SCENE_HEIGHT_PX), leftPx: pctOf(61.8, sceneWidthPx) }} zIndex={37} />
+        <Asset scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[7.4rem] md:w-[15.4rem] opacity-100" parallax={0.25} scaleFactor={0.014} rotate={1} position={{ topPx: pctOf(-2.6, SCENE_HEIGHT_PX), leftPx: pctOf(61.6, sceneWidthPx) }} zIndex={34} />
+        <Asset scrollContainer={scrollRef} src="/Pot.png" className="w-[28rem] md:w-[36rem] opacity-100" parallax={0.28} scaleFactor={0.014} rotate={1} position={{ topPx: pctOf(0.5, SCENE_HEIGHT_PX), leftPx: pctOf(63.3, sceneWidthPx) }} zIndex={33} />
+        <Asset scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[16rem] md:w-[25rem] opacity-98" parallax={0.2} scaleFactor={0.01} rotate={-3} position={{ topPx: pctOf(10, SCENE_HEIGHT_PX), leftPx: pctOf(17.9, sceneWidthPx) }} zIndex={31} />
+        <Asset scrollContainer={scrollRef} src="/Salad bowl.png" className="w-[19rem] md:w-[29rem] opacity-98" parallax={0.3} scaleFactor={0.013} rotate={-13} position={{ topPx: pctOf(10.4, SCENE_HEIGHT_PX), rightPx: pctOf(39.5, sceneWidthPx) }} zIndex={20} />
+        <Asset scrollContainer={scrollRef} src="/Megaphone.png" className="w-[17rem] md:w-[21rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-13} position={{ topPx: pctOf(12.5, SCENE_HEIGHT_PX), leftPx: pctOf(52, sceneWidthPx) }} zIndex={60} />
+        <Asset scrollContainer={scrollRef} src="/Coffee Machine.png" className="w-[22rem] md:w-[26rem] opacity-98" parallax={0.22} scaleFactor={0.012} rotate={-1} position={{ topPx: pctOf(17.8, SCENE_HEIGHT_PX), leftPx: pctOf(-6, sceneWidthPx) }} zIndex={250} />
 
         {/* --- MID CHUNK (40% - 70%) : PHOTOGRAPHY BOARD COMPOSITION --- */}
-        <Asset scrollContainer={scrollRef} src="/Camcorder.png" className="w-[11rem] md:w-[17rem] opacity-98" parallax={0.33} scaleFactor={0.016} rotate={5} position={{ topPx: pctOf(18, SCENE_HEIGHT_PX), leftPx: pctOf(18, SCENE_WIDTH_PX) }} zIndex={260} />
-        <Asset scrollContainer={scrollRef} src="/Vinyl.png" className="w-[35rem] md:w-[43rem] opacity-100" parallax={0.36} scaleFactor={0.012} rotate={6} position={{ topPx: pctOf(24.2, SCENE_HEIGHT_PX), leftPx: pctOf(49.5, SCENE_WIDTH_PX) }} zIndex={340} />
-        <Asset scrollContainer={scrollRef} src="/Pizza.png" className="w-[19rem] md:w-[29rem] opacity-100" parallax={0.26} scaleFactor={0.014} rotate={-8} position={{ topPx: pctOf(22.9, SCENE_HEIGHT_PX), leftPx: pctOf(13.9, SCENE_WIDTH_PX) }} zIndex={280} />
-        <Asset scrollContainer={scrollRef} src="/Bread.png" className="w-[29.2rem] md:w-[35.2rem] opacity-100" parallax={0.26} scaleFactor={0.013} rotate={4} position={{ topPx: pctOf(28.5, SCENE_HEIGHT_PX), leftPx: pctOf(-9, SCENE_WIDTH_PX) }} zIndex={290} />
-        <Asset scrollContainer={scrollRef} src="/Lighter.png" className="w-[9rem] md:w-[13rem] opacity-200" parallax={0.34} scaleFactor={0.013} rotate={14} position={{ topPx: pctOf(27.4, SCENE_HEIGHT_PX), leftPx: pctOf(42, SCENE_WIDTH_PX) }} zIndex={310} />
-        <Asset scrollContainer={scrollRef} src="/Converse.png" className="w-[49rem] md:w-[52rem] opacity-100" parallax={0.3} scaleFactor={0.012} rotate={0} position={{ topPx: pctOf(45, SCENE_HEIGHT_PX), leftPx: pctOf(-20, SCENE_WIDTH_PX) }} zIndex={33} />
-        <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[32rem] md:w-[37rem] opacity-100" parallax={0.4} scaleFactor={0.013} rotate={2} position={{ topPx: pctOf(43, SCENE_HEIGHT_PX), leftPx: pctOf(64, SCENE_WIDTH_PX) }} zIndex={34} />
+        <Asset scrollContainer={scrollRef} src="/Camcorder.png" className="w-[11rem] md:w-[17rem] opacity-98" parallax={0.33} scaleFactor={0.016} rotate={5} position={{ topPx: pctOf(18, SCENE_HEIGHT_PX), leftPx: pctOf(18, sceneWidthPx) }} zIndex={260} />
+        <Asset scrollContainer={scrollRef} src="/Vinyl.png" className="w-[35rem] md:w-[43rem] opacity-100" parallax={0.36} scaleFactor={0.012} rotate={6} position={{ topPx: pctOf(24.2, SCENE_HEIGHT_PX), leftPx: pctOf(49.5, sceneWidthPx) }} zIndex={340} />
+        <Asset scrollContainer={scrollRef} src="/Pizza.png" className="w-[19rem] md:w-[29rem] opacity-100" parallax={0.26} scaleFactor={0.014} rotate={-8} position={{ topPx: pctOf(22.9, SCENE_HEIGHT_PX), leftPx: pctOf(13.9, sceneWidthPx) }} zIndex={280} />
+        <Asset scrollContainer={scrollRef} src="/Bread.png" className="w-[29.2rem] md:w-[35.2rem] opacity-100" parallax={0.26} scaleFactor={0.013} rotate={4} position={{ topPx: pctOf(28.5, SCENE_HEIGHT_PX), leftPx: pctOf(-9, sceneWidthPx) }} zIndex={290} />
+        <Asset scrollContainer={scrollRef} src="/Lighter.png" className="w-[9rem] md:w-[13rem] opacity-200" parallax={0.34} scaleFactor={0.013} rotate={14} position={{ topPx: pctOf(27.4, SCENE_HEIGHT_PX), leftPx: pctOf(42, sceneWidthPx) }} zIndex={310} />
+        <Asset scrollContainer={scrollRef} src="/Converse.png" className="w-[49rem] md:w-[52rem] opacity-100" parallax={0.3} scaleFactor={0.012} rotate={0} position={{ topPx: pctOf(45, SCENE_HEIGHT_PX), leftPx: pctOf(-20, sceneWidthPx) }} zIndex={33} />
+        <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[32rem] md:w-[37rem] opacity-100" parallax={0.4} scaleFactor={0.013} rotate={2} position={{ topPx: pctOf(43, SCENE_HEIGHT_PX), leftPx: pctOf(64, sceneWidthPx) }} zIndex={34} />
         {/* <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[35rem] md:w-[45rem]" rotate={14} parallax={0.4} scaleFactor={0.019} position={{ top: "54%", left: "5%" }} />
         <Asset scrollContainer={scrollRef} src="/spray.png" className="w-[20rem] md:w-[25rem]" parallax={0.5} scaleFactor={0.019} position={{ top: "57%", left: "85%" }} /> */}
 

@@ -1,15 +1,77 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import FilmsCard from "@/components/FilmsCard";
 import DigitalFilmsCard from "@/components/DigitalFilmsCard";
 import FilmsGrid from "@/components/FilmsGrid";
 import MusicVideosSection from "@/components/MusicVideosSection";
-import BrandMarquee from "@/components/BrandWork";
 import Header from "@/components/Header";
 import FilmRollStrip from "@/components/FilmRollStrip";
 import Asset from "@/components/Asset";
+import { fetchPublicContent } from "@/lib/api";
+import { ContentItem } from "@/lib/content";
+
+type FilmCard = { id: string; title: string; imageSrc: string; youtubeUrl: string };
+type MusicCard = { id: string; imageSrc: string; youtubeUrl: string };
+
+const fallbackFilms: FilmCard[] = [
+  { id: "1", title: "The Great Adventure", imageSrc: "https://picsum.photos/800/450?random=1", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+  { id: "2", title: "Mystery of the Lost City", imageSrc: "https://picsum.photos/800/450?random=2", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+  { id: "3", title: "Space Odyssey 2024", imageSrc: "https://picsum.photos/800/450?random=3", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+];
+const defaultYoutubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+const fallbackFilmImage = "https://picsum.photos/800/450?random=88";
+const fallbackMusicImage = "https://picsum.photos/800/450?random=89";
+
+function extractYouTubeVideoId(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    if (host.includes("youtu.be")) {
+      const id = parsed.pathname.replace("/", "").trim();
+      return id || null;
+    }
+    if (host.includes("youtube.com")) {
+      if (parsed.pathname.startsWith("/watch")) {
+        return parsed.searchParams.get("v");
+      }
+      if (parsed.pathname.startsWith("/embed/")) {
+        return parsed.pathname.split("/embed/")[1]?.split("/")[0] || null;
+      }
+      if (parsed.pathname.startsWith("/shorts/")) {
+        return parsed.pathname.split("/shorts/")[1]?.split("/")[0] || null;
+      }
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function isImageUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const pathname = parsed.pathname.toLowerCase();
+    const hasImageExtension = /\.(avif|webp|png|jpe?g|gif|svg)$/i.test(pathname);
+    const knownImageHosts = ["picsum.photos", "i.ytimg.com", "img.youtube.com"];
+    return hasImageExtension || knownImageHosts.includes(parsed.hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+function resolveCardImage(item: ContentItem, fallback: string): string {
+  const candidate = item.thumbnailUrl?.trim() || item.images?.[0]?.trim() || "";
+  if (!candidate) return fallback;
+  if (isImageUrl(candidate)) return candidate;
+
+  const videoSource = item.youtubeUrl?.trim() || item.videoUrl?.trim() || candidate;
+  const videoId = extractYouTubeVideoId(videoSource);
+  if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+  return fallback;
+}
 
 export default function FilmsPage() {
   const filmsRef = useRef<HTMLDivElement>(null);
@@ -33,6 +95,13 @@ export default function FilmsPage() {
   // Parallax effect - moves slower than scroll
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
+  const [rows, setRows] = useState<ContentItem[]>([]);
+
+  useEffect(() => {
+    fetchPublicContent({ page: "films" })
+      .then(setRows)
+      .catch(() => setRows([]));
+  }, []);
 
   // Animation variants
   const sectionVariants = {
@@ -46,244 +115,80 @@ export default function FilmsPage() {
     },
   };
 
-  // Films data - width > height (landscape)
-  const films = [
-    {
-      id: "1",
-      title: "The Great Adventure",
-      imageSrc: "https://picsum.photos/800/450?random=1",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "2",
-      title: "Mystery of the Lost City",
-      imageSrc: "https://picsum.photos/800/450?random=2",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "3",
-      title: "Space Odyssey 2024",
-      imageSrc: "https://picsum.photos/800/450?random=3",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "4",
-      title: "Cinematic Masterpiece",
-      imageSrc: "https://picsum.photos/800/450?random=4",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-  ];
-
-  // Additional films for the grid section
-  const gridFilms = [
-    {
-      id: "g1",
-      title: "Epic Journey",
-      imageSrc: "https://picsum.photos/800/450?random=13",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g2",
-      title: "The Final Frontier",
-      imageSrc: "https://picsum.photos/800/450?random=14",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g3",
-      title: "Dark Secrets",
-      imageSrc: "https://picsum.photos/800/450?random=15",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g4",
-      title: "Rising Phoenix",
-      imageSrc: "https://picsum.photos/800/450?random=16",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g5",
-      title: "Time Traveler",
-      imageSrc: "https://picsum.photos/800/450?random=17",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g6",
-      title: "Ocean Depths",
-      imageSrc: "https://picsum.photos/800/450?random=18",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g7",
-      title: "Mountain Peak",
-      imageSrc: "https://picsum.photos/800/450?random=19",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g8",
-      title: "Desert Storm",
-      imageSrc: "https://picsum.photos/800/450?random=20",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g9",
-      title: "City Lights",
-      imageSrc: "https://picsum.photos/800/450?random=21",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g10",
-      title: "Neon Nights",
-      imageSrc: "https://picsum.photos/800/450?random=34",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g11",
-      title: "Coastal Drive",
-      imageSrc: "https://picsum.photos/800/450?random=35",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "g12",
-      title: "Winter Light",
-      imageSrc: "https://picsum.photos/800/450?random=36",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-  ];
-
-  // Digital Films data - height > width (portrait)
-  const digitalFilms = [
-    {
-      id: "d1",
-      title: "Digital Story 1",
-      imageSrc: "https://picsum.photos/400/600?random=5",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d2",
-      title: "Digital Story 2",
-      imageSrc: "https://picsum.photos/400/600?random=6",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d3",
-      title: "Digital Story 3",
-      imageSrc: "https://picsum.photos/400/600?random=7",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d4",
-      title: "Digital Story 4",
-      imageSrc: "https://picsum.photos/400/600?random=8",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d5",
-      title: "Digital Story 5",
-      imageSrc: "https://picsum.photos/400/600?random=9",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d6",
-      title: "Digital Story 6",
-      imageSrc: "https://picsum.photos/400/600?random=10",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d7",
-      title: "Digital Story 7",
-      imageSrc: "https://picsum.photos/400/600?random=11",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "d8",
-      title: "Digital Story 8",
-      imageSrc: "https://picsum.photos/400/600?random=12",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-  ];
-
-  // Music Videos data
-  const musicVideos = [
-    {
-      id: "mv1",
-      imageSrc: "https://picsum.photos/800/450?random=22",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv2",
-      imageSrc: "https://picsum.photos/800/450?random=23",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv3",
-      imageSrc: "https://picsum.photos/800/450?random=24",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv4",
-      imageSrc: "https://picsum.photos/800/450?random=25",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv5",
-      imageSrc: "https://picsum.photos/800/450?random=26",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv6",
-      imageSrc: "https://picsum.photos/800/450?random=27",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv7",
-      imageSrc: "https://picsum.photos/800/450?random=28",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv8",
-      imageSrc: "https://picsum.photos/800/450?random=29",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv9",
-      imageSrc: "https://picsum.photos/800/450?random=30",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv10",
-      imageSrc: "https://picsum.photos/800/450?random=31",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv11",
-      imageSrc: "https://picsum.photos/800/450?random=32",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-    {
-      id: "mv12",
-      imageSrc: "https://picsum.photos/800/450?random=33",
-      youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    },
-  ];
+  const mapFilmRows = (section: string): FilmCard[] => {
+    const filtered = rows
+      .filter((item) => item.section === section)
+      .sort((a, b) => a.order - b.order);
+    if (!filtered.length && section === "films") return fallbackFilms;
+    return filtered.map((item) => ({
+      id: item._id,
+      title: item.title,
+      imageSrc: resolveCardImage(item, fallbackFilmImage),
+      youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
+    }));
+  };
+  const mapMusicRows = (): MusicCard[] => {
+    const filtered = rows
+      .filter((item) => item.section === "music-videos")
+      .sort((a, b) => a.order - b.order);
+    return filtered.map((item) => ({
+      id: item._id,
+      imageSrc: resolveCardImage(item, fallbackMusicImage),
+      youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
+    }));
+  };
+  const films = mapFilmRows("films");
+  const digitalFilms = mapFilmRows("vertical-films");
+  const gridFilms = mapFilmRows("more-films");
+  const musicVideos = mapMusicRows();
 
   const filmRollGifs = ["/HomePage.gif", "/HomePage.gif", "/HomePage.gif"] as const;
+
+  const scrollToSection = (sectionRef: React.RefObject<HTMLElement | null>) => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
       <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[34rem] md:w-[34rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "15%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={70} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/box.png" className="w-[22rem] md:w-[22rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "26%" }} zIndex={100} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={70} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.png" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "68%", left: "-8%" }} zIndex={10} />
 
       <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
+     
         <FilmRollStrip
           gifs={filmRollGifs}
           className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
           gifAlts={["Films highlight 1", "Films highlight 2", "Films highlight 3"]}
         />
+        <button
+          type="button"
+          onClick={() => scrollToSection(filmsRef)}
+          className="absolute text-6xl md:text-7xl text-white-400 text-left px-0 md:px-0 top-160 left-104 rotate-[-30deg] z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          aria-label="Scroll to Films section"
+        >
+          Films
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollToSection(musicVideosRef)}
+          className="absolute text-5xl md:text-6xl text-white-400 text-left px-0 md:px-0 top-100 left-58 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          aria-label="Scroll to Music Videos section"
+        >
+          Music Videos
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollToSection(digitalFilmsRef)}
+          className="absolute text-5xl md:text-6xl text-white-400 text-left px-0 md:px-0 top-200 left-238 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          aria-label="Scroll to Vertical Films section"
+        >
+          Vertical Films
+        </button>
       </div>
 
       <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">
@@ -321,7 +226,7 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isMusicVideosInView ? "visible" : "hidden"}
         >
-          <MusicVideosSection title="Music Videos" videos={musicVideos} />
+          <MusicVideosSection title="Music Videos" videos={musicVideos.length ? musicVideos : []} />
         </motion.div>
 
         {/* Digital Films Section — wider breakout past container padding */}

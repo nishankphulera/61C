@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const fiveYearsOld = localFont({
+  src: "../public/fonts/5yearsoldfont.ttf",
+  variable: "--font-five-years-old",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const theBattleCont = localFont({
+  src: "../public/fonts/TheBattleCont.ttf",
+  variable: "--font-the-battle-cont",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fiveYearsOld.variable} ${theBattleCont.variable} antialiased`}
       >
         {children}
         <Footer />
