@@ -15,7 +15,11 @@ interface ArtistImage {
   width: number; // Width in pixels for variable sizing
 }
 
-export default function ArtistProfiles() {
+type ArtistProfilesProps = {
+  images?: string[];
+};
+
+export default function ArtistProfiles({ images }: ArtistProfilesProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -31,7 +35,7 @@ export default function ArtistProfiles() {
   const IMAGE_HEIGHT = 250;
 
   // Sample images with variable widths but same height
-  const images: ArtistImage[] = [
+  const fallbackImages: ArtistImage[] = [
     // Row 1
     { id: "a1", imageSrc: "https://picsum.photos/600/800?random=400", orientation: "portrait", row: 1, width: 300 },
     { id: "a2", imageSrc: "https://picsum.photos/800/600?random=401", orientation: "landscape", row: 1, width: 500 },
@@ -51,6 +55,15 @@ export default function ArtistProfiles() {
     { id: "a15", imageSrc: "https://picsum.photos/700/500?random=414", orientation: "landscape", row: 2, width: 470 },
     { id: "a16", imageSrc: "https://picsum.photos/650/900?random=415", orientation: "portrait", row: 2, width: 330 },
   ];
+  const gallery: ArtistImage[] = images?.length
+    ? images.map<ArtistImage>((imageSrc, index) => ({
+        id: `a${index + 1}`,
+        imageSrc,
+        orientation: index % 2 === 0 ? "portrait" : "landscape",
+        row: index < Math.ceil(images.length / 2) ? 1 : 2,
+        width: index % 2 === 0 ? 300 : 500,
+      }))
+    : fallbackImages;
 
   // Modal animations
   useEffect(() => {
@@ -306,8 +319,8 @@ export default function ArtistProfiles() {
   };
 
   // Group images by row
-  const row1Images = images.filter((img) => img.row === 1);
-  const row2Images = images.filter((img) => img.row === 2);
+  const row1Images = gallery.filter((img) => img.row === 1);
+  const row2Images = gallery.filter((img) => img.row === 2);
 
   return (
     <>

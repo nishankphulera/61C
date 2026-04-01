@@ -16,7 +16,11 @@ interface EventImage {
   height: number; // Height in pixels for variable sizing
 }
 
-export default function EventsAndShows() {
+type EventsAndShowsProps = {
+  images?: string[];
+};
+
+export default function EventsAndShows({ images }: EventsAndShowsProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -30,7 +34,7 @@ export default function EventsAndShows() {
   // Events & Shows images - 2 rows with variable sizes
   // Top row: 5 images (mix of portrait and landscape)
   // Bottom row: 4 images (mix of portrait and landscape)
-  const images: EventImage[] = [
+  const fallbackImages: EventImage[] = [
     // Row 1 - 5 images
     { id: "e1", imageSrc: "https://picsum.photos/400/600?random=600", orientation: "portrait", row: 1, width: 180, height: 270 },
     { id: "e2", imageSrc: "https://picsum.photos/400/600?random=601", orientation: "portrait", row: 1, width: 180, height: 270 },
@@ -43,6 +47,16 @@ export default function EventsAndShows() {
     { id: "e8", imageSrc: "https://picsum.photos/400/600?random=607", orientation: "portrait", row: 2, width: 180, height: 270 },
     { id: "e9", imageSrc: "https://picsum.photos/400/600?random=608", orientation: "portrait", row: 2, width: 180, height: 270 },
   ];
+  const gallery: EventImage[] = images?.length
+    ? images.map<EventImage>((imageSrc, index) => ({
+        id: `e${index + 1}`,
+        imageSrc,
+        orientation: index % 3 === 0 ? "portrait" : "landscape",
+        row: index < Math.ceil(images.length / 2) ? 1 : 2,
+        width: index % 3 === 0 ? 180 : 280,
+        height: index % 3 === 0 ? 270 : 180,
+      }))
+    : fallbackImages;
 
   // Modal animations
   useEffect(() => {
@@ -295,8 +309,8 @@ export default function EventsAndShows() {
   };
 
   // Group images by row
-  const row1Images = images.filter((img) => img.row === 1);
-  const row2Images = images.filter((img) => img.row === 2);
+  const row1Images = gallery.filter((img) => img.row === 1);
+  const row2Images = gallery.filter((img) => img.row === 2);
 
   return (
     <>

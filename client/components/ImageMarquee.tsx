@@ -60,7 +60,7 @@ const ImageRow: React.FC<ImageRowProps> = ({ row, direction, imageSize }) => {
     stiffness: 80,
   });
 
-  const x = useTransform(smoothY, [0, 10000], [0, direction * 12000]);
+  const x = useTransform(smoothY, [0, 10000], [0, direction * 10000]);
 
   // Duplicate heavily to fill the screen in both scroll directions
   const repeatedRow = Array(20).fill(row).flat();
@@ -126,7 +126,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
       />
 
       {/* Section title */}
-      <div className="text-center mb-8 md:mb-14 relative z-10 w-full px-4">
+      {/* <div className="text-center mb-8 md:mb-14 relative z-10 w-full px-4">
         <motion.h2
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -136,7 +136,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
         >
           {title}
         </motion.h2>
-      </div>
+      </div> */}
 
       {/* Scrolling image rows */}
       <div className="space-y-4 md:space-y-8 relative z-10 w-full flex flex-col items-center overflow-x-visible">

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import PhotographyCategoryAccordion from "@/components/PhotographyCategoryAccordion";
 import ProductFAndB from "@/components/ProductFAndB";
@@ -10,6 +10,53 @@ import ArtistProfiles from "@/components/ArtistProfiles";
 import Fashion from "@/components/Fashion";
 import EventsAndShows from "@/components/EventsAndShows";
 import Hospitality from "@/components/Hospitality";
+import { fetchPublicContent } from "@/lib/api";
+import { ContentItem } from "@/lib/content";
+
+function extractYouTubeVideoId(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    if (host.includes("youtu.be")) {
+      const id = parsed.pathname.replace("/", "").trim();
+      return id || null;
+    }
+    if (host.includes("youtube.com")) {
+      if (parsed.pathname.startsWith("/watch")) return parsed.searchParams.get("v");
+      if (parsed.pathname.startsWith("/embed/")) {
+        return parsed.pathname.split("/embed/")[1]?.split("/")[0] || null;
+      }
+      if (parsed.pathname.startsWith("/shorts/")) {
+        return parsed.pathname.split("/shorts/")[1]?.split("/")[0] || null;
+      }
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function isImageUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const pathname = parsed.pathname.toLowerCase();
+    const hasImageExtension = /\.(avif|webp|png|jpe?g|gif|svg)$/i.test(pathname);
+    const knownImageHosts = ["picsum.photos", "i.ytimg.com", "img.youtube.com"];
+    return hasImageExtension || knownImageHosts.includes(parsed.hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+function normalizeImageUrl(url: string, item: ContentItem): string | null {
+  const value = url.trim();
+  if (!value) return null;
+  if (isImageUrl(value)) return value;
+
+  const videoSource = item.youtubeUrl?.trim() || item.videoUrl?.trim() || value;
+  const videoId = extractYouTubeVideoId(videoSource);
+  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null;
+}
 
 export default function PhotographyPage() {
   const productFAndBRef = useRef<HTMLDivElement>(null);
@@ -56,6 +103,26 @@ export default function PhotographyPage() {
       },
     },
   };
+  const [rows, setRows] = useState<ContentItem[]>([]);
+
+  useEffect(() => {
+    fetchPublicContent({ page: "photography" })
+      .then(setRows)
+      .catch(() => setRows([]));
+  }, []);
+
+  const imagesBySection = (section: string): string[] =>
+    rows
+      .filter((item) => item.section === section)
+      .sort((a, b) => a.order - b.order)
+      .flatMap((item) => {
+        const candidates = item.images?.length
+          ? item.images
+          : [item.thumbnailUrl || item.youtubeUrl || item.videoUrl || ""];
+        return candidates
+          .map((candidate) => normalizeImageUrl(candidate, item))
+          .filter((image): image is string => Boolean(image));
+      });
 
   return (
     <main className="min-h-screen w-full bg-black pt-[4.5rem]">
@@ -75,7 +142,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isProductInView ? "visible" : "hidden"}
         >
-          <ProductFAndB />
+          <ProductFAndB images={imagesBySection("product-fnb")} />
         </motion.div>
 
         {/* Automobile Lifestyle Section */}
@@ -87,7 +154,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isAutomobileInView ? "visible" : "hidden"}
         >
-          <AutomobileLifestyle />
+          <AutomobileLifestyle images={imagesBySection("automobile")} />
         </motion.div>
         {/* Events & Shows Section */}
         <motion.div
@@ -98,7 +165,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isEventsInView ? "visible" : "hidden"}
         >
-          <EventsAndShows />
+          <EventsAndShows images={imagesBySection("events-shows")} />
         </motion.div>
 
         <motion.div
@@ -109,7 +176,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isHospitalityInView ? "visible" : "hidden"}
         >
-          <Hospitality />
+          <Hospitality images={imagesBySection("hospitality")} />
         </motion.div>
 
         {/* Fashion Section */}
@@ -121,7 +188,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isFashionInView ? "visible" : "hidden"}
         >
-          <Fashion />
+          <Fashion images={imagesBySection("fashion-lifestyle")} />
         </motion.div>
         {/* Artist Profiles Section */}
         <motion.div
@@ -132,7 +199,7 @@ export default function PhotographyPage() {
           initial="hidden"
           animate={isArtistInView ? "visible" : "hidden"}
         >
-          <ArtistProfiles />
+          <ArtistProfiles images={imagesBySection("artist-profiles")} />
         </motion.div>
 
       </div>

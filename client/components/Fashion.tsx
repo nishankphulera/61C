@@ -13,7 +13,11 @@ interface FashionImage {
   row: number; // 1 or 2
 }
 
-export default function Fashion() {
+type FashionProps = {
+  images?: string[];
+};
+
+export default function Fashion({ images }: FashionProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -25,7 +29,7 @@ export default function Fashion() {
   const row2ContainerRef = useRef<HTMLDivElement>(null);
 
   // Fashion images - 2 rows with 6 columns each (12 images total)
-  const images: FashionImage[] = [
+  const fallbackImages: FashionImage[] = [
     // Row 1 - 6 images
     { id: "f1", imageSrc: "https://picsum.photos/600/800?random=500", row: 1 },
     { id: "f2", imageSrc: "https://picsum.photos/600/800?random=501", row: 1 },
@@ -41,6 +45,13 @@ export default function Fashion() {
     { id: "f11", imageSrc: "https://picsum.photos/600/800?random=510", row: 2 },
     { id: "f12", imageSrc: "https://picsum.photos/600/800?random=511", row: 2 },
   ];
+  const gallery = images?.length
+    ? images.map((imageSrc, index) => ({
+        id: `f${index + 1}`,
+        imageSrc,
+        row: index < Math.ceil(images.length / 2) ? 1 : 2,
+      }))
+    : fallbackImages;
 
   // Modal animations
   useEffect(() => {
@@ -293,8 +304,8 @@ export default function Fashion() {
   };
 
   // Group images by row
-  const row1Images = images.filter((img) => img.row === 1);
-  const row2Images = images.filter((img) => img.row === 2);
+  const row1Images = gallery.filter((img) => img.row === 1);
+  const row2Images = gallery.filter((img) => img.row === 2);
 
   return (
     <>

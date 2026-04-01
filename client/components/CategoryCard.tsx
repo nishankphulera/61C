@@ -131,7 +131,7 @@ export default function CategoryCard({
       ref={cardRef}
       className={`relative w-[280px] h-[180px] cursor-pointer ${className}`}
       style={{
-        rotate: initialRotation,
+        rotate: `${initialRotation}deg`,
         transformStyle: "preserve-3d",
       }}
       onClick={handleClick}

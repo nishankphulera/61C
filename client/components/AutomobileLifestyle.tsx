@@ -12,7 +12,11 @@ interface AutomobileImage {
   rowSpan: number; // Number of rows to span
 }
 
-export default function AutomobileLifestyle() {
+type AutomobileLifestyleProps = {
+  images?: string[];
+};
+
+export default function AutomobileLifestyle({ images }: AutomobileLifestyleProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -22,7 +26,7 @@ export default function AutomobileLifestyle() {
   // Grid layout: 6 rows total
   // Columns 1-3: 3 square images each, each spanning 2 rows (3 × 2 = 6 rows)
   // Column 4: 2 taller images, each spanning 3 rows (2 × 3 = 6 rows)
-  const images: AutomobileImage[] = [
+  const fallbackImages: AutomobileImage[] = [
     // Column 1: square images
     { id: "a1", imageSrc: "https://picsum.photos/800/800?random=300", column: 1, row: 1, rowSpan: 2 },
     { id: "a2", imageSrc: "https://picsum.photos/800/800?random=301", column: 1, row: 3, rowSpan: 2 },
@@ -39,6 +43,19 @@ export default function AutomobileLifestyle() {
     { id: "a10", imageSrc: "https://picsum.photos/800/1200?random=309", column: 4, row: 1, rowSpan: 3 },
     { id: "a11", imageSrc: "https://picsum.photos/800/1200?random=310", column: 4, row: 4, rowSpan: 3 },
   ];
+  const gallery = images?.length
+    ? images.map((imageSrc, index) => {
+        const column = (index % 4) + 1;
+        const row = Math.floor(index / 4) * 2 + 1;
+        return {
+          id: `a${index + 1}`,
+          imageSrc,
+          column,
+          row,
+          rowSpan: column === 4 ? 3 : 2,
+        };
+      })
+    : fallbackImages;
 
   // Modal animations
   useEffect(() => {
@@ -174,9 +191,9 @@ export default function AutomobileLifestyle() {
 
   return (
     <>
-      <section ref={sectionRef} className="mb-16 bg-black py-12 px-4 md:px-8">
+      <section ref={sectionRef} className="mb-10 bg-black py-8 px-1 md:px-2">
         {/* Title */}
-        <h2 className="text-5xl md:text-6xl  text-yellow-400 mb-12 text-left">
+        <h2 className="text-5xl md:text-6xl  text-yellow-400 mb-8 text-left">
           Automobile
         </h2>
 
@@ -184,12 +201,12 @@ export default function AutomobileLifestyle() {
         {/* Columns 1-3: square images (2 rows each) */}
         {/* Column 4: taller images (3 rows each) */}
         <div 
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-1 md:gap-1"
           style={{
             gridTemplateRows: "repeat(6, minmax(0, 1fr))",
           }}
         >
-          {images.map((image) => (
+          {gallery.map((image) => (
             <AutomobileImageCard
               key={image.id}
               image={image}
@@ -378,7 +395,7 @@ function AutomobileImageCard({ image, onClick }: AutomobileImageCardProps) {
           src={image.imageSrc}
           alt={`Automobile ${image.id}`}
           fill
-          className="object-cover"
+          className="object-contain"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
         />
       </div>

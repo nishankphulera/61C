@@ -161,6 +161,9 @@ interface PositionProps {
   bottom?: string | number;
   left?: string | number;
   right?: string | number;
+  topPx?: number;
+  leftPx?: number;
+  rightPx?: number;
 }
 
 interface AssetProps {
@@ -222,10 +225,16 @@ export default function Asset({
   };
 
   // Apply positioning if provided
-  if (position.top !== undefined) style.top = position.top;
+  if (position.topPx !== undefined) style.top = `${position.topPx}px`;
+  else if (position.top !== undefined) style.top = position.top;
+
   if (position.bottom !== undefined) style.bottom = position.bottom;
-  if (position.left !== undefined) style.left = position.left;
-  if (position.right !== undefined) style.right = position.right;
+
+  if (position.leftPx !== undefined) style.left = `${position.leftPx}px`;
+  else if (position.left !== undefined) style.left = position.left;
+
+  if (position.rightPx !== undefined) style.right = `${position.rightPx}px`;
+  else if (position.right !== undefined) style.right = position.right;
 
   return (
     <motion.div
