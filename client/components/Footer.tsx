@@ -11,13 +11,12 @@ const navFont = Permanent_Marker({
   subsets: ["latin"],
 });
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About us" },
-  { href: "/films", label: "Films" },
-  { href: "/photography", label: "Photography" },
-  { href: "/design", label: "Design" },
-  { href: "/contact", label: "Contact" },
+const LINKS: { href: string; label: string; imageSrc: string }[] = [
+  { href: "/", label: "Home", imageSrc: "/Homenav.png" },
+  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
+  { href: "/films", label: "Films", imageSrc: "/Filmsnav.png" },
+  { href: "/photography", label: "Photography", imageSrc: "/Photographynav.png" },
+  { href: "/contact", label: "Contact", imageSrc: "/Contactnav.png" },
 ];
 
 const SOCIAL = [
@@ -136,20 +135,24 @@ export default function Footer() {
 
         {/* Right */}
         <nav
-          className={`${navFont.className} border-[3px] border-[#FF1493]`}
+          className={`${navFont.className}`}
         >
-          <ul className="divide-y-[3px] divide-[#FF1493]">
-            {NAV_LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="block bg-blue-600 px-6 py-4 text-white hover:bg-blue-700"
-                >
-                  {label}
-                </Link>
-              </li>
+          {LINKS.map(({ href, label, imageSrc }) => (
+              <Link
+                key={href}
+                href={href}
+                
+                // className="group relative flex min-h-0 flex-1 items-center justify-center bg-[#0000FF] p-2 transition-colors hover:bg-[#0000cc] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+              >
+                <Image
+                  src={imageSrc}
+                  alt={label}
+                  width={100}
+                  height={100}
+                  className="w-full object-cover object-center drop-shadow-sm transition-transform group-hover:scale-[1.02]"
+                />
+              </Link>
             ))}
-          </ul>
         </nav>
       </div>
     </footer>

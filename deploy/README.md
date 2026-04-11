@@ -17,6 +17,8 @@ This guide deploys the project to one Ubuntu EC2 instance using Docker Compose a
 - Create `A` record for your domain to EC2 public IPv4.
 - Optional: add `www` CNAME to root domain.
 
+**GoDaddy:** step-by-step DNS + Nginx + HTTPS for `www.61c.com` is in [`deploy/GODADDY_DOMAIN_SETUP.md`](GODADDY_DOMAIN_SETUP.md).
+
 ## 3) Host Bootstrap
 
 Run this once on the EC2 host:
@@ -86,6 +88,52 @@ curl -I https://<domain>
 ```bash
 cd /opt/61c
 bash deploy/scripts/deploy.sh /opt/61c
+```
+
+## 7b) Low-memory EC2 Deploy (build locally + SCP)
+
+Use this path when your EC2 instance cannot handle `docker compose --build`.
+It builds artifacts on your machine, uploads ZIP files to EC2, and restarts apps with PM2.
+
+### One-time EC2 setup
+
+**Ubuntu:** install Node and PM2 with `apt`, then create app dirs.
+
+**Amazon Linux 2023:** `dnf` may fail with mirror errors on small instances; the deploy script expects `node` on `PATH` for non-interactive SSH. A reliable approach is installing the official Node.js Linux x64 tarball under `~/.local/node` (see Node.js download docs) and adding `export PATH="$HOME/.local/node/bin:$PATH"` to `~/.bashrc`, then `npm install -g pm2`. Ensure `unzip` is installed (`sudo dnf install -y unzip`).
+
+Avoid relying on `/tmp` for large uploads on Amazon Linux: it is often a small tmpfs that fills easily. The deploy script uploads to `<REMOTE_APP_DIR>/incoming` on the root volume instead.
+
+Create runtime env files on EC2 (adjust user home if not `ubuntu`):
+
+- `<REMOTE_APP_DIR>/shared/server.env` (API env: `MONGO_URI`, `ADMIN_*`, etc.)
+- `<REMOTE_APP_DIR>/shared/client.env` (optional runtime vars for client process)
+
+### Deploy command (run on your local machine)
+
+```bash
+cd /path/to/61C
+chmod +x deploy/scripts/deploy-artifacts.sh
+EC2_HOST=<ec2-public-dns-or-ip> \
+SSH_KEY_PATH=./61c.pem \
+EC2_USER=ubuntu \
+REMOTE_APP_DIR=/home/ubuntu/61c \
+bash deploy/scripts/deploy-artifacts.sh
+```
+
+Amazon Linux typically uses `ec2-user`:
+
+```bash
+EC2_USER=ec2-user REMOTE_APP_DIR=/home/ec2-user/61c bash deploy/scripts/deploy-artifacts.sh
+```
+
+Default ports:
+- client: `3000`
+- server: `5001`
+
+Override if needed:
+
+```bash
+REMOTE_CLIENT_PORT=3000 REMOTE_SERVER_PORT=5001 bash deploy/scripts/deploy-artifacts.sh
 ```
 
 ## 8) Rollback

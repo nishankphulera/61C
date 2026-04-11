@@ -1,21 +1,33 @@
 "use client";
 
 import Image from "next/image";
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { NavModal } from "@/components/NavModal";
+
+/** Pixels of vertical scroll before the center wordmark is hidden */
+const TITLE_HIDE_SCROLL_PX = 32;
+
+/** Collage assets use up to z-360. Logo + menu share z-[500]; wordmark z-[490]. Nav overlay z-[600+] in NavModal. */
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [titleHidden, setTitleHidden] = useState(false);
   const navPanelId = useId();
 
-  return (
-    <header className="top-0 left-0 w-full z-[100]">
-      {/* Subtle gradient fade so the header doesn't feel like a hard bar */}
-      <div className="absolute inset-0 bg-black" />
+  useEffect(() => {
+    const onScroll = () => {
+      setTitleHidden(window.scrollY > TITLE_HIDE_SCROLL_PX);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
+  return (
+    <header className="fixed top-0 left-0 right-0 z-[500] w-full bg-transparent">
       <div className="relative flex items-center justify-between px-6 md:px-10 py-2">
         {/* Left: Logo */}
-        <div className="flex-shrink-0">
+        <div className="relative z-[500] flex-shrink-0">
           <Image
             src="/mouse.png"
             alt="61C Logo"
@@ -26,8 +38,13 @@ export default function Header() {
           />
         </div>
 
-        {/* Center: Title Image */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        {/* Center: Title Image — fades out after scrolling */}
+        <div
+          className={`absolute left-1/2 top-1/2 z-[490] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-out ${
+            titleHidden ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+          aria-hidden={titleHidden}
+        >
           <Image
             src="/Group1.png"
             alt="61C"
@@ -41,19 +58,25 @@ export default function Header() {
         {/* Right: Hamburger Menu */}
         <button
           type="button"
-          className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none"
+          className="relative z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls={navPanelId}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <Image
-            src="/hamburger.png"
-            alt="Menu"
-            width={36}
-            height={36}
-            className="w-7 h-7 md:w-10 md:h-10 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
-          />
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+            className="w-7 h-7 md:w-10 md:h-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] text-white/90"
+          >
+            <path
+              fill="currentColor"
+              d="M4 6.75A.75.75 0 0 1 4.75 6h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 6.75ZM4 12a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 12Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75a.75.75 0 0 1-.75-.75Z"
+            />
+          </svg>
         </button>
       </div>
 

@@ -115,7 +115,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
       : Array.from({ length: rows }, (_, i) => (i % 2 === 0 ? -1 : 1));
 
   return (
-    <section className="[--marquee-img:72px] md:[--marquee-img:140px] py-12 md:py-20 bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center border-y border-white/5 z-10">
+    <section className="[--marquee-img:72px] md:[--marquee-img:140px] py-12 md:py-20 bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center z-10">
       {/* Noise overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03] z-[10] mix-blend-overlay"

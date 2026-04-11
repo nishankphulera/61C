@@ -22,7 +22,7 @@
 html {
   overflow-x: clip; /* Better for animations than hidden */
   position: relative; /* Framer useScroll + target needs non-static scroll root */
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smoothing */
   /* Global snap on <html> breaks scroll-linked motion (e.g. TV parallax). Snap per-section in components instead. */
 }
 
