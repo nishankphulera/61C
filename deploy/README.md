@@ -103,27 +103,31 @@ It builds artifacts on your machine, uploads ZIP files to EC2, and restarts apps
 
 Avoid relying on `/tmp` for large uploads on Amazon Linux: it is often a small tmpfs that fills easily. The deploy script uploads to `<REMOTE_APP_DIR>/incoming` on the root volume instead.
 
-Create runtime env files on EC2 (adjust user home if not `ubuntu`):
+Create runtime env files on EC2 (default app root is `/home/ec2-user/61c` on Amazon Linux):
 
 - `<REMOTE_APP_DIR>/shared/server.env` (API env: `MONGO_URI`, `ADMIN_*`, etc.)
 - `<REMOTE_APP_DIR>/shared/client.env` (optional runtime vars for client process)
 
 ### Deploy command (run on your local machine)
 
+**Amazon Linux** (`deploy-artifacts.sh` defaults to `ec2-user` and `/home/ec2-user/61c`):
+
 ```bash
 cd /path/to/61C
 chmod +x deploy/scripts/deploy-artifacts.sh
 EC2_HOST=<ec2-public-dns-or-ip> \
 SSH_KEY_PATH=./61c.pem \
-EC2_USER=ubuntu \
-REMOTE_APP_DIR=/home/ubuntu/61c \
 bash deploy/scripts/deploy-artifacts.sh
 ```
 
-Amazon Linux typically uses `ec2-user`:
+**Ubuntu AMI** (override user and home):
 
 ```bash
-EC2_USER=ec2-user REMOTE_APP_DIR=/home/ec2-user/61c bash deploy/scripts/deploy-artifacts.sh
+EC2_HOST=<ec2-public-dns-or-ip> \
+SSH_KEY_PATH=./61c.pem \
+EC2_USER=ubuntu \
+REMOTE_APP_DIR=/home/ubuntu/61c \
+bash deploy/scripts/deploy-artifacts.sh
 ```
 
 Default ports:

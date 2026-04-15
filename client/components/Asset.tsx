@@ -201,22 +201,22 @@ export default function Asset({
 }: AssetProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Track scroll inside the provided container
-  const { scrollY } = useScroll({
-    container: scrollContainer,
-  });
-  
+  // Drive animation from the section's progress through the viewport (or page progress as fallback).
+  const { scrollYProgress: sectionProgress } = useScroll(
+    scrollContainer
+      ? { target: scrollContainer, offset: ["start end", "end start"] }
+      : {}
+  );
 
-  // Parallax movement
-  const y = useTransform(scrollY, (value) => value * parallax);
-  const smoothY = useSpring(y, { stiffness: 200, damping: 20 });
+  // Increase travel on normal/desktop screens so motion reads clearly.
+  const parallaxTravelPx =
+    typeof window !== "undefined" && window.innerWidth >= 1024 ? 760 : 420;
+  const y = useTransform(sectionProgress, [0, 1], [0, parallax * parallaxTravelPx]);
+  const smoothY = useSpring(y, { stiffness: 320, damping: 35 });
 
-  // Scaling
-  const maxScroll =
-    typeof window !== "undefined" ? window.innerHeight * 5 : 5000;
-
-  const scale = useTransform(scrollY, [0, maxScroll], [1, 1 + scaleFactor]);
-  const smoothScale = useSpring(scale, { stiffness: 100, damping: 30 });
+  // Avoid extra spring interpolation for scale to keep scroll response snappy.
+  const scrollScale = useTransform(sectionProgress, [0, 1], [1, 1 + scaleFactor]);
+  const scale = scaleFactor === 0 ? 1 : scrollScale;
 
   // Style object
   const style: React.CSSProperties = {
@@ -243,7 +243,7 @@ export default function Asset({
       style={{
         ...style,
         y: smoothY,
-        scale: smoothScale,
+        scale,
         rotate,
       }}
     >
@@ -252,6 +252,8 @@ export default function Asset({
         alt={alt}
         width={width}
         height={height}
+        loading="lazy"
+        decoding="async"
         className={`w-full h-full object-contain pointer-events-none select-none${reverse ? " -scale-x-100" : ""}`}
         draggable={false}
       />

@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   motion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 
@@ -54,16 +53,10 @@ const DiamondSeparator = () => (
 
 const ImageRow: React.FC<ImageRowProps> = ({ row, direction, imageSize }) => {
   const { scrollY } = useScroll();
-
-  const smoothY = useSpring(scrollY, {
-    damping: 30,
-    stiffness: 80,
-  });
-
-  const x = useTransform(smoothY, [0, 10000], [0, direction * 10000]);
+  const x = useTransform(scrollY, [0, 10000], [0, direction * 6000]);
 
   // Duplicate heavily to fill the screen in both scroll directions
-  const repeatedRow = Array(20).fill(row).flat();
+  const repeatedRow = Array(8).fill(row).flat();
 
   return (
     <motion.div
@@ -116,6 +109,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
 
   return (
     <section className="[--marquee-img:72px] md:[--marquee-img:140px] py-12 md:py-20 bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center z-10">
+      <h2 className="sr-only">{title}</h2>
       {/* Noise overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03] z-[10] mix-blend-overlay"

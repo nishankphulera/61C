@@ -152,11 +152,11 @@ export default function FilmsPage() {
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
       <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.gif" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={70} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/box.png" className="w-[22rem] md:w-[22rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "26%" }} zIndex={100} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={70} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.png" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "68%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={10} />
 
       <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
      

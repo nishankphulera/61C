@@ -3,13 +3,13 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-Builds client/server locally, zips artifacts, uploads via SCP, and restarts on EC2 with PM2.
+Builds client/server locally, zips artifacts, uploads via rsync over SSH, and restarts on EC2 with PM2.
 
 Required environment variables:
   EC2_HOST              EC2 public DNS or IP
 
 Optional environment variables:
-  EC2_USER              SSH user (default: ubuntu)
+  EC2_USER              SSH user (default: ec2-user; use ubuntu on Ubuntu AMIs)
   SSH_KEY_PATH          Path to private key (default: ./61c.pem)
   SSH_PORT              SSH port (default: 22)
   REMOTE_APP_DIR        Remote app root (default: /home/<user>/61c)
@@ -17,13 +17,14 @@ Optional environment variables:
   REMOTE_SERVER_PORT    Port for API server (default: 5001)
   REMOTE_CLIENT_ENV     Remote env file loaded before starting client
   REMOTE_SERVER_ENV     Remote env file loaded before starting server
-  REMOTE_STAGING_DIR    Where SCP uploads ZIPs (default: <REMOTE_APP_DIR>/incoming; avoid /tmp on full tmpfs)
+  REMOTE_STAGING_DIR    Where uploads land (default: <REMOTE_APP_DIR>/incoming; avoid /tmp on full tmpfs)
 
-Example:
+Example (Amazon Linux):
   EC2_HOST=ec2-1-2-3-4.compute.amazonaws.com \
   SSH_KEY_PATH=./61c.pem \
-  REMOTE_APP_DIR=/home/ubuntu/61c \
   bash deploy/scripts/deploy-artifacts.sh
+
+Ubuntu AMI: add EC2_USER=ubuntu REMOTE_APP_DIR=/home/ubuntu/61c
 EOF
 }
 
@@ -41,7 +42,7 @@ require_cmd() {
 
 require_cmd npm
 require_cmd zip
-require_cmd scp
+require_cmd rsync
 require_cmd ssh
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -50,7 +51,7 @@ CLIENT_DIR="$ROOT_DIR/client"
 SERVER_DIR="$ROOT_DIR/server"
 
 : "${EC2_HOST:?EC2_HOST is required}"
-EC2_USER="${EC2_USER:-ubuntu}"
+EC2_USER="${EC2_USER:-ec2-user}"
 SSH_KEY_PATH="${SSH_KEY_PATH:-$ROOT_DIR/61c.pem}"
 SSH_PORT="${SSH_PORT:-22}"
 REMOTE_APP_DIR="${REMOTE_APP_DIR:-/home/$EC2_USER/61c}"
@@ -134,11 +135,16 @@ cp -R "$SERVER_DIR/node_modules" "$WORK_DIR/server/node_modules"
 )
 
 echo "Uploading artifacts to $EC2_USER@$EC2_HOST ..."
-SCP_OPTS=(-i "$SSH_KEY_PATH" -P "$SSH_PORT" -o StrictHostKeyChecking=accept-new)
+# rsync over a shell channel: some hosts have a broken SFTP subsystem (OpenSSH scp uses SFTP by default),
+# which causes "scp: Connection closed"; rsync -e ssh avoids that.
 SSH_OPTS=(-i "$SSH_KEY_PATH" -p "$SSH_PORT" -o StrictHostKeyChecking=accept-new)
+RSYNC_RSH=(ssh "${SSH_OPTS[@]}")
 
 ssh "${SSH_OPTS[@]}" "$EC2_USER@$EC2_HOST" "rm -f '$REMOTE_STAGING_DIR/client-build.zip' '$REMOTE_STAGING_DIR/server-build.zip' 2>/dev/null || true; mkdir -p '$REMOTE_STAGING_DIR'"
-scp "${SCP_OPTS[@]}" "$WORK_DIR/client-build.zip" "$WORK_DIR/server-build.zip" "$EC2_USER@$EC2_HOST:$REMOTE_STAGING_DIR/"
+rsync -av -e "${RSYNC_RSH[*]}" \
+  "$WORK_DIR/client-build.zip" \
+  "$WORK_DIR/server-build.zip" \
+  "$EC2_USER@$EC2_HOST:$REMOTE_STAGING_DIR/"
 
 echo "Deploying and restarting PM2 services on EC2 ..."
 ssh "${SSH_OPTS[@]}" "$EC2_USER@$EC2_HOST" \
