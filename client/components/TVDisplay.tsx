@@ -7,7 +7,7 @@ const TVDisplay = () => {
   const YOUTUBE_VIDEO_ID = "I6cyvvQhNko";
 
   return (
-    <div className="relative z-40 flex w-full justify-center px-4 md:px-12 md:-mt-[min(22vh,12rem)]">
+    <div className="relative z-40 flex w-full justify-center ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] md:ps-12 md:pe-12 md:-mt-[min(22vh,12rem)] max-[599px]:-mt-16 max-[399px]:-mt-24">
       {/* In-flow height follows the TV image; -mt overlaps the hero. */}
       <div className="relative inline-flex items-center justify-center w-full max-w-[1200px]">
         <Image
@@ -15,17 +15,18 @@ const TVDisplay = () => {
           alt="Retro TV"
           width={1920}
           height={1080}
-          className="object-contain w-full h-[1100] z-10"
+          className="object-contain z-10 w-full max-sm:h-auto max-sm:max-h-[min(70dvh,520px)] sm:h-[1100]"
           priority
           quality={100}
         />
 
         {/* --- YOUTUBE SCREEN OVERLAY --- */}
         <div
-          className="absolute overflow-hidden mix-blend-multiply top-[42.5%] left-[9%] w-[61%] h-[50%] max-[1219px]:top-[41.8%] max-[1219px]:h-[51.8%]"
+          className="tv-youtube-screen-short-vh absolute overflow-hidden mix-blend-multiply top-[42.5%] left-[11%] w-[61%] h-[50%] max-[1219px]:top-[41.8%] max-[1219px]:h-[51.8%] max-[999px]:top-[36.8%] max-[999px]:h-[52.5%] max-[749px]:top-[42%] max-[749px]:h-[53%] max-[399px]:top-[38.5%] max-[399px]:h-[35%] max-[500px]:top-[40.5%] max-[500px]:h-[35%]"
           style={{
             /* 1. Positioning: Maps the video bounds to the White CRT screen area in TV.png */
             /* At <=1219px, slightly increase screen height to avoid bottom clipping. */
+            /* Below 1000px / 750px / short viewport: nudge top up — scaling shifts the CRT read. */
 
             /* 2. Rounding: Curves the corners similar to the old glass screen */
             borderRadius: '12% / 10%',

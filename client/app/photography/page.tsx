@@ -10,6 +10,7 @@ import ArtistProfiles from "@/components/ArtistProfiles";
 import Fashion from "@/components/Fashion";
 import EventsAndShows from "@/components/EventsAndShows";
 import Hospitality from "@/components/Hospitality";
+import { PhotographyLightboxProvider } from "@/components/PhotographyLightboxContext";
 import { fetchPublicContent } from "@/lib/api";
 import { ContentItem } from "@/lib/content";
 
@@ -125,6 +126,7 @@ export default function PhotographyPage() {
       });
 
   return (
+    <PhotographyLightboxProvider>
     <main className="min-h-screen w-full bg-black pt-[4.5rem]">
       <Header />
       <div className="container mx-auto px-4 py-8 md:py-12">
@@ -204,6 +206,7 @@ export default function PhotographyPage() {
 
       </div>
     </main>
+    </PhotographyLightboxProvider>
   );
 }
 

@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
+import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ type HospitalityProps = {
 };
 
 export default function Hospitality({ images }: HospitalityProps) {
+  const { open } = usePhotographyLightbox();
   const sectionRef = useRef<HTMLElement>(null);
   const list = images?.length ? images.map((imageSrc, idx) => ({ id: `h-${idx + 1}`, imageSrc })) : IMAGES;
 
@@ -83,9 +85,13 @@ export default function Hospitality({ images }: HospitalityProps) {
 
       <div className="hospitality-grid grid w-full grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-3 px-4 md:gap-4 lg:gap-6 md:px-8">
         {list.map((img) => (
-          <div
+          <button
             key={img.id}
-            className="hospitality-card group relative aspect-square w-full min-w-0 overflow-hidden rounded-lg shadow-lg"
+            type="button"
+            onClick={() =>
+              open(img.imageSrc, { alt: `Hospitality ${img.id}` })
+            }
+            className="hospitality-card group relative aspect-square w-full min-w-0 cursor-zoom-in overflow-hidden rounded-lg border-0 bg-transparent p-0 text-left shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <Image
               src={img.imageSrc}
@@ -94,7 +100,7 @@ export default function Hospitality({ images }: HospitalityProps) {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 50vw, 33vw"
             />
-          </div>
+          </button>
         ))}
       </div>
     </section>

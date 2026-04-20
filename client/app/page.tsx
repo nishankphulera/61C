@@ -33,7 +33,7 @@ export default function LandingPage() {
 
       {/* Section 0 */}
       {/* <TitleWithSurroundingAssets /> */}
-      <div className="relative w-full py-6 md:py-10">
+      <div className="relative w-full py-6 md:py-10 max-sm:ps-[max(1rem,env(safe-area-inset-left))] max-sm:pe-[max(1rem,env(safe-area-inset-right))]">
         <Image
           src="/HomePage.gif"
           alt="Homepage composition preview"
@@ -64,7 +64,7 @@ export default function LandingPage() {
 
       {/* Mobile: stacked nav cards (desktop uses parallax collage below) */}
       <section
-        className="sm:hidden px-4 pt-6 pb-16 space-y-8 max-w-lg mx-auto w-full"
+        className="sm:hidden space-y-8 max-w-lg mx-auto w-full pt-6 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] pb-[max(4rem,calc(env(safe-area-inset-bottom)+2rem))]"
         aria-label="Explore"
       >
         <h2 className="text-center text-sm font-semibold tracking-[0.2em] uppercase text-white/60">
@@ -106,9 +106,9 @@ export default function LandingPage() {
         <Asset reverse={false} scrollContainer={scrollRef} src="/Drone.gif" className="w-[24rem] md:w-[29rem] opacity-98" parallax={0.2} scaleFactor={0.013} rotate={-2} position={{ top: pctOf(8.4, SCENE_HEIGHT_PX), left: pctOf(-8, sceneWidthPx) }} zIndex={200} />
 
         {/* --- FOREGROUND INTERACTIVE CARDS (z-index: 45) --- */}
-        <Card title="FILMS" imageSrc="/Films.png" width="40.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ top: pctOf(-3, SCENE_HEIGHT_PX), left: pctOf(-7, sceneWidthPx) }} zIndex={100} />
-        <Card title="PHOTOGRAPHY" imageSrc="/Photography.png" width="64rem" onClick={() => router.push("/photography")} rotate={2} position={{ top: pctOf(13, SCENE_HEIGHT_PX), left: pctOf(38.5, sceneWidthPx) }} zIndex={45} />
-        <Card title="DESIGN" imageSrc="/Design.png" width="61.5rem" onClick={() => router.push("/music-videos")} rotate={-3} position={{ top: pctOf(40.6, SCENE_HEIGHT_PX), left: pctOf(-7, sceneWidthPx) }} zIndex={360} />
+        <Card title="FILMS" imageSrc="/Films.gif" width="44.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ top: pctOf(-3, SCENE_HEIGHT_PX), left: pctOf(-7, sceneWidthPx) }} zIndex={100} />
+        <Card title="PHOTOGRAPHY" imageSrc="/Photography.gif" width="64rem" onClick={() => router.push("/photography")} rotate={2} position={{ top: pctOf(10, SCENE_HEIGHT_PX), left: pctOf(38.5, sceneWidthPx) }} zIndex={45} />
+        <Card title="DESIGN" imageSrc="/Design.gif" width="70.5rem" onClick={() => router.push("/music-videos")} rotate={-3} position={{ top: pctOf(30.6, SCENE_HEIGHT_PX), left: pctOf(-7, sceneWidthPx) }} zIndex={360} />
 
         {/* --- UPPER CHUNK (2% - 36%) : FILMS BOARD COMPOSITION --- */}
         <Asset scrollContainer={scrollRef} src="/key.png" className="w-[0.5rem] md:w-[11.5rem] opacity-100" parallax={0.35} scaleFactor={0.01} rotate={1.5} position={{ top: pctOf(3, SCENE_HEIGHT_PX), left: pctOf(61.8, sceneWidthPx) }} zIndex={37} />
@@ -125,8 +125,8 @@ export default function LandingPage() {
         <Asset scrollContainer={scrollRef} src="/Pizza.png" className="w-[19rem] md:w-[29rem] opacity-100" parallax={0.26} scaleFactor={0.014} rotate={-8} position={{ top: pctOf(22.9, SCENE_HEIGHT_PX), left: pctOf(13.9, sceneWidthPx) }} zIndex={280} />
         <Asset scrollContainer={scrollRef} src="/Bread.png" className="w-[29.2rem] md:w-[35.2rem] opacity-100" parallax={0.26} scaleFactor={0.013} rotate={4} position={{ top: pctOf(28.5, SCENE_HEIGHT_PX), left: pctOf(-9, sceneWidthPx) }} zIndex={290} />
         <Asset scrollContainer={scrollRef} src="/Lighter.png" className="w-[9rem] md:w-[13rem] opacity-200" parallax={0.34} scaleFactor={0.013} rotate={14} position={{ top: pctOf(27.4, SCENE_HEIGHT_PX), left: pctOf(42, sceneWidthPx) }} zIndex={310} />
-        <Asset scrollContainer={scrollRef} src="/Converse.gif" className="w-[49rem] md:w-[52rem] opacity-100" parallax={0.3} scaleFactor={0.012} rotate={0} position={{ top: pctOf(45, SCENE_HEIGHT_PX), left: pctOf(-20, sceneWidthPx) }} zIndex={103} />
-        <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[32rem] md:w-[37rem] opacity-100" parallax={0.4} scaleFactor={0.013} rotate={2} position={{ top: pctOf(43, SCENE_HEIGHT_PX), left: pctOf(64, sceneWidthPx) }} zIndex={34} />
+        <Asset scrollContainer={scrollRef} src="/Converse.gif" className="w-[49rem] md:w-[52rem] opacity-100" parallax={0.3} scaleFactor={0.012} rotate={0} position={{ top: pctOf(37, SCENE_HEIGHT_PX), left: pctOf(-20, sceneWidthPx) }} zIndex={103} />
+        <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[32rem] md:w-[37rem] opacity-100" parallax={0.4} scaleFactor={0.013} rotate={2} position={{ top: pctOf(38, SCENE_HEIGHT_PX), left: pctOf(64, sceneWidthPx) }} zIndex={34} />
         {/* <Asset scrollContainer={scrollRef} src="/lego.png" className="w-[35rem] md:w-[45rem]" rotate={14} parallax={0.4} scaleFactor={0.019} position={{ top: "54%", left: "5%" }} />
         <Asset scrollContainer={scrollRef} src="/spray.png" className="w-[20rem] md:w-[25rem]" parallax={0.5} scaleFactor={0.019} position={{ top: "57%", left: "85%" }} /> */}
 

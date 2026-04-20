@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
 /** Page order: Product F&B → Automobile → Events → Hospitality → Fashion → Artist. Frame per original artwork. */
 const CARDS = [
@@ -42,16 +43,13 @@ const CARDS = [
   },
 ] as const;
 
-function scrollToSection(sectionId: string) {
-  const el = document.getElementById(sectionId);
-  el?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 export default function PhotographyCategoryAccordion({
   className = "",
 }: {
   className?: string;
 }) {
+  const { open } = usePhotographyLightbox();
+
   return (
     <div
       className={`w-full px-1 sm:px-2 md:px-0 ${className}`}
@@ -62,14 +60,24 @@ export default function PhotographyCategoryAccordion({
           <button
             key={card.sectionId}
             type="button"
-            onClick={() => scrollToSection(card.sectionId)}
+            onClick={() =>
+              open(card.src, {
+                alt: card.title,
+                sectionId: card.sectionId,
+                sectionTitle: card.title,
+              })
+            }
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                scrollToSection(card.sectionId);
+                open(card.src, {
+                  alt: card.title,
+                  sectionId: card.sectionId,
+                  sectionTitle: card.title,
+                });
               }
             }}
-            aria-label={`Scroll to ${card.title} section`}
+            aria-label={`View ${card.title} full size`}
             className="group/card relative min-h-0 min-w-0 flex-1 cursor-pointer overflow-hidden rounded-3xl border-0 bg-transparent p-0 text-left transition-[flex] duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)] hover:flex-[1.45] focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-within:flex-[1.45]"
           >
             <Image

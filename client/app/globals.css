@@ -305,3 +305,11 @@ h6 {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
+
+/* TVDisplay: viewport shorter than 550px — lift CRT overlay (Tailwind v4 has no safe max-height breakpoint here). */
+@media (max-height: 549px) {
+  .tv-youtube-screen-short-vh {
+    top: 30.5%;
+    height: 54%;
+  }
+}

@@ -56,8 +56,8 @@ export default function LenisRoot({ children }: { children: ReactNode }) {
           anchors: true,
           stopInertiaOnNavigate: true,
           // Balanced for smoother feel without input lag.
-          lerp: 0.08,
-          wheelMultiplier: 1,
+          lerp: 0.05,
+          wheelMultiplier: 0.7,
           touchMultiplier: 1,
           syncTouch: true,
         });
