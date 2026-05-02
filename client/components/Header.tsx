@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useId, useState } from "react";
 import { NavModal } from "@/components/NavModal";
 
@@ -26,8 +27,12 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-[500] w-full bg-transparent">
       <div className="relative flex items-center justify-between px-6 md:px-10 py-2">
-        {/* Left: Logo */}
-        <div className="relative z-[500] flex-shrink-0">
+        {/* Left: Logo — home */}
+        <Link
+          href="/"
+          className="relative z-[500] flex-shrink-0 cursor-pointer rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          aria-label="Home"
+        >
           <Image
             src="/mouse.png"
             alt="61C Logo"
@@ -36,7 +41,7 @@ export default function Header() {
             className="w-10 h-10 md:w-20 md:h-16 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
             priority
           />
-        </div>
+        </Link>
 
         {/* Center: Title Image — fades out after scrolling */}
         <div
@@ -45,14 +50,21 @@ export default function Header() {
           }`}
           aria-hidden={titleHidden}
         >
-          <Image
-            src="/Group1.png"
-            alt="61C"
-            width={200}
-            height={40}
-            className="w-24 md:w-62 h-auto object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
-            priority
-          />
+          <Link
+            href="/"
+            className="inline-block cursor-pointer rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70"
+            aria-label="Home"
+            tabIndex={titleHidden ? -1 : 0}
+          >
+            <Image
+              src="/Group1.png"
+              alt="61C"
+              width={200}
+              height={40}
+              className="w-24 md:w-62 h-auto object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
+              priority
+            />
+          </Link>
         </div>
 
         {/* Right: Hamburger Menu */}

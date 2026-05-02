@@ -152,9 +152,9 @@ export default function FilmsPage() {
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
       <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.gif" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={70} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/box.png" className="w-[22rem] md:w-[22rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "26%" }} zIndex={100} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={100} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={70} />
       <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={10} />
 
@@ -184,7 +184,7 @@ export default function FilmsPage() {
         <button
           type="button"
           onClick={() => scrollToSection(digitalFilmsRef)}
-          className="absolute text-5xl md:text-6xl text-white-400 text-left px-0 md:px-0 top-200 left-238 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          className="absolute text-5xl md:text-6xl text-white-400 text-left pt-20 px-0 md:px-0 top-200 left-238 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
           aria-label="Scroll to Vertical Films section"
         >
           Vertical Films
@@ -232,7 +232,7 @@ export default function FilmsPage() {
         {/* Digital Films Section — wider breakout past container padding */}
         <motion.section
           ref={digitalFilmsRef}
-          className="-mx-5 md:-mx-9"
+          className="-mx-3 md:-mx-4"
           variants={sectionVariants}
           initial="hidden"
           animate={isDigitalFilmsInView ? "visible" : "hidden"}

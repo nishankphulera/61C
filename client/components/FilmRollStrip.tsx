@@ -56,9 +56,9 @@ export default function FilmRollStrip({
         <Image
           src={FILM_ROLL_SRC}
           alt={filmAlt}
-          width={1244}
-          height={1244}
-          className="relative z-10 h-auto w-full select-none pointer-events-none"
+          width={1024}
+          height={1024}
+          className="relative z-10 h-full w-[60%] select-none pointer-events-none ml-[18.2%]"
           priority
           sizes="100vw"
         />

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
 
 interface CardProps {
@@ -20,6 +21,7 @@ interface CardProps {
   className?: string;
   zIndex?: number;
   width?: string | number;
+  reverse?: boolean;
   /** overlay: absolute collage card; stacked: normal flow for mobile columns */
   layout?: "overlay" | "stacked";
 }
@@ -34,6 +36,7 @@ export default function Card({
   zIndex = 50,
   width,
   layout = "overlay",
+  reverse = false,
 }: CardProps) {
   const isStacked = layout === "stacked";
 
@@ -84,12 +87,42 @@ export default function Card({
         transition: { duration: 0.6 },
       }}
     >
-      <div className="relative w-full h-auto flex items-center justify-center drop-shadow-[0_20px_20px_rgba(0,0,0,0.8)]">
-        <img
-          src={imageSrc}
-          alt={title}
-          className="w-full h-auto object-contain pointer-events-none"
-        />
+      <div className="relative w-full h-auto flex items-center justify-center">
+        {(() => {
+          const videoMatch = imageSrc.match(/^(.*)\.(mp4|webm|mov)($|\?.*)/i);
+          const mediaClass = `w-full h-auto object-contain pointer-events-none select-none${
+            reverse ? " -scale-x-100" : ""
+          }`;
+          if (videoMatch) {
+            const stem = videoMatch[1];
+            return (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={title}
+                className={mediaClass}
+              >
+                <source src={`${stem}.webm`} type="video/webm" />
+                <source src={`${stem}.mp4`} type="video/mp4" />
+              </video>
+            );
+          }
+          return (
+            <Image
+              src={imageSrc}
+              alt={title}
+              width={1600}
+              height={1200}
+              sizes="(min-width: 1024px) 56rem, 90vw"
+              unoptimized={/\.gif($|\?)/i.test(imageSrc)}
+              draggable={false}
+              className={mediaClass}
+            />
+          );
+        })()}
       </div>
     </motion.div>
   );

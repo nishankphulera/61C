@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Footer from "@/components/Footer";
 import LenisRoot from "@/components/LenisRoot";
+import LoadingScreen from "@/components/LoadingScreen";
 import "./globals.css";
 
 const fiveYearsOld = localFont({
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${fiveYearsOld.variable} ${theBattleCont.variable} antialiased`}
       >
+        <LoadingScreen />
         <LenisRoot>
           {children}
           <Footer />

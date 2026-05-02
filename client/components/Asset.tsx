@@ -1,161 +1,14 @@
-// // import Image from "next/image";
-// // import React from "react";
-
-// // interface PositionProps {
-// //   top?: string;
-// //   bottom?: string;
-// //   left?: string;
-// //   right?: string;
-// // }
-
-// // interface FlyingRibbonProps {
-// //   src?: string;
-// //   alt?: string;
-// //   width?: number;
-// //   height?: number;
-// //   className?: string;
-// //   position?: PositionProps;
-// //   rotate?: number;
-// // }
-
-// // const Asset: React.FC<FlyingRibbonProps> = ({
-// //   src = "/Drone.svg",
-// //   alt = "Flying Ribbon",
-// //   width = 400,
-// //   height = 400,
-// //   className = "",
-// //   position = {},
-// //   rotate = 0,
-// // }) => {
-// //   const { top, bottom, left, right } = position;
-
-// //   return (
-// //     <div
-// //       className={`absolute z-20 ${className}`}
-// //       style={{
-// //         top,
-// //         bottom,
-// //         left,
-// //         right,
-// //         transform: `rotate(${rotate}deg)`,
-// //       }}
-// //     >
-// //       <Image
-// //         src={src}
-// //         alt={alt}
-// //         width={width}
-// //         height={height}
-// //         className="w-full h-full drop-shadow-xl"
-// //       />
-// //     </div>
-// //   );
-// // };
-
-// // export default Asset;"use client";
-
-
-
-
-// "use client";
-
-// import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-// import React, { useRef } from "react";
-
-// interface AssetProps {
-//   src?: string;
-//   alt?: string;
-//   width?: number;
-//   height?: number;
-//   className?: string;
-//   position?: {
-//     top?: string | number;
-//     bottom?: string | number;
-//     left?: string | number;
-//     right?: string | number;
-//   };
-//   rotate?: number;
-//   parallax?: number;     // vertical movement multiplier (use negative for upward movement)
-//   scaleFactor?: number;  // scaling factor
-//   zIndex?: number;
-// }
-
-// export default function Asset({
-//   src = "/Drone.svg",
-//   alt = "Asset",
-//   width = 400,
-//   height = 400,
-//   className = "",
-//   position = {},
-//   rotate = 0,
-//   parallax = 0.5,
-//   scaleFactor = 0,
-//   zIndex = 10,
-// }: AssetProps) {
-//   const ref = useRef<HTMLDivElement>(null);
-
-//   // Track the global viewport scroll
-//   const { scrollY } = useScroll();
-
-//   // Transform scrollY directly - parallax is the speed multiplier
-//   // This will start from scroll position 0 immediately
-//   const y = useTransform(scrollY, (value) => value * parallax);
-//   // Use less damping for more immediate response
-//   const smoothY = useSpring(y, { stiffness: 200, damping: 20 });
-
-//   // Scale based on scroll position - use a reasonable max scroll
-//   const maxScroll = typeof window !== "undefined" ? window.innerHeight * 5 : 5000;
-//   const scale = useTransform(scrollY, [0, maxScroll], [1, 1 + scaleFactor]);
-//   const smoothScale = useSpring(scale, { stiffness: 100, damping: 30 });
-
-//   const style: React.CSSProperties & { [key: string]: any } = {
-//     position: "absolute",
-//     zIndex,
-//   };
-
-//   // Add positioning
-//   if (position.top !== undefined) {
-//     style.top = typeof position.top === "number" ? `${position.top}px` : position.top;
-//   }
-//   if (position.bottom !== undefined) {
-//     style.bottom = typeof position.bottom === "number" ? `${position.bottom}px` : position.bottom;
-//   }
-//   if (position.left !== undefined) {
-//     style.left = typeof position.left === "number" ? `${position.left}px` : position.left;
-//   }
-//   if (position.right !== undefined) {
-//     style.right = typeof position.right === "number" ? `${position.right}px` : position.right;
-//   }
-
-//   return (
-//     <motion.div
-//       ref={ref}
-//       className={className}
-//       style={{
-//         ...style,
-//         y: smoothY,
-//         scale: smoothScale,
-//         rotate,
-//       }}
-//     >
-//       <img
-//         src={src}
-//         alt={alt}
-//         width={width}
-//         height={height}
-//         className="w-full h-full object-contain pointer-events-none select-none"
-//         draggable={false}
-//       />
-//     </motion.div>
-//   );
-// }"use client";
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import React, { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import Image from "next/image";
+import React, { memo, useMemo, useRef } from "react";
 
-// ----------------------
-// Type Definitions
-// ----------------------
 interface PositionProps {
   top?: string | number;
   bottom?: string | number;
@@ -177,15 +30,19 @@ interface AssetProps {
   parallax?: number;
   scaleFactor?: number;
   zIndex?: number;
+  /** Fallback: if provided and `progress` is not, this Asset creates its own scroll listener. Prefer `progress`. */
   scrollContainer?: React.RefObject<HTMLElement | null>;
+  /** Shared scroll progress (0..1) from the parent. Prevents each Asset from registering its own scroll listener. */
+  progress?: MotionValue<number>;
   /** When true, flips the image horizontally (mirror). */
   reverse?: boolean;
+  /** Prioritize image loading (LCP candidates). Defaults to false. */
+  priority?: boolean;
+  /** Responsive sizes hint for next/image. */
+  sizes?: string;
 }
 
-// ----------------------
-// Component
-// ----------------------
-export default function Asset({
+function AssetImpl({
   src = "/Drone.svg",
   alt = "Asset",
   width = 400,
@@ -197,44 +54,59 @@ export default function Asset({
   scaleFactor = 0,
   zIndex = 10,
   scrollContainer,
+  progress,
   reverse = false,
+  priority = false,
+  sizes = "(min-width: 1024px) 45vw, 90vw",
 }: AssetProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Drive animation from the section's progress through the viewport (or page progress as fallback).
-  const { scrollYProgress: sectionProgress } = useScroll(
-    scrollContainer
+  // Fallback scroll if the parent did not share a progress MotionValue.
+  // When `progress` is passed, the hook call below is still made but its result is ignored;
+  // to keep hook order stable we always call useScroll.
+  const { scrollYProgress: fallbackProgress } = useScroll(
+    scrollContainer && !progress
       ? { target: scrollContainer, offset: ["start end", "end start"] }
       : {}
   );
+  const sectionProgress = progress ?? fallbackProgress;
 
-  // Increase travel on normal/desktop screens so motion reads clearly.
-  const parallaxTravelPx =
-    typeof window !== "undefined" && window.innerWidth >= 1024 ? 760 : 420;
-  const y = useTransform(sectionProgress, [0, 1], [0, parallax * parallaxTravelPx]);
-  const smoothY = useSpring(y, { stiffness: 320, damping: 35 });
+  const parallaxTravelPx = useMemo(
+    () =>
+      typeof window !== "undefined" && window.innerWidth >= 1024 ? 760 : 420,
+    []
+  );
 
-  // Avoid extra spring interpolation for scale to keep scroll response snappy.
+  const y = useTransform(
+    sectionProgress,
+    [0, 1],
+    [0, parallax * parallaxTravelPx]
+  );
+
   const scrollScale = useTransform(sectionProgress, [0, 1], [1, 1 + scaleFactor]);
   const scale = scaleFactor === 0 ? 1 : scrollScale;
 
-  // Style object
   const style: React.CSSProperties = {
     position: "absolute",
     zIndex,
   };
 
-  // Apply positioning if provided
   if (position.topPx !== undefined) style.top = `${position.topPx}px`;
   else if (position.top !== undefined) style.top = position.top;
-
   if (position.bottom !== undefined) style.bottom = position.bottom;
-
   if (position.leftPx !== undefined) style.left = `${position.leftPx}px`;
   else if (position.left !== undefined) style.left = position.left;
-
   if (position.rightPx !== undefined) style.right = `${position.rightPx}px`;
   else if (position.right !== undefined) style.right = position.right;
+
+  const isAnimated = /\.gif($|\?)/i.test(src);
+  const videoMatch = src.match(/^(.*)\.(mp4|webm|mov)($|\?.*)/i);
+  const isVideo = !!videoMatch;
+  const videoStem = videoMatch?.[1] ?? "";
+
+  const mediaClass = `w-full h-auto object-contain pointer-events-none select-none${
+    reverse ? " -scale-x-100" : ""
+  }`;
 
   return (
     <motion.div
@@ -242,21 +114,41 @@ export default function Asset({
       className={className}
       style={{
         ...style,
-        y: smoothY,
+        y,
         scale,
         rotate,
       }}
     >
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading="lazy"
-        decoding="async"
-        className={`w-full h-full object-contain pointer-events-none select-none${reverse ? " -scale-x-100" : ""}`}
-        draggable={false}
-      />
+      {isVideo ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload={priority ? "auto" : "metadata"}
+          aria-label={alt}
+          className={mediaClass}
+        >
+          <source src={`${videoStem}.webm`} type="video/webm" />
+          <source src={`${videoStem}.mp4`} type="video/mp4" />
+        </video>
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={sizes}
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
+          unoptimized={isAnimated}
+          draggable={false}
+          className={mediaClass}
+        />
+      )}
     </motion.div>
   );
 }
+
+const Asset = memo(AssetImpl);
+export default Asset;

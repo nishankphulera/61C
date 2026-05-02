@@ -1,6 +1,26 @@
 import { ContentItem } from "./content";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+function resolveApiBaseUrl(): string {
+  const configured = (process.env.NEXT_PUBLIC_API_BASE_URL || "").trim();
+  const normalized = configured.replace(/\/+$/, "");
+
+  if (typeof window === "undefined") {
+    return normalized || "http://localhost:5000";
+  }
+
+  const runningOnLocalhost =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  const pointsToLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(normalized);
+
+  // In production browsers, never call localhost even if misconfigured at build time.
+  if (!runningOnLocalhost && pointsToLocalhost) {
+    return "";
+  }
+
+  return normalized;
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
 const ADMIN_TOKEN_KEY = "adminToken";
 
 type ContentFilters = {
