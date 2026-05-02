@@ -52,7 +52,13 @@ SERVER_DIR="$ROOT_DIR/server"
 
 : "${EC2_HOST:?EC2_HOST is required}"
 EC2_USER="${EC2_USER:-ec2-user}"
-SSH_KEY_PATH="${SSH_KEY_PATH:-$ROOT_DIR/61c.pem}"
+if [[ -z "${SSH_KEY_PATH:-}" ]]; then
+  if [[ -f "$ROOT_DIR/61cweb.pem" ]]; then
+    SSH_KEY_PATH="$ROOT_DIR/61cweb.pem"
+  else
+    SSH_KEY_PATH="$ROOT_DIR/61c.pem"
+  fi
+fi
 SSH_PORT="${SSH_PORT:-22}"
 REMOTE_APP_DIR="${REMOTE_APP_DIR:-/home/$EC2_USER/61c}"
 REMOTE_CLIENT_PORT="${REMOTE_CLIENT_PORT:-3000}"

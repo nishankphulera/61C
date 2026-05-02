@@ -2,6 +2,8 @@
 
 This guide deploys the project to one Ubuntu EC2 instance using Docker Compose and Nginx.
 
+**Next.js on Vercel + API on EC2:** see [`deploy/EC2_VERCEL_API.md`](EC2_VERCEL_API.md) (bootstrap script, HTTPS API-only Nginx, `NEXT_PUBLIC_API_BASE_URL`).
+
 ## 1) AWS Infrastructure Baseline
 
 - EC2 instance: Ubuntu 24.04 LTS, `t3.small` (or larger), 20+ GB gp3.

@@ -10,7 +10,7 @@ Required environment variables:
 
 Optional environment variables:
   EC2_USER              SSH user (default: ec2-user; use ubuntu on Ubuntu AMIs)
-  SSH_KEY_PATH          Path to private key (default: ./61c.pem)
+  SSH_KEY_PATH          Path to private key (default: ./61cweb.pem if present, else ./61c.pem)
   SSH_PORT              SSH port (default: 22)
   REMOTE_APP_DIR        Remote app root (default: /home/<user>/61c)
   REMOTE_CLIENT_PORT    Port for Next.js standalone server (default: 3000)
@@ -21,8 +21,9 @@ Optional environment variables:
 
 Example (Amazon Linux):
   EC2_HOST=ec2-1-2-3-4.compute.amazonaws.com \
-  SSH_KEY_PATH=./61c.pem \
   bash deploy/scripts/deploy-artifacts.sh
+
+  # Optional: SSH_KEY_PATH=./other.pem
 
 Ubuntu AMI: add EC2_USER=ubuntu REMOTE_APP_DIR=/home/ubuntu/61c
 EOF
@@ -52,7 +53,13 @@ SERVER_DIR="$ROOT_DIR/server"
 
 : "${EC2_HOST:?EC2_HOST is required}"
 EC2_USER="${EC2_USER:-ec2-user}"
-SSH_KEY_PATH="${SSH_KEY_PATH:-$ROOT_DIR/61c.pem}"
+if [[ -z "${SSH_KEY_PATH:-}" ]]; then
+  if [[ -f "$ROOT_DIR/61cweb.pem" ]]; then
+    SSH_KEY_PATH="$ROOT_DIR/61cweb.pem"
+  else
+    SSH_KEY_PATH="$ROOT_DIR/61c.pem"
+  fi
+fi
 SSH_PORT="${SSH_PORT:-22}"
 REMOTE_APP_DIR="${REMOTE_APP_DIR:-/home/$EC2_USER/61c}"
 REMOTE_CLIENT_PORT="${REMOTE_CLIENT_PORT:-3000}"
