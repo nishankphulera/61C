@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo } from "react";
 
 interface AssetConfig {
@@ -19,7 +20,6 @@ interface TitleWithSurroundingAssetsProps {
 }
 
 export default function TitleWithSurroundingAssets({
-  title,
   assets,
 }: TitleWithSurroundingAssetsProps) {
   // Default assets array with positions and sizes
@@ -80,7 +80,15 @@ export default function TitleWithSurroundingAssets({
       {/* Center title */}
       <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
         <div className="relative top-[8%] left-[0%] z-50 w-[90rem] md:w-[50rem] lg:w-[50rem]">
-          <img src="/61CYellow.png" alt="61C Logo" className="w-full h-auto" />
+          <Image
+            src="/61CYellow.png"
+            alt="61C Logo"
+            width={1600}
+            height={480}
+            className="w-full h-auto"
+            sizes="(max-width: 768px) 90vw, 50rem"
+            priority
+          />
         </div>
       </div>
 
@@ -98,11 +106,20 @@ export default function TitleWithSurroundingAssets({
 
         const transform = transformParts.join(" ");
 
+        const widthPx = Math.round(
+          parseFloat(asset.width.replace("px", "")) || 400
+        );
+        const heightPx = Math.round(
+          parseFloat(asset.height.replace("px", "")) || 400
+        );
+
         return (
-          <img
+          <Image
             key={`asset-${index}`}
             src={asset.src}
             alt={`Asset ${index + 1}`}
+            width={widthPx}
+            height={heightPx}
             className="absolute pointer-events-none select-none object-contain drop-shadow-xl"
             style={{
               left: asset.x,

@@ -1,7 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
+
+/** Stable list for one-time random placement (must not live inside the component or it changes every render). */
+const TV_PAGE_ASSET_NAMES = [
+  "61 key",
+  "61cOpener",
+  "bottle",
+  "cannabiLighter",
+  "colorfullPizza",
+  "dancingBurger",
+  "Clapperboard",
+  "flippingBowl",
+  "Drone",
+  "fork",
+  "frogShoes",
+  "harddiskToaster",
+  "lego",
+  "MegaPhone",
+  "matchaMachine",
+  "TV",
+  "weakChair",
+] as const;
 
 interface DraggableAsset {
   id: string;
@@ -18,27 +39,6 @@ export default function TVWithRandomAssets() {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const assetsInitialized = useRef(false);
-
-  const assets = [
-    "61 key",
-    "61cOpener",
-    "bottle",
-    "cannabiLighter",
-    "colorfullPizza",
-    "dancingBurger",
-    "Clapperboard",
-    "flippingBowl",
-    "Drone",
-    "fork",
-    "frogShoes",
-    "harddiskToaster",
-    "lego",
-    "MegaPhone",
-    "matchaMachine",
-    "TV",
-    "weakChair",
-  ];
-
 
   // Initialize draggable assets only once
   useEffect(() => {
@@ -70,13 +70,16 @@ export default function TVWithRandomAssets() {
       let top = 0;
       let left = 0;
       let scale = 1;
-      let asset = assets[0];
+      let asset: string = TV_PAGE_ASSET_NAMES[0];
 
       while (tries < 100) {
         top = Math.random() * currentHeight;
         left = Math.random() * currentWidth;
         scale = 0.5 + Math.random() * 1;
-        asset = assets[Math.floor(Math.random() * assets.length)];
+        asset =
+          TV_PAGE_ASSET_NAMES[
+            Math.floor(Math.random() * TV_PAGE_ASSET_NAMES.length)
+          ];
 
         const radiusNew = (baseSize * scale) / 2;
 
@@ -110,7 +113,7 @@ export default function TVWithRandomAssets() {
 
     setDraggableAssets(newAssets);
     assetsInitialized.current = true;
-  }, [assets]);
+  }, []);
 
   // Handle mouse down on draggable asset
   const handleMouseDown = (e: React.MouseEvent, assetId: string) => {
