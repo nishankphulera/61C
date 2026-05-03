@@ -171,6 +171,7 @@ export default function LandingPage() {
 
 
 
+            {/* Same stem as mobile: Card/Asset load `.webm` before `.mp4`; alpha WebMs remove white matte from MP4 encodes. */}
             <Card title="FILMS" imageSrc="/Films.mp4" width="44.2rem" onClick={() => router.push("/films")} rotate={-1} position={{ top: pctOf(6, SCENE_HEIGHT_PX), left: pctOf(0, sceneWidthPx) }} zIndex={100} />
             <Card title="PHOTOGRAPHY" imageSrc="/Photography.mp4" width="56rem" onClick={() => router.push("/photography")} rotate={2} position={{ top: pctOf(-3, SCENE_HEIGHT_PX), right: pctOf(-2, sceneWidthPx) }} zIndex={52} />
             <Card title="Design" imageSrc="/Design.mp4" width="56rem" onClick={() => router.push("/comingsoon")} rotate={2} position={{ top: pctOf(17, SCENE_HEIGHT_PX), right: pctOf(-2, sceneWidthPx) }} zIndex={52} />
