@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const contentController_1 = require("../controllers/contentController");
+const contactController_1 = require("../controllers/contactController");
+const catchAsync_1 = require("../lib/catchAsync");
 const router = (0, express_1.Router)();
-router.get("/content", contentController_1.getPublicContent);
+router.get("/content", (0, catchAsync_1.catchAsync)(contentController_1.getPublicContent));
+router.post("/contact", (0, catchAsync_1.catchAsync)(contactController_1.createContactSubmission));
 exports.default = router;

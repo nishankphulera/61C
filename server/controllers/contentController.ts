@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ensureMongoForRead } from "../lib/mongoReady";
 import Content, { MEDIA_TYPES, PAGES } from "../models/Content";
 
 type ContentPayload = {
@@ -52,6 +53,7 @@ function validatePayload(payload: ContentPayload): string | null {
 }
 
 export async function getAdminContent(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const { page, section, published } = req.query;
   const filter: Record<string, unknown> = {};
 
@@ -65,6 +67,7 @@ export async function getAdminContent(req: Request, res: Response): Promise<void
 }
 
 export async function getAdminContentById(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const row = await Content.findById(req.params.id);
   if (!row) {
     res.status(404).json({ message: "Content not found" });
@@ -74,6 +77,7 @@ export async function getAdminContentById(req: Request, res: Response): Promise<
 }
 
 export async function createContent(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const payload = req.body as ContentPayload;
   const validationError = validatePayload(payload);
   if (validationError) {
@@ -101,6 +105,7 @@ export async function createContent(req: Request, res: Response): Promise<void> 
 }
 
 export async function updateContent(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const payload = req.body as Partial<ContentPayload>;
   const existing = await Content.findById(req.params.id);
   if (!existing) {
@@ -147,6 +152,7 @@ export async function updateContent(req: Request, res: Response): Promise<void> 
 }
 
 export async function deleteContent(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const removed = await Content.findByIdAndDelete(req.params.id);
   if (!removed) {
     res.status(404).json({ message: "Content not found" });
@@ -156,6 +162,7 @@ export async function deleteContent(req: Request, res: Response): Promise<void> 
 }
 
 export async function getPublicContent(req: Request, res: Response): Promise<void> {
+  if (!ensureMongoForRead(res)) return;
   const { page, section } = req.query;
   const filter: Record<string, unknown> = { isPublished: true };
 

@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const contentController_1 = require("../controllers/contentController");
+const contactController_1 = require("../controllers/contactController");
+const catchAsync_1 = require("../lib/catchAsync");
 const adminAuth_1 = require("../middleware/adminAuth");
 const router = (0, express_1.Router)();
 router.post("/login", (req, res) => {
@@ -17,9 +19,10 @@ router.post("/login", (req, res) => {
     });
 });
 router.use(adminAuth_1.requireAdminAuth);
-router.get("/content", contentController_1.getAdminContent);
-router.post("/content", contentController_1.createContent);
-router.get("/content/:id", contentController_1.getAdminContentById);
-router.patch("/content/:id", contentController_1.updateContent);
-router.delete("/content/:id", contentController_1.deleteContent);
+router.get("/contact-submissions", (0, catchAsync_1.catchAsync)(contactController_1.getAdminContactSubmissions));
+router.get("/content", (0, catchAsync_1.catchAsync)(contentController_1.getAdminContent));
+router.post("/content", (0, catchAsync_1.catchAsync)(contentController_1.createContent));
+router.get("/content/:id", (0, catchAsync_1.catchAsync)(contentController_1.getAdminContentById));
+router.patch("/content/:id", (0, catchAsync_1.catchAsync)(contentController_1.updateContent));
+router.delete("/content/:id", (0, catchAsync_1.catchAsync)(contentController_1.deleteContent));
 exports.default = router;

@@ -53,7 +53,13 @@ export default function AdminContentPage() {
       <div className="mx-auto max-w-6xl space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-3xl font-semibold">Admin Content</h1>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              href="/admin/contact-submissions"
+              className="rounded border border-white/30 px-3 py-2 text-sm text-white hover:bg-white/10"
+            >
+              Contact messages
+            </Link>
             <Link href="/admin/content/new" className="rounded bg-yellow-400 px-3 py-2 text-sm font-semibold text-black">
               New Item
             </Link>

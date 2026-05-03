@@ -209,12 +209,15 @@ ln -sfn "$SERVER_RELEASE_DIR" "$REMOTE_APP_DIR/server-current"
 set -a
 if [[ -f "$REMOTE_SERVER_ENV" ]]; then
   . "$REMOTE_SERVER_ENV"
+  # Reload this file on every process start so `pm2 restart` picks up edits without re-sourcing in shell.
+  export DOTENV_CONFIG_PATH="$REMOTE_SERVER_ENV"
+  export DOTENV_CONFIG_QUIET=true
 fi
 set +a
 export NODE_ENV=production
 export PORT="$REMOTE_SERVER_PORT"
 pm2 delete 61c-server >/dev/null 2>&1 || true
-pm2 start dist/server.js --name 61c-server --cwd "$REMOTE_APP_DIR/server-current"
+pm2 start dist/server.js --name 61c-server --cwd "$REMOTE_APP_DIR/server-current" --node-args="-r dotenv/config"
 
 set -a
 if [[ -f "$REMOTE_CLIENT_ENV" ]]; then

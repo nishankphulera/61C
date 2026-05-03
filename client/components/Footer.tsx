@@ -173,6 +173,7 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Permanent_Marker } from "next/font/google";
 
 const navFont = Permanent_Marker({
@@ -210,6 +211,7 @@ const SOCIAL = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
   const footerRef = useRef<HTMLElement | null>(null);
   const shutterRef = useRef<HTMLDivElement | null>(null);
 
@@ -258,6 +260,8 @@ export default function Footer() {
       window.removeEventListener("resize", updateShutter);
     };
   }, []);
+
+  if (pathname === "/contact") return null;
 
   return (
     <footer
@@ -322,13 +326,19 @@ export default function Footer() {
       <div className="relative z-10 mx-auto mt-[50dvh] grid max-w-7xl grid-cols-1 gap-12 px-6 pb-14 pt-[min(14dvh,104px)] md:grid-cols-3 md:items-end md:px-10">
         {/* Left */}
         <div className="flex flex-col gap-8">
-          <Image
-            src="/letsconnect.png"
-            alt="Let's connect"
-            width={280}
-            height={100}
-            className="h-auto w-auto max-w-full"
-          />
+          <Link
+            href="/contact"
+            className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80"
+            aria-label="Contact us"
+          >
+            <Image
+              src="/letsconnect.png"
+              alt="Contact us — Let's connect"
+              width={280}
+              height={100}
+              className="h-auto w-auto max-w-full transition-opacity hover:opacity-90"
+            />
+          </Link>
           <div className="flex gap-4">
             {SOCIAL.map(({ label, href, srcWebm, srcMp4 }) => (
               <Link key={label} href={href} target="_blank">

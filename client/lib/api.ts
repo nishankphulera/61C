@@ -92,6 +92,41 @@ export async function fetchPublicContent(filters?: ContentFilters): Promise<Cont
   return apiFetch<ContentItem[]>(`/api/public/content${buildQuery(filters)}`);
 }
 
+export type ContactFormPayload = {
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
+export async function submitContactForm(
+  payload: ContactFormPayload
+): Promise<{ id: string; message: string }> {
+  return apiFetch<{ id: string; message: string }>("/api/public/contact", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export type ContactSubmissionItem = {
+  _id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export async function fetchAdminContactSubmissions(): Promise<ContactSubmissionItem[]> {
+  const token = getAdminToken();
+  return apiFetch<ContactSubmissionItem[]>("/api/admin/contact-submissions", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export async function fetchAdminContentById(id: string): Promise<ContentItem> {
   const token = getAdminToken();
   return apiFetch<ContentItem>(`/api/admin/content/${id}`, {

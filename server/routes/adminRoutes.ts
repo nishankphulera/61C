@@ -6,6 +6,8 @@ import {
   getAdminContentById,
   updateContent,
 } from "../controllers/contentController";
+import { getAdminContactSubmissions } from "../controllers/contactController";
+import { catchAsync } from "../lib/catchAsync";
 import { issueAdminToken, requireAdminAuth, validateAdminCredentials } from "../middleware/adminAuth";
 
 const router = Router();
@@ -27,10 +29,11 @@ router.post("/login", (req, res) => {
 
 router.use(requireAdminAuth);
 
-router.get("/content", getAdminContent);
-router.post("/content", createContent);
-router.get("/content/:id", getAdminContentById);
-router.patch("/content/:id", updateContent);
-router.delete("/content/:id", deleteContent);
+router.get("/contact-submissions", catchAsync(getAdminContactSubmissions));
+router.get("/content", catchAsync(getAdminContent));
+router.post("/content", catchAsync(createContent));
+router.get("/content/:id", catchAsync(getAdminContentById));
+router.patch("/content/:id", catchAsync(updateContent));
+router.delete("/content/:id", catchAsync(deleteContent));
 
 export default router;

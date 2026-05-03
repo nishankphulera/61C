@@ -16,6 +16,8 @@ Do **not** expose **5001** publicly if you use Nginx on 80/443 (recommended).
 
 Create an **A** record, e.g. `api.yourdomain.com` → your EC2 public IPv4 (`16.170.169.42` until it changes).
 
+**Before Certbot:** the name must resolve globally. If Certbot reports **NXDOMAIN** for your API host, DNS is missing or not propagated yet. From your laptop, `dig +short api.yourdomain.com A` should return that IPv4; fix DNS first, then re-run Certbot.
+
 Bootstrap creates **`~/61c`** for PM2 deploys and **`~/61c/shared/server.env`**. That directory is **not** a git clone. Clone the repo to a **separate** path (e.g. **`~/61c-source`**) and run Nginx/Certbot scripts from there:
 
 ```bash
@@ -62,6 +64,21 @@ nano ~/61c/shared/server.env
 Set **`CLIENT_ORIGIN`** to your real Vercel URLs, comma-separated, for example:
 
 `https://your-app.vercel.app,https://your-custom-domain.com`
+
+**`deploy-artifacts.sh`** starts the API with **`node -r dotenv/config`** and **`DOTENV_CONFIG_PATH=$HOME/61c/shared/server.env`**, so **`pm2 restart 61c-server`** reloads that file on each boot.
+
+If you still see **500** on an **OPTIONS** preflight, the instance is almost certainly running an **old `dist/server.js`** (before static CORS). From your laptop run **`deploy-artifacts.sh`** once so `server-current` matches this repo.
+
+Manual start (no deploy script) after editing env:
+
+```bash
+export DOTENV_CONFIG_PATH="$HOME/61c/shared/server.env"
+export DOTENV_CONFIG_QUIET=true
+export NODE_ENV=production PORT="${PORT:-5001}"
+pm2 delete 61c-server 2>/dev/null || true
+pm2 start dist/server.js --name 61c-server --cwd "$HOME/61c/server-current" --node-args="-r dotenv/config"
+pm2 save
+```
 
 ## 4) TLS + Nginx (API only)
 

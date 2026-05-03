@@ -39,6 +39,7 @@ exports.createContent = createContent;
 exports.updateContent = updateContent;
 exports.deleteContent = deleteContent;
 exports.getPublicContent = getPublicContent;
+const mongoReady_1 = require("../lib/mongoReady");
 const Content_1 = __importStar(require("../models/Content"));
 function isValidUrl(value) {
     try {
@@ -75,6 +76,8 @@ function validatePayload(payload) {
     return null;
 }
 async function getAdminContent(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const { page, section, published } = req.query;
     const filter = {};
     if (typeof page === "string" && page.trim())
@@ -89,6 +92,8 @@ async function getAdminContent(req, res) {
     res.json(rows);
 }
 async function getAdminContentById(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const row = await Content_1.default.findById(req.params.id);
     if (!row) {
         res.status(404).json({ message: "Content not found" });
@@ -97,6 +102,8 @@ async function getAdminContentById(req, res) {
     res.json(row);
 }
 async function createContent(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const payload = req.body;
     const validationError = validatePayload(payload);
     if (validationError) {
@@ -121,6 +128,8 @@ async function createContent(req, res) {
     res.status(201).json(created);
 }
 async function updateContent(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const payload = req.body;
     const existing = await Content_1.default.findById(req.params.id);
     if (!existing) {
@@ -162,6 +171,8 @@ async function updateContent(req, res) {
     res.json(existing);
 }
 async function deleteContent(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const removed = await Content_1.default.findByIdAndDelete(req.params.id);
     if (!removed) {
         res.status(404).json({ message: "Content not found" });
@@ -170,6 +181,8 @@ async function deleteContent(req, res) {
     res.status(204).send();
 }
 async function getPublicContent(req, res) {
+    if (!(0, mongoReady_1.ensureMongoForRead)(res))
+        return;
     const { page, section } = req.query;
     const filter = { isPublished: true };
     if (typeof page === "string" && page.trim())

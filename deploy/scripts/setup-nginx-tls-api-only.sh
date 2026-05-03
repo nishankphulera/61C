@@ -57,9 +57,10 @@ case "${ID:-}" in
     ;;
 esac
 
-echo "Validating and reloading Nginx ..."
+echo "Validating and starting Nginx (reload fails if nginx was never started) ..."
 sudo nginx -t
-sudo systemctl reload nginx
+sudo systemctl enable nginx 2>/dev/null || true
+sudo systemctl restart nginx
 
 echo "Requesting TLS certificate and letting Certbot patch Nginx for $API_HOST ..."
 sudo certbot --nginx -d "$API_HOST" --agree-tos --email "$EMAIL" --non-interactive --redirect
