@@ -5,15 +5,9 @@ import LenisRoot from "@/components/LenisRoot";
 import LoadingScreen from "@/components/LoadingScreen";
 import "./globals.css";
 
-const fiveYearsOld = localFont({
-  src: "../public/fonts/5yearsoldfont.ttf",
-  variable: "--font-five-years-old",
-  display: "swap",
-});
-
-const theBattleCont = localFont({
-  src: "../public/fonts/TheBattleCont.ttf",
-  variable: "--font-the-battle-cont",
+const figtree = localFont({
+  src: "../public/fonts/Figtree-VariableFont_wght.ttf",
+  variable: "--font-figtree",
   display: "swap",
 });
 
@@ -36,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fiveYearsOld.variable} ${theBattleCont.variable} antialiased`}
+        className={`${figtree.variable} antialiased`}
       >
         <LoadingScreen />
         <LenisRoot>

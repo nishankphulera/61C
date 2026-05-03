@@ -71,7 +71,7 @@ export default function MusicVideosSection({
       {/* Title */}
       <h2
         ref={titleRef}
-        className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left"
+        className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold"
       >
         {title}
       </h2>

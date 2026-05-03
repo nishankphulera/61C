@@ -174,18 +174,13 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Permanent_Marker } from "next/font/google";
-
-const navFont = Permanent_Marker({
-  weight: "400",
-  subsets: ["latin"],
-});
-
 const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
   { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
+  { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
+
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];
 
@@ -376,7 +371,7 @@ export default function Footer() {
         </div>
 
         {/* Right */}
-        <nav className={navFont.className}>
+        <nav className="font-sans">
           {LINKS.map(({ href, label, imageSrc }) => (
             <Link key={href} href={href}>
               <Image
@@ -384,7 +379,7 @@ export default function Footer() {
                 alt={label}
                 width={100}
                 height={100}
-                className="h-auto w-full object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
+                className="h-[80] w-full object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
               />
             </Link>
           ))}

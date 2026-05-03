@@ -12,7 +12,7 @@ const MAIL = "hello@61cstudios.com";
 const OFFSET_BLUE = "#2563eb";
 
 const OFFSET_INSTAGRAM =
-  process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ?? "https://www.instagram.com/offset.gurugram/";
+  process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ?? "https://www.instagram.com/offset_61c/";
 
 const SOCIAL = [
   {
@@ -169,48 +169,23 @@ export default function ContactUsComponent() {
 
           {/* Right: Mail + Offset */}
           <div className="flex flex-col gap-8 md:col-span-1 md:items-end md:text-right">
-            <div className="w-full max-w-sm md:ml-auto">
-              <p
-                className="text-sm font-medium uppercase tracking-wide text-[#F7E509] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] sm:text-base"
-                style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-              >
-                Mail us at
-              </p>
-              <a
-                href={`mailto:${MAIL}`}
-                className="mt-1 block text-lg font-bold tracking-tight text-[#F7E509] underline decoration-2 underline-offset-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] hover:opacity-90 sm:text-xl"
-                style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-              >
-                {MAIL}
-              </a>
-            </div>
+          <a
+            href="mailto:example@email.com"
+            className="group flex w-full max-w-sm flex-col gap-2 p-4 transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right"
+          >
+            <img src="/mailus.png" alt="Mail us" className="w-full h-full object-cover" />
+          </a>
+       
 
             <Link
               href={OFFSET_INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex w-full max-w-sm flex-col gap-2 border-2 p-4 transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right"
-              style={{
-                borderColor: OFFSET_BLUE,
-                backgroundColor: "rgba(0,0,0,0.35)",
-              }}
+              className="group flex w-full max-w-sm flex-col gap-2 2 p-4 transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right"
+              
             >
-              <span
-                className="text-[10px] uppercase tracking-[0.2em] text-[#F7E509] sm:text-xs"
-                style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-              >
-                A unit of 61C STUDIOS
-              </span>
-              <span className="text-4xl font-bold tracking-tight text-white transition-transform group-hover:scale-[1.02] sm:text-5xl">
-                offset.
-              </span>
-              <span
-                className="text-[10px] uppercase tracking-widest text-[#F7E509]/90 sm:text-xs"
-                style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-              >
-                F&amp;B · HOSPITALITY · PRODUCT
-              </span>
-              <span className="sr-only">Opens Offset on Instagram</span>
+             <img src="/offset.jpeg" alt="Offset" className="w-full h-full object-cover" />
+            
             </Link>
           </div>
         </div>
@@ -223,10 +198,7 @@ export default function ContactUsComponent() {
       <div
         className="mx-auto max-w-7xl px-6 md:px-10"
       >
-        <div
-          className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0"
-          style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-        >
+        <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
           <div className="md:border-r md:pr-10" style={{ borderColor: GREEN_ACCENT }}>
             <h2 className="text-xl font-bold uppercase tracking-wide md:text-2xl" style={{ color: YELLOW }}>
               UK studio
@@ -253,7 +225,6 @@ export default function ContactUsComponent() {
       <form
         onSubmit={onSubmit}
         className="mx-auto mt-10 max-w-4xl space-y-6 px-6 pb-16 md:mt-14 md:px-10"
-        style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
       >
         <div className="h-px w-full max-w-2xl" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
 

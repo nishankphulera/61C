@@ -130,10 +130,7 @@ export default function ContactView() {
                 <h1
                   id="contact-hero-heading"
                   className="relative z-10 max-w-[95%] text-[clamp(2.25rem,7vw,4.75rem)] font-bold uppercase leading-[1.02] tracking-wide text-balance drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]"
-                  style={{
-                    color: YELLOW,
-                    fontFamily: "var(--font-five-years-old), ui-sans-serif, system-ui, sans-serif",
-                  }}
+                  style={{ color: YELLOW }}
                 >
                   Let&apos;s connect
                 </h1>
@@ -159,7 +156,7 @@ export default function ContactView() {
               <div className="relative z-10 flex flex-col gap-10 border-t border-white/15 pt-10 lg:border-l lg:border-t-0 lg:border-white/25 lg:pl-12 lg:pt-0">
                 <p
                   className="text-base uppercase tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-lg"
-                  style={{ color: YELLOW, fontFamily: "var(--font-the-battle-cont), sans-serif" }}
+                  style={{ color: YELLOW }}
                 >
                   Mail us at{" "}
                   <a
@@ -176,19 +173,13 @@ export default function ContactView() {
                   rel="noopener noreferrer"
                   className="relative z-10 group flex max-w-md flex-col gap-2 rounded-lg border border-white/15 bg-black/35 p-4 backdrop-blur-[2px] transition-colors hover:border-[#F7E509]/50 hover:bg-black/45 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/70 lg:ml-auto lg:items-end lg:text-right"
                 >
-                  <span
-                    className="text-[10px] uppercase tracking-[0.25em] text-[#F7E509]/90 sm:text-xs"
-                    style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-                  >
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#F7E509]/90 sm:text-xs">
                     A unit of 61C STUDIOS
                   </span>
                   <span className="text-4xl font-bold tracking-tight text-white transition-transform group-hover:scale-[1.02] sm:text-5xl">
                     offset.
                   </span>
-                  <span
-                    className="text-[10px] uppercase tracking-widest text-white/75 sm:text-xs"
-                    style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-                  >
+                  <span className="text-[10px] uppercase tracking-widest text-white/75 sm:text-xs">
                     F&amp;B · HOSPITALITY · PRODUCT
                   </span>
                   <span className="sr-only">Opens Offset on Instagram</span>
@@ -199,10 +190,7 @@ export default function ContactView() {
         </section>
 
         {/* Studios */}
-        <div
-          className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0"
-          style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-        >
+        <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
             <div className="md:border-r md:pr-10" style={{ borderColor: GREEN_ACCENT }}>
               <h2 className="text-lg font-bold uppercase tracking-wide" style={{ color: YELLOW }}>
                 UK studio
@@ -226,11 +214,7 @@ export default function ContactView() {
         </div>
 
         {/* Form */}
-        <form
-          onSubmit={onSubmit}
-          className="mt-10 max-w-4xl space-y-6 md:mt-14"
-          style={{ fontFamily: "var(--font-the-battle-cont), sans-serif" }}
-        >
+        <form onSubmit={onSubmit} className="mt-10 max-w-4xl space-y-6 md:mt-14">
           <div className="h-px w-full max-w-2xl" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
 
           <div className="grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-8">

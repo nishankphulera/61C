@@ -30,7 +30,7 @@ export default function Header() {
         {/* Left: Logo — home */}
         <Link
           href="/"
-          className="relative z-[500] flex-shrink-0 cursor-pointer rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          className="relative z-[500] opacity-90 flex size-12 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[url('/circle_gradient.png')] bg-cover bg-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:size-20"
           aria-label="Home"
         >
           <Image
@@ -38,7 +38,7 @@ export default function Header() {
             alt="61C Logo"
             width={50}
             height={50}
-            className="w-10 h-10 md:w-20 md:h-16 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            className="size-8 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] md:size-14"
             priority
           />
         </Link>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import FilmsCard from "@/components/FilmsCard";
 import DigitalFilmsCard from "@/components/DigitalFilmsCard";
@@ -9,6 +10,9 @@ import MusicVideosSection from "@/components/MusicVideosSection";
 import Header from "@/components/Header";
 import FilmRollStrip from "@/components/FilmRollStrip";
 import Asset from "@/components/Asset";
+import filmsNavImg from "@/components/FILMS.png";
+import musicVideosNavImg from "@/components/MUSIC VIDEOS.png";
+import verticalFilmsNavImg from "@/components/VERTICAL FILMS.png";
 import { fetchPublicContent } from "@/lib/api";
 import { ContentItem } from "@/lib/content";
 
@@ -99,7 +103,10 @@ export default function FilmsPage() {
 
   useEffect(() => {
     fetchPublicContent({ page: "films" })
-      .then(setRows)
+      .then((data) => {
+        console.log("Fetched films data:", data);
+        setRows(data);
+      })
       .catch(() => setRows([]));
   }, []);
 
@@ -119,7 +126,6 @@ export default function FilmsPage() {
     const filtered = rows
       .filter((item) => item.section === section)
       .sort((a, b) => a.order - b.order);
-    if (!filtered.length && section === "films") return fallbackFilms;
     return filtered.map((item) => ({
       id: item._id,
       title: item.title,
@@ -151,12 +157,12 @@ export default function FilmsPage() {
   return (
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={5} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={10} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={70} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={100} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={70} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-100" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={10} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
+      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
 
       <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
      
@@ -168,27 +174,44 @@ export default function FilmsPage() {
         <button
           type="button"
           onClick={() => scrollToSection(filmsRef)}
-          className="absolute text-6xl md:text-7xl text-white-400 text-left px-0 md:px-0 top-160 left-104 rotate-[-30deg] z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          className="absolute top-160 left-104 z-50 rotate-[-30deg] cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
           aria-label="Scroll to Films section"
         >
-          Films
+          <Image
+            src={filmsNavImg}
+            alt=""
+            className="h-auto w-[min(52vw,11rem)] object-contain md:w-[min(32vw,15rem)]"
+            sizes="(max-width: 768px) 52vw, 15rem"
+            priority
+          />
         </button>
         <button
           type="button"
           onClick={() => scrollToSection(musicVideosRef)}
-          className="absolute text-5xl md:text-6xl text-white-400 text-left px-0 md:px-0 top-100 left-58 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          className="absolute top-100 left-58 z-50 cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
           aria-label="Scroll to Music Videos section"
         >
-          Music Videos
+          <Image
+            src={musicVideosNavImg}
+            alt=""
+            className="h-auto w-[min(62vw,13rem)] object-contain md:w-[min(38vw,17rem)]"
+            sizes="(max-width: 768px) 62vw, 17rem"
+          />
         </button>
         <button
           type="button"
           onClick={() => scrollToSection(digitalFilmsRef)}
-          className="absolute text-5xl md:text-6xl text-white-400 text-left pt-20 px-0 md:px-0 top-200 left-238 z-50 cursor-pointer hover:text-yellow-400 transition-colors"
+          className="absolute top-200 left-238 z-50 cursor-pointer border-0 bg-transparent p-0 pt-20 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
           aria-label="Scroll to Vertical Films section"
         >
-          Vertical Films
+          <Image
+            src={verticalFilmsNavImg}
+            alt=""
+            className="h-auto w-[min(58vw,12rem)] object-contain md:w-[min(36vw,16rem)]"
+            sizes="(max-width: 768px) 58vw, 16rem"
+          />
         </button>
+   
       </div>
 
       <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">
@@ -200,9 +223,10 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isFilmsInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0">
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0 font-bold">
             Films
           </h1>
+     
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-2 px-0 justify-items-start">
             {films.map((film) => (
               <FilmsCard
@@ -237,7 +261,7 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isDigitalFilmsInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0">
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0 font-bold">
             Vertical Films
           </h1>
           <motion.div

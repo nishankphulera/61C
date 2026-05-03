@@ -7,20 +7,16 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Permanent_Marker } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-
-const navFont = Permanent_Marker({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 const LINKS: { href: string; label: string; imageSrc: string }[] = [
   { href: "/", label: "Home", imageSrc: "/Homenav.png" },
   { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.png" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.png" },
+  { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
+
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.png" },
 ];
 
@@ -46,7 +42,7 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
         <DialogPanel
           id={panelId}
           transition
-          className={`${navFont.className} pointer-events-auto fixed top-16 right-6 z-[610] flex h-[min(82dvh,620px)] max-h-[calc(100dvh-5.5rem)] w-[min(calc(100vw-3rem),20rem)] min-h-[320px] flex-col overflow-hidden transition duration-200 ease-out data-closed:opacity-0 data-closed:translate-y-1 sm:right-10 sm:w-[min(calc(100vw-5rem),24rem)] md:top-20`}
+          className="pointer-events-auto fixed top-16 right-6 z-[610] flex h-[min(82dvh,620px)] max-h-[calc(100dvh-5.5rem)] w-[min(calc(100vw-3rem),20rem)] min-h-[320px] flex-col overflow-hidden font-sans transition duration-200 ease-out data-closed:opacity-0 data-closed:translate-y-1 sm:right-10 sm:w-[min(calc(100vw-5rem),24rem)] md:top-20"
         >
           <DialogTitle className="sr-only">Navigation menu</DialogTitle>
 
