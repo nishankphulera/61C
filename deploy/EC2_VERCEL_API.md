@@ -110,6 +110,22 @@ EC2_HOST=16.170.169.42 EC2_USER=ec2-user SSH_KEY_PATH=./61cweb.pem bash deploy/s
 
 ## 6) Vercel
 
+### Root directory (required for this repo)
+
+The Next.js app lives in **`client/`**, not the repository root. In Vercel:
+
+1. **Project → Settings → Build & Deployment → Root Directory** → set to **`client`** (no leading slash), then **Save**.
+2. Trigger a new deployment (**Redeploy**). Until Root Directory is `client`, production can keep serving an empty/wrong build even when Git is correct.
+
+Optional checks if updates still do not appear:
+
+- **Deployments** → open the latest build → confirm the **commit SHA** matches GitHub `main` and the build log shows `next build` under `client`.
+- **Redeploy** → turn **off** “Use existing Build Cache” once (forces a full rebuild).
+- **Settings → Git → Ignored Build Step** — use the default / **Automatic** unless you intentionally skip builds; a bad custom script can mark builds “successful” without shipping new UI.
+- **Domains** — the URL you open must be the same Vercel **project** you just fixed (Production vs a Preview URL).
+
+### Environment variables
+
 Project → Settings → Environment variables:
 
 - **`NEXT_PUBLIC_API_BASE_URL`** = `https://api.yourdomain.com` (no trailing slash)
