@@ -12,7 +12,7 @@ import EventsAndShows from "@/components/EventsAndShows";
 import Hospitality from "@/components/Hospitality";
 import { PhotographyLightboxProvider } from "@/components/PhotographyLightboxContext";
 import { fetchPublicContent } from "@/lib/api";
-import { ContentItem } from "@/lib/content";
+import { compareContentByOrder, ContentItem } from "@/lib/content";
 
 function extractYouTubeVideoId(url: string): string | null {
   try {
@@ -115,7 +115,7 @@ export default function PhotographyPage() {
   const imagesBySection = (section: string): string[] =>
     rows
       .filter((item) => item.section === section)
-      .sort((a, b) => a.order - b.order)
+      .sort(compareContentByOrder)
       .flatMap((item) => {
         const candidates = item.images?.length
           ? item.images

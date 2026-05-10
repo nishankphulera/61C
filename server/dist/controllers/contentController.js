@@ -32,6 +32,9 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAdminContent = getAdminContent;
 exports.getAdminContentById = getAdminContentById;
@@ -39,6 +42,7 @@ exports.createContent = createContent;
 exports.updateContent = updateContent;
 exports.deleteContent = deleteContent;
 exports.getPublicContent = getPublicContent;
+const mongoose_1 = __importDefault(require("mongoose"));
 const mongoReady_1 = require("../lib/mongoReady");
 const Content_1 = __importStar(require("../models/Content"));
 function isValidUrl(value) {
@@ -74,6 +78,28 @@ function validatePayload(payload) {
         return "All images must be valid URLs";
     }
     return null;
+}
+async function nextOrderForSection(page, section) {
+    const trimmed = section.trim();
+    const docs = await Content_1.default.find({ page, section: trimmed })
+        .sort({ order: -1 })
+        .limit(1)
+        .select("order")
+        .lean();
+    const max = docs[0]?.order;
+    return typeof max === "number" && Number.isFinite(max) ? max + 1 : 1;
+}
+/** Remove any content at this slot so the caller can occupy `order` (destructive replace). */
+async function clearOrderSlot(page, section, order, excludeId) {
+    const filter = {
+        page,
+        section: section.trim(),
+        order,
+    };
+    if (excludeId && mongoose_1.default.Types.ObjectId.isValid(excludeId)) {
+        filter._id = { $ne: new mongoose_1.default.Types.ObjectId(excludeId) };
+    }
+    await Content_1.default.deleteMany(filter);
 }
 async function getAdminContent(req, res) {
     if (!(0, mongoReady_1.ensureMongoForRead)(res))
@@ -111,9 +137,17 @@ async function createContent(req, res) {
         return;
     }
     const youtubeUrl = payload.youtubeUrl?.trim() || payload.videoUrl?.trim() || "";
+    const sectionTrimmed = payload.section.trim();
+    let order = Number.isFinite(payload.order) ? Number(payload.order) : 0;
+    if (!Number.isFinite(order) || order <= 0) {
+        order = await nextOrderForSection(payload.page, sectionTrimmed);
+    }
+    else {
+        await clearOrderSlot(payload.page, sectionTrimmed, order);
+    }
     const created = await Content_1.default.create({
         page: payload.page,
-        section: payload.section.trim(),
+        section: sectionTrimmed,
         title: payload.title.trim(),
         description: payload.description?.trim() || "",
         mediaType: payload.mediaType,
@@ -121,7 +155,7 @@ async function createContent(req, res) {
         youtubeUrl,
         videoUrl: youtubeUrl,
         images: payload.images ?? [],
-        order: Number.isFinite(payload.order) ? Number(payload.order) : 0,
+        order,
         isPublished: payload.isPublished ?? true,
         meta: payload.meta ?? {},
     });
@@ -155,8 +189,17 @@ async function updateContent(req, res) {
         res.status(400).json({ message: validationError });
         return;
     }
+    const sectionTrimmed = merged.section.trim();
+    const pageStr = merged.page;
+    let nextOrder = Number.isFinite(merged.order) ? Number(merged.order) : existing.order;
+    if (!Number.isFinite(nextOrder) || nextOrder <= 0) {
+        nextOrder = await nextOrderForSection(pageStr, sectionTrimmed);
+    }
+    else {
+        await clearOrderSlot(pageStr, sectionTrimmed, nextOrder, existing._id.toString());
+    }
     existing.page = merged.page;
-    existing.section = merged.section.trim();
+    existing.section = sectionTrimmed;
     existing.title = merged.title.trim();
     existing.description = merged.description?.trim() || "";
     existing.mediaType = merged.mediaType;
@@ -164,7 +207,7 @@ async function updateContent(req, res) {
     existing.youtubeUrl = merged.youtubeUrl?.trim() || merged.videoUrl?.trim() || "";
     existing.videoUrl = existing.youtubeUrl;
     existing.images = merged.images ?? [];
-    existing.order = Number.isFinite(merged.order) ? Number(merged.order) : 0;
+    existing.order = nextOrder;
     existing.isPublished = merged.isPublished ?? true;
     existing.meta = merged.meta ?? {};
     await existing.save();

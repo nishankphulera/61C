@@ -2,9 +2,11 @@
 
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+import { usePathname } from "next/navigation";
 import {
   createContext,
   useCallback,
+  useEffect,
   useContext,
   useLayoutEffect,
   useMemo,
@@ -31,6 +33,7 @@ export function useLenis(): LenisContextValue {
 }
 
 export default function LenisRoot({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -95,6 +98,12 @@ export default function LenisRoot({ children }: { children: ReactNode }) {
     }),
     [lenis, prefersReducedMotion, resize]
   );
+
+  useEffect(() => {
+    // Ensure every route opens from the top, regardless of previous scroll state.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    lenis?.scrollTo(0, { immediate: true });
+  }, [pathname, lenis]);
 
   return (
     <LenisContext.Provider value={value}>{children}</LenisContext.Provider>

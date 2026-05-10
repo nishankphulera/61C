@@ -1,42 +1,57 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const MIN_DISPLAY_MS = 1800;
 const MAX_DISPLAY_MS = 8000;
+const MAIN_LOADER_STATE_ATTR = "data-main-loader-state";
+const MAIN_LOADER_DONE_EVENT = "main-loader:done";
 
 export default function LoadingScreen() {
+  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
+    document.documentElement.setAttribute(MAIN_LOADER_STATE_ATTR, "loading");
+    setIsMounted(true);
+    setIsLoading(true);
+
     const start = performance.now();
-    let removed = false;
+    let finished = false;
 
     const finish = () => {
-      if (removed) return;
-      removed = true;
+      if (finished) return;
+      finished = true;
       const elapsed = performance.now() - start;
       const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
       window.setTimeout(() => setIsLoading(false), remaining);
     };
 
+    const onWindowLoad = () => finish();
     if (document.readyState === "complete") {
       finish();
     } else {
-      window.addEventListener("load", finish, { once: true });
+      window.addEventListener("load", onWindowLoad, { once: true });
     }
 
     const fallback = window.setTimeout(finish, MAX_DISPLAY_MS);
 
     return () => {
-      window.removeEventListener("load", finish);
+      window.removeEventListener("load", onWindowLoad);
       window.clearTimeout(fallback);
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
-    if (!isLoading) return;
+    if (!isLoading) {
+      document.documentElement.setAttribute(MAIN_LOADER_STATE_ATTR, "done");
+      window.dispatchEvent(new CustomEvent(MAIN_LOADER_DONE_EVENT));
+      return;
+    }
+
+    document.documentElement.setAttribute(MAIN_LOADER_STATE_ATTR, "loading");
     const prevHtml = document.documentElement.style.overflow;
     const prevBody = document.body.style.overflow;
     document.documentElement.style.overflow = "hidden";

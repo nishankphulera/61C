@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import FilmsCard from "@/components/FilmsCard";
 import DigitalFilmsCard from "@/components/DigitalFilmsCard";
 import FilmsGrid from "@/components/FilmsGrid";
@@ -14,7 +14,7 @@ import filmsNavImg from "@/components/FILMS.png";
 import musicVideosNavImg from "@/components/MUSIC VIDEOS.png";
 import verticalFilmsNavImg from "@/components/VERTICAL FILMS.png";
 import { fetchPublicContent } from "@/lib/api";
-import { ContentItem } from "@/lib/content";
+import { compareContentByOrder, ContentItem } from "@/lib/content";
 
 type FilmCard = { id: string; title: string; imageSrc: string; youtubeUrl: string };
 type MusicCard = { id: string; imageSrc: string; youtubeUrl: string };
@@ -27,6 +27,8 @@ const fallbackFilms: FilmCard[] = [
 const defaultYoutubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const fallbackFilmImage = "https://picsum.photos/800/450?random=88";
 const fallbackMusicImage = "https://picsum.photos/800/450?random=89";
+const MAIN_LOADER_STATE_ATTR = "data-main-loader-state";
+const MAIN_LOADER_DONE_EVENT = "main-loader:done";
 
 function extractYouTubeVideoId(url: string): string | null {
   try {
@@ -100,14 +102,27 @@ export default function FilmsPage() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
   const [rows, setRows] = useState<ContentItem[]>([]);
+  const [isSectionsLoading, setIsSectionsLoading] = useState(true);
+  const [isMainLoaderDone, setIsMainLoaderDone] = useState(false);
 
   useEffect(() => {
+    setIsSectionsLoading(true);
     fetchPublicContent({ page: "films" })
       .then((data) => {
         console.log("Fetched films data:", data);
         setRows(data);
       })
-      .catch(() => setRows([]));
+      .catch(() => setRows([]))
+      .finally(() => setIsSectionsLoading(false));
+  }, []);
+
+  useEffect(() => {
+    const isDone = document.documentElement.getAttribute(MAIN_LOADER_STATE_ATTR) === "done";
+    setIsMainLoaderDone(isDone);
+
+    const onMainLoaderDone = () => setIsMainLoaderDone(true);
+    window.addEventListener(MAIN_LOADER_DONE_EVENT, onMainLoaderDone);
+    return () => window.removeEventListener(MAIN_LOADER_DONE_EVENT, onMainLoaderDone);
   }, []);
 
   // Animation variants
@@ -125,7 +140,7 @@ export default function FilmsPage() {
   const mapFilmRows = (section: string): FilmCard[] => {
     const filtered = rows
       .filter((item) => item.section === section)
-      .sort((a, b) => a.order - b.order);
+      .sort(compareContentByOrder);
     return filtered.map((item) => ({
       id: item._id,
       title: item.title,
@@ -136,23 +151,35 @@ export default function FilmsPage() {
   const mapMusicRows = (): MusicCard[] => {
     const filtered = rows
       .filter((item) => item.section === "music-videos")
-      .sort((a, b) => a.order - b.order);
+      .sort(compareContentByOrder);
     return filtered.map((item) => ({
       id: item._id,
       imageSrc: resolveCardImage(item, fallbackMusicImage),
       youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
     }));
   };
-  const films = mapFilmRows("films");
-  const digitalFilms = mapFilmRows("vertical-films");
-  const gridFilms = mapFilmRows("more-films");
-  const musicVideos = mapMusicRows();
+  const films = useMemo(() => mapFilmRows("films"), [rows]);
+  const digitalFilms = useMemo(() => mapFilmRows("vertical-films"), [rows]);
+  const gridFilms = useMemo(() => mapFilmRows("more-films"), [rows]);
+  const musicVideos = useMemo(() => mapMusicRows(), [rows]);
 
   const filmRollGifs = ["/HomePage.gif", "/HomePage.gif", "/HomePage.gif"] as const;
 
   const scrollToSection = (sectionRef: React.RefObject<HTMLElement | null>) => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const sectionLoader = (
+    <div className="flex w-full items-center justify-center py-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/Final.gif"
+        alt="Loading section content"
+        className="h-32 w-32 object-contain md:h-40 md:w-40"
+      />
+    </div>
+  );
+  const shouldShowSectionLoader = isMainLoaderDone && isSectionsLoading;
 
   return (
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
@@ -227,17 +254,21 @@ export default function FilmsPage() {
             Films
           </h1>
      
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-2 px-0 justify-items-start">
-            {films.map((film) => (
-              <FilmsCard
-                key={film.id}
-                id={film.id}
-                title={film.title}
-                imageSrc={film.imageSrc}
-                youtubeUrl={film.youtubeUrl}
-              />
-            ))}
-          </div>
+          {shouldShowSectionLoader ? (
+            sectionLoader
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-2 px-0 justify-items-start">
+              {films.map((film) => (
+                <FilmsCard
+                  key={film.id}
+                  id={film.id}
+                  title={film.title}
+                  imageSrc={film.imageSrc}
+                  youtubeUrl={film.youtubeUrl}
+                />
+              ))}
+            </div>
+          )}
         </motion.section>
 
     
@@ -250,7 +281,11 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isMusicVideosInView ? "visible" : "hidden"}
         >
-          <MusicVideosSection title="Music Videos" videos={musicVideos.length ? musicVideos : []} />
+          {shouldShowSectionLoader ? (
+            sectionLoader
+          ) : (
+            <MusicVideosSection title="Music Videos" videos={musicVideos.length ? musicVideos : []} />
+          )}
         </motion.div>
 
         {/* Digital Films Section — wider breakout past container padding */}
@@ -264,25 +299,28 @@ export default function FilmsPage() {
           <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0 font-bold">
             Vertical Films
           </h1>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-5"
-            style={{ y: smoothY }}
-          >
-            
-            <div className="md:col-span-5">
-              <div className="grid grid-cols-4 gap-3 md:gap-4">
-                {digitalFilms.map((film) => (
-                  <DigitalFilmsCard
-                    key={film.id}
-                    id={film.id}
-                    title={film.title}
-                    imageSrc={film.imageSrc}
-                    youtubeUrl={film.youtubeUrl}
-                  />
-                ))}
+          {shouldShowSectionLoader ? (
+            sectionLoader
+          ) : (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-5"
+              style={{ y: smoothY }}
+            >
+              <div className="md:col-span-5">
+                <div className="grid grid-cols-4 gap-3 md:gap-4">
+                  {digitalFilms.map((film) => (
+                    <DigitalFilmsCard
+                      key={film.id}
+                      id={film.id}
+                      title={film.title}
+                      imageSrc={film.imageSrc}
+                      youtubeUrl={film.youtubeUrl}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
         </motion.section>
 
 

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import { ensureMongoForRead } from "../lib/mongoReady";
 import Content, { MEDIA_TYPES, PAGES } from "../models/Content";
 
@@ -52,6 +53,35 @@ function validatePayload(payload: ContentPayload): string | null {
   return null;
 }
 
+async function nextOrderForSection(page: string, section: string): Promise<number> {
+  const trimmed = section.trim();
+  const docs = await Content.find({ page, section: trimmed })
+    .sort({ order: -1 })
+    .limit(1)
+    .select("order")
+    .lean();
+  const max = docs[0]?.order;
+  return typeof max === "number" && Number.isFinite(max) ? max + 1 : 1;
+}
+
+/** Remove any content at this slot so the caller can occupy `order` (destructive replace). */
+async function clearOrderSlot(
+  page: string,
+  section: string,
+  order: number,
+  excludeId?: string
+): Promise<void> {
+  const filter: Record<string, unknown> = {
+    page,
+    section: section.trim(),
+    order,
+  };
+  if (excludeId && mongoose.Types.ObjectId.isValid(excludeId)) {
+    filter._id = { $ne: new mongoose.Types.ObjectId(excludeId) };
+  }
+  await Content.deleteMany(filter);
+}
+
 export async function getAdminContent(req: Request, res: Response): Promise<void> {
   if (!ensureMongoForRead(res)) return;
   const { page, section, published } = req.query;
@@ -86,9 +116,17 @@ export async function createContent(req: Request, res: Response): Promise<void> 
   }
 
   const youtubeUrl = payload.youtubeUrl?.trim() || payload.videoUrl?.trim() || "";
+  const sectionTrimmed = payload.section.trim();
+  let order = Number.isFinite(payload.order as number) ? Number(payload.order) : 0;
+  if (!Number.isFinite(order) || order <= 0) {
+    order = await nextOrderForSection(payload.page, sectionTrimmed);
+  } else {
+    await clearOrderSlot(payload.page, sectionTrimmed, order);
+  }
+
   const created = await Content.create({
     page: payload.page,
-    section: payload.section.trim(),
+    section: sectionTrimmed,
     title: payload.title.trim(),
     description: payload.description?.trim() || "",
     mediaType: payload.mediaType,
@@ -96,7 +134,7 @@ export async function createContent(req: Request, res: Response): Promise<void> 
     youtubeUrl,
     videoUrl: youtubeUrl,
     images: payload.images ?? [],
-    order: Number.isFinite(payload.order) ? Number(payload.order) : 0,
+    order,
     isPublished: payload.isPublished ?? true,
     meta: payload.meta ?? {},
   });
@@ -134,8 +172,17 @@ export async function updateContent(req: Request, res: Response): Promise<void> 
     return;
   }
 
+  const sectionTrimmed = merged.section.trim();
+  const pageStr = merged.page as string;
+  let nextOrder = Number.isFinite(merged.order as number) ? Number(merged.order) : existing.order;
+  if (!Number.isFinite(nextOrder) || nextOrder <= 0) {
+    nextOrder = await nextOrderForSection(pageStr, sectionTrimmed);
+  } else {
+    await clearOrderSlot(pageStr, sectionTrimmed, nextOrder, existing._id.toString());
+  }
+
   existing.page = merged.page as (typeof PAGES)[number];
-  existing.section = merged.section.trim();
+  existing.section = sectionTrimmed;
   existing.title = merged.title.trim();
   existing.description = merged.description?.trim() || "";
   existing.mediaType = merged.mediaType as (typeof MEDIA_TYPES)[number];
@@ -143,7 +190,7 @@ export async function updateContent(req: Request, res: Response): Promise<void> 
   existing.youtubeUrl = merged.youtubeUrl?.trim() || merged.videoUrl?.trim() || "";
   existing.videoUrl = existing.youtubeUrl;
   existing.images = merged.images ?? [];
-  existing.order = Number.isFinite(merged.order) ? Number(merged.order) : 0;
+  existing.order = nextOrder;
   existing.isPublished = merged.isPublished ?? true;
   existing.meta = merged.meta ?? {};
 

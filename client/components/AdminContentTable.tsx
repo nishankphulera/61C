@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo } from "react";
 import { ContentItem } from "@/lib/content";
 
 type Props = {
@@ -8,7 +9,24 @@ type Props = {
   onDelete: (id: string) => Promise<void>;
 };
 
+function orderDupKey(row: ContentItem): string {
+  return `${row.page}\0${row.section}\0${row.order}`;
+}
+
 export default function AdminContentTable({ rows, onDelete }: Props) {
+  const duplicateOrderKeys = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const row of rows) {
+      const key = orderDupKey(row);
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    const dups = new Set<string>();
+    counts.forEach((count, key) => {
+      if (count > 1) dups.add(key);
+    });
+    return dups;
+  }, [rows]);
+
   return (
     <div className="overflow-x-auto rounded-xl border border-white/10">
       <table className="min-w-full bg-black/50 text-sm">
@@ -30,7 +48,22 @@ export default function AdminContentTable({ rows, onDelete }: Props) {
               <td className="px-3 py-2">{row.page}</td>
               <td className="px-3 py-2">{row.section}</td>
               <td className="px-3 py-2">{row.mediaType}</td>
-              <td className="px-3 py-2">{row.order}</td>
+              <td className="px-3 py-2">
+                <span
+                  className={
+                    duplicateOrderKeys.has(orderDupKey(row))
+                      ? "font-medium text-amber-400"
+                      : undefined
+                  }
+                  title={
+                    duplicateOrderKeys.has(orderDupKey(row))
+                      ? "Duplicate order in this page + section — edit to use unique values"
+                      : undefined
+                  }
+                >
+                  {row.order}
+                </span>
+              </td>
               <td className="px-3 py-2">{row.isPublished ? "Yes" : "No"}</td>
               <td className="px-3 py-2">
                 <div className="flex items-center gap-2">

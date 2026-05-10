@@ -3,7 +3,7 @@
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import { fetchPublicContent } from "@/lib/api";
-import { ContentItem } from "@/lib/content";
+import { compareContentByOrder, ContentItem } from "@/lib/content";
 import Image from "next/image";
 
 export default function DesignPage() {
@@ -11,7 +11,7 @@ export default function DesignPage() {
 
   useEffect(() => {
     fetchPublicContent({ page: "design", section: "design" })
-      .then((rows) => setItems(rows.sort((a, b) => a.order - b.order)))
+      .then((rows) => setItems([...rows].sort(compareContentByOrder)))
       .catch(() => setItems([]));
   }, []);
 

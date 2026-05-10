@@ -176,7 +176,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
-  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
+  // { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
   { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
@@ -211,13 +211,18 @@ export default function Footer() {
   const shutterRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const footer = footerRef.current;
-    const shutter = shutterRef.current;
-    if (!footer || !shutter) return;
+    if (pathname === "/contact") return;
 
     let ticking = false;
 
     const updateShutter = () => {
+      const footer = footerRef.current;
+      const shutter = shutterRef.current;
+      if (!footer || !shutter) {
+        ticking = false;
+        return;
+      }
+
       const rect = footer.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
@@ -254,7 +259,7 @@ export default function Footer() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateShutter);
     };
-  }, []);
+  }, [pathname]);
 
   if (pathname === "/contact") return null;
 
@@ -379,7 +384,7 @@ export default function Footer() {
                 alt={label}
                 width={100}
                 height={100}
-                className="h-[80] w-full object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
+                className="h-auto w-full object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
               />
             </Link>
           ))}

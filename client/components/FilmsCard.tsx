@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface FilmsCardProps {
   id: string;
@@ -22,6 +22,11 @@ export default function FilmsCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const playIconRef = useRef<HTMLDivElement>(null);
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
+
+  useEffect(() => {
+    setImageStatus("loading");
+  }, [imageSrc]);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -171,12 +176,34 @@ export default function FilmsCard({
       onClick={handleClick}
     >
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
+        {imageStatus !== "loaded" ? (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/70">
+            {imageStatus === "loading" ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/Final.gif"
+                  alt="Loading thumbnail"
+                  className="h-24 w-24 object-contain md:h-32 md:w-32"
+                />
+              </>
+            ) : (
+              <span className="px-4 text-center text-sm font-medium text-white/80 md:text-base">
+                Thumbnail unavailable
+              </span>
+            )}
+          </div>
+        ) : null}
         <Image
           src={imageSrc}
           alt={title}
           fill
-          className="object-cover"
+          className={`object-cover transition-opacity duration-300 ${
+            imageStatus === "loaded" ? "opacity-100" : "opacity-0"
+          }`}
           sizes="100vw"
+          onLoad={() => setImageStatus("loaded")}
+          onError={() => setImageStatus("error")}
         />
       </div>
       

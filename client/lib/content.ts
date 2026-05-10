@@ -42,3 +42,10 @@ export function getSectionOptionsByPage(page: ContentPage): readonly string[] {
   if (page === "photography") return PHOTOGRAPHY_SECTIONS;
   return DESIGN_SECTIONS;
 }
+
+/** Ascending by `order` (1 first), stable tie-break for legacy duplicates. */
+export function compareContentByOrder(a: ContentItem, b: ContentItem): number {
+  const byOrder = a.order - b.order;
+  if (byOrder !== 0) return byOrder;
+  return String(a._id).localeCompare(String(b._id));
+}

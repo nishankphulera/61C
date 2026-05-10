@@ -38,7 +38,7 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
     thumbnailUrl: initial?.thumbnailUrl || "",
     youtubeUrl: initial?.youtubeUrl || initial?.videoUrl || "",
     imagesText: initial?.images?.join("\n") || "",
-    order: initial?.order || 0,
+    order: initial?.order ?? 0,
     isPublished: initial?.isPublished ?? true,
   });
   const [submitting, setSubmitting] = useState(false);
@@ -181,10 +181,17 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
           <span>Order</span>
           <input
             type="number"
+            min={0}
+            step={1}
             value={form.order}
             onChange={(e) => setForm((prev) => ({ ...prev, order: Number(e.target.value) }))}
             className="w-full rounded-md bg-black px-3 py-2"
           />
+          <span className="block text-xs text-white/60">
+            1 = first in this section (row-major in grids). Use 0 to auto-place as last (next free slot). If you set
+            an order that another item already uses, that existing item is permanently removed (replaced) so only
+            your row keeps that slot — on both new and edit.
+          </span>
         </label>
         <label className="mt-6 inline-flex items-center gap-2 text-sm">
           <input
