@@ -15,9 +15,17 @@ interface ProductImage {
 
 type ProductFAndBProps = {
   images?: string[];
+  /** Section title (e.g. F&B vs Product). */
+  heading?: string;
+  /** Lightbox image description. */
+  lightboxAlt?: string;
 };
 
-export default function ProductFAndB({ images }: ProductFAndBProps) {
+export default function ProductFAndB({
+  images,
+  heading = "Product F&B",
+  lightboxAlt = "Product F&B",
+}: ProductFAndBProps) {
   const { open } = usePhotographyLightbox();
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -32,7 +40,7 @@ export default function ProductFAndB({ images }: ProductFAndBProps) {
       : fallbackImages;
 
   const handleImageClick = (imageSrc: string) => {
-    open(imageSrc, { alt: "Product F&B" });
+    open(imageSrc, { alt: lightboxAlt });
   };
 
   // Scroll: title + 2×6 grid cards (staggered)
@@ -91,7 +99,7 @@ export default function ProductFAndB({ images }: ProductFAndBProps) {
       <section ref={sectionRef} className="mb-16 -mx-4 md:-mx-8">
         {/* Title */}
         <h2 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-4 md:px-8">
-          Product F&B
+          {heading}
         </h2>
 
         {/* 2 rows × 6 columns on md+; smaller breakpoints use fewer columns */}
@@ -100,6 +108,7 @@ export default function ProductFAndB({ images }: ProductFAndBProps) {
             <ProductImageCard
               key={image.id}
               image={image}
+              imageAltPrefix={lightboxAlt}
               onClick={() => handleImageClick(image.imageSrc)}
             />
           ))}
@@ -110,10 +119,11 @@ export default function ProductFAndB({ images }: ProductFAndBProps) {
 
 interface ProductImageCardProps {
   image: ProductImage;
+  imageAltPrefix: string;
   onClick: () => void;
 }
 
-function ProductImageCard({ image, onClick }: ProductImageCardProps) {
+function ProductImageCard({ image, imageAltPrefix, onClick }: ProductImageCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -225,7 +235,7 @@ function ProductImageCard({ image, onClick }: ProductImageCardProps) {
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
         <Image
           src={image.imageSrc}
-          alt={`Product ${image.id}`}
+          alt={`${imageAltPrefix} ${image.id}`}
           fill
           className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 16vw"

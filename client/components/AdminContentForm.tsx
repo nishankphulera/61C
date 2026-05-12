@@ -31,7 +31,7 @@ type Props = {
 export default function AdminContentForm({ initial, onSubmit, submitLabel }: Props) {
   const [form, setForm] = useState<FormState>({
     page: initial?.page || "films",
-    section: initial?.section || "films",
+    section: initial?.section || "music-videos",
     title: initial?.title || "",
     description: initial?.description || "",
     mediaType: initial?.mediaType || "image",

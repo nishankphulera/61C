@@ -2,7 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
+// Append translateZ(0) to whatever transform framer-motion generates so the
+// card lives on its own compositor layer. Static GIFs inside otherwise force
+// the parent layer to repaint on every animated frame.
+const appendTranslateZ = (_: unknown, transform: string) =>
+  `${transform} translateZ(0)`;
 
 interface CardProps {
   title?: string;
@@ -26,7 +32,7 @@ interface CardProps {
   layout?: "overlay" | "stacked";
 }
 
-export default function Card({
+function CardImpl({
   title = "Navigation Card",
   imageSrc,
   onClick,
@@ -39,6 +45,38 @@ export default function Card({
   reverse = false,
 }: CardProps) {
   const isStacked = layout === "stacked";
+  const hostRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const isVideo = /\.(mp4|webm|mov)($|\?)/i.test(imageSrc);
+
+  // Pause the underlying <video> while the card is offscreen so it doesn't
+  // burn decoder cycles when the user is reading other sections.
+  useEffect(() => {
+    if (!isVideo) return;
+    const node = videoRef.current;
+    const host = hostRef.current;
+    if (!node || !host) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          const playPromise = node.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {
+              /* autoplay can reject silently; nothing to do */
+            });
+          }
+        } else if (!node.paused) {
+          node.pause();
+        }
+      },
+      { rootMargin: "200px 0px 200px 0px", threshold: 0 }
+    );
+
+    observer.observe(host);
+    return () => observer.disconnect();
+  }, [isVideo]);
 
   const style: React.CSSProperties = isStacked
     ? {
@@ -65,11 +103,15 @@ export default function Card({
 
   return (
     <motion.div
+      ref={hostRef}
       className={`cursor-pointer ${className}`}
       style={{
         ...style,
         rotate,
+        willChange: "transform",
+        backfaceVisibility: "hidden",
       }}
+      transformTemplate={appendTranslateZ}
       onClick={onClick}
       whileHover={{
         scale: 1.05,
@@ -97,16 +139,20 @@ export default function Card({
             const stem = videoMatch[1];
             return (
               <video
+                ref={videoRef}
                 autoPlay
                 muted
                 loop
                 playsInline
+                disableRemotePlayback
                 preload="metadata"
                 aria-label={title}
                 className={mediaClass}
               >
-                <source src={`${stem}.webm`} type="video/webm" />
+                {/* MP4 first — universally supported and present for all
+                    of our authored variants; avoids 404s for missing .webm. */}
                 <source src={`${stem}.mp4`} type="video/mp4" />
+                <source src={`${stem}.webm`} type="video/webm" />
               </video>
             );
           }
@@ -118,6 +164,8 @@ export default function Card({
               height={1200}
               sizes="(min-width: 1024px) 56rem, 90vw"
               unoptimized={/\.gif($|\?)/i.test(imageSrc)}
+              loading="lazy"
+              decoding="async"
               draggable={false}
               className={mediaClass}
             />
@@ -127,3 +175,8 @@ export default function Card({
     </motion.div>
   );
 }
+
+const Card = React.memo(CardImpl);
+Card.displayName = "Card";
+
+export default Card;

@@ -38,7 +38,7 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
         className="fixed inset-0 z-[600] bg-black/60 transition duration-200 ease-out data-closed:opacity-0"
       />
 
-      <div className="pointer-events-none fixed inset-0 z-[610] overflow-y-auto">
+      <div className="pointer-events-none fixed inset-0 z-[610] overflow-y-auto overflow-x-hidden">
         <DialogPanel
           id={panelId}
           transition
@@ -56,25 +56,27 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
           </button>
 
           <nav
-            className="flex h-full min-h-0 flex-1 flex-col "
+            data-lenis-prevent
+            className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-14 pb-[max(1rem,env(safe-area-inset-bottom))]"
             aria-label="Primary"
           >
-            {LINKS.map(({ href, label, imageSrc }) => (
-              <Link
-                key={href}
-                href={href}
-                
-                // className="group relative flex min-h-0 flex-1 items-center justify-center bg-[#0000FF] p-2 transition-colors hover:bg-[#0000cc] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
-              >
-                <Image
-                  src={imageSrc}
-                  alt={label}
-                  width={100}
-                  height={100}
-                  className="w-full object-cover object-center drop-shadow-sm transition-transform group-hover:scale-[1.02]"
-                />
-              </Link>
-            ))}
+            <div className="flex w-full flex-col">
+              {LINKS.map(({ href, label, imageSrc }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="group relative block w-full min-w-0 shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+                >
+                  <Image
+                    src={imageSrc}
+                    alt={label}
+                    width={100}
+                    height={100}
+                    className="w-full max-w-full object-cover object-center drop-shadow-sm transition-transform group-hover:scale-[1.02]"
+                  />
+                </Link>
+              ))}
+            </div>
           </nav>
         </DialogPanel>
       </div>

@@ -16,10 +16,18 @@ export default function Header() {
   const navPanelId = useId();
 
   useEffect(() => {
+    // Track the last computed value locally so we only call setState when the
+    // threshold is actually crossed — calling setState on every scroll event
+    // (even with bailout) still triggers React reconciliation work.
+    let current = window.scrollY > TITLE_HIDE_SCROLL_PX;
+    setTitleHidden(current);
     const onScroll = () => {
-      setTitleHidden(window.scrollY > TITLE_HIDE_SCROLL_PX);
+      const next = window.scrollY > TITLE_HIDE_SCROLL_PX;
+      if (next !== current) {
+        current = next;
+        setTitleHidden(next);
+      }
     };
-    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

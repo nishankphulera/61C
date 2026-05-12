@@ -10,6 +10,7 @@ import ArtistProfiles from "@/components/ArtistProfiles";
 import Fashion from "@/components/Fashion";
 import EventsAndShows from "@/components/EventsAndShows";
 import Hospitality from "@/components/Hospitality";
+import PhotographySpaces from "@/components/PhotographySpaces";
 import { PhotographyLightboxProvider } from "@/components/PhotographyLightboxContext";
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
@@ -60,40 +61,36 @@ function normalizeImageUrl(url: string, item: ContentItem): string | null {
 }
 
 export default function PhotographyPage() {
-  const productFAndBRef = useRef<HTMLDivElement>(null);
-  const automobileRef = useRef<HTMLDivElement>(null);
-  const artistProfilesRef = useRef<HTMLDivElement>(null);
-  const fashionRef = useRef<HTMLDivElement>(null);
-  const eventsRef = useRef<HTMLDivElement>(null);
+  const fnbRef = useRef<HTMLDivElement>(null);
+  const productRef = useRef<HTMLDivElement>(null);
   const hospitalityRef = useRef<HTMLDivElement>(null);
+  const spacesRef = useRef<HTMLDivElement>(null);
+  const fashionRef = useRef<HTMLDivElement>(null);
+  const automobilesRef = useRef<HTMLDivElement>(null);
+  const artistProfilesRef = useRef<HTMLDivElement>(null);
+  const eventsRef = useRef<HTMLDivElement>(null);
 
-  // In view hooks for scroll animations
-  const isProductInView = useInView(productFAndBRef, { once: true, amount: 0.2 });
-  const isAutomobileInView = useInView(automobileRef, { once: true, amount: 0.2 });
-  // Stacked pair (Fashion → Artist): band-based detection so neither fires on edge-peeks;
-  // Artist uses a stricter band + higher amount so it reveals after Fashion is on-screen.
+  const isFnbInView = useInView(fnbRef, { once: true, amount: 0.2 });
+  const isProductInView = useInView(productRef, { once: true, amount: 0.2 });
+  const isHospitalityInView = useInView(hospitalityRef, { once: true, amount: 0.2 });
+  const isSpacesInView = useInView(spacesRef, { once: true, amount: 0.2 });
   const isFashionInView = useInView(fashionRef, {
     once: true,
     amount: 0.22,
     margin: "-12% 0px -30% 0px",
   });
+  const isAutomobilesInView = useInView(automobilesRef, { once: true, amount: 0.2 });
   const isArtistInView = useInView(artistProfilesRef, {
     once: true,
     amount: 0.32,
     margin: "-10% 0px -36% 0px",
   });
-  // Tuned for Events sitting mid-page: animate when block crosses the “readable” band (not edge-peeks)
   const isEventsInView = useInView(eventsRef, {
     once: true,
     amount: 0.15,
     margin: "-14% 0px -32% 0px",
   });
-  const isHospitalityInView = useInView(hospitalityRef, {
-    once: true,
-    amount: 0.2,
-  });
 
-  // Animation variants
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -127,86 +124,108 @@ export default function PhotographyPage() {
 
   return (
     <PhotographyLightboxProvider>
-    <main className="min-h-screen w-full bg-black pt-[4.5rem]">
-      <Header />
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <PhotographyCategoryAccordion className="mb-12 md:mb-16" />
+      <main className="min-h-screen w-full bg-black pt-[4.5rem]">
+        <Header />
+        <div className="container mx-auto px-4 py-8 md:py-12">
+          <PhotographyCategoryAccordion className="mb-12 md:mb-16" />
 
-        {/* Photography Section */}
-        {/* <PhotographySection /> */}
+          <motion.div
+            id="photography-fnb"
+            ref={fnbRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isFnbInView ? "visible" : "hidden"}
+          >
+            <ProductFAndB
+              images={imagesBySection("fnb")}
+              heading="F&B"
+              lightboxAlt="F&B"
+            />
+          </motion.div>
 
-        {/* Product F&B Section */}
-        <motion.div
-          id="photography-product-fnb"
-          ref={productFAndBRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isProductInView ? "visible" : "hidden"}
-        >
-          <ProductFAndB images={imagesBySection("product-fnb")} />
-        </motion.div>
+          <motion.div
+            id="photography-product"
+            ref={productRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isProductInView ? "visible" : "hidden"}
+          >
+            <ProductFAndB
+              images={imagesBySection("product")}
+              heading="Product"
+              lightboxAlt="Product"
+            />
+          </motion.div>
 
-        {/* Automobile Lifestyle Section */}
-        <motion.div
-          id="photography-automobile"
-          ref={automobileRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isAutomobileInView ? "visible" : "hidden"}
-        >
-          <AutomobileLifestyle images={imagesBySection("automobile")} />
-        </motion.div>
-        {/* Events & Shows Section */}
-        <motion.div
-          id="photography-events"
-          ref={eventsRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isEventsInView ? "visible" : "hidden"}
-        >
-          <EventsAndShows images={imagesBySection("events-shows")} />
-        </motion.div>
+          <motion.div
+            id="photography-hospitality"
+            ref={hospitalityRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isHospitalityInView ? "visible" : "hidden"}
+          >
+            <Hospitality images={imagesBySection("hospitality")} />
+          </motion.div>
 
-        <motion.div
-          id="photography-hospitality"
-          ref={hospitalityRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isHospitalityInView ? "visible" : "hidden"}
-        >
-          <Hospitality images={imagesBySection("hospitality")} />
-        </motion.div>
+          <motion.div
+            id="photography-spaces"
+            ref={spacesRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isSpacesInView ? "visible" : "hidden"}
+          >
+            <PhotographySpaces images={imagesBySection("spaces")} />
+          </motion.div>
 
-        {/* Fashion Section */}
-        <motion.div
-          id="photography-fashion"
-          ref={fashionRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isFashionInView ? "visible" : "hidden"}
-        >
-          <Fashion images={imagesBySection("fashion-lifestyle")} />
-        </motion.div>
-        {/* Artist Profiles Section */}
-        <motion.div
-          id="photography-artist-profiles"
-          ref={artistProfilesRef}
-          className="scroll-mt-[4.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isArtistInView ? "visible" : "hidden"}
-        >
-          <ArtistProfiles images={imagesBySection("artist-profiles")} />
-        </motion.div>
+          <motion.div
+            id="photography-fashion"
+            ref={fashionRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isFashionInView ? "visible" : "hidden"}
+          >
+            <Fashion images={imagesBySection("fashion-lifestyle")} />
+          </motion.div>
 
-      </div>
-    </main>
+          <motion.div
+            id="photography-automobiles"
+            ref={automobilesRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isAutomobilesInView ? "visible" : "hidden"}
+          >
+            <AutomobileLifestyle images={imagesBySection("automobiles")} />
+          </motion.div>
+
+          <motion.div
+            id="photography-artist-profiles"
+            ref={artistProfilesRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isArtistInView ? "visible" : "hidden"}
+          >
+            <ArtistProfiles images={imagesBySection("artist-profiles")} />
+          </motion.div>
+
+          <motion.div
+            id="photography-events"
+            ref={eventsRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isEventsInView ? "visible" : "hidden"}
+          >
+            <EventsAndShows images={imagesBySection("events")} />
+          </motion.div>
+        </div>
+      </main>
     </PhotographyLightboxProvider>
   );
 }
-

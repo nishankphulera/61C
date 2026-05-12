@@ -212,52 +212,84 @@ export default function Footer() {
 
   useEffect(() => {
     if (pathname === "/contact") return;
+    if (typeof window === "undefined") return;
 
     let ticking = false;
+    let isVisible = true;
+    let lastLift = -1;
+    let lastTranslate = Number.NaN;
 
     const updateShutter = () => {
+      ticking = false;
       const footer = footerRef.current;
       const shutter = shutterRef.current;
-      if (!footer || !shutter) {
-        ticking = false;
-        return;
-      }
+      if (!footer || !shutter) return;
 
       const rect = footer.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress: 0 when footer enters viewport, 1 when it exits top
+      // Progress: 0 when footer enters viewport, 1 when it exits top.
       const start = viewportHeight;
       const end = -rect.height;
-      const current = rect.top;
-      const progress = Math.max(0, Math.min(1, (start - current) / (start - end)));
+      const span = start - end || 1;
+      const progress = Math.max(0, Math.min(1, (start - rect.top) / span));
 
-      // Transform values
-      const translateY = -progress * 100;
-      const liftPercent = 12 + progress * 118;
+      // Quantize translate to 0.1% — sub-pixel precision below this is
+      // visually identical but still costs a compositor write each frame.
+      const translateY = Math.round(-progress * 1000) / 10;
 
-      shutter.style.transform = `translate3d(0, ${translateY}%, 0)`;
-      shutter.style.setProperty("--lift", `${liftPercent}%`);
+      // The big one: the mask gradient is recomputed every time --lift
+      // changes. Quantizing to whole-percent reduces the number of unique
+      // masks from "every frame" to at most ~118 across the whole scroll,
+      // which avoids rasterizing a viewport-sized gradient on every tick.
+      const lift = Math.round(12 + progress * 118);
 
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateShutter);
+      if (translateY !== lastTranslate) {
+        shutter.style.transform = `translate3d(0, ${translateY}%, 0)`;
+        lastTranslate = translateY;
+      }
+      if (lift !== lastLift) {
+        shutter.style.setProperty("--lift", `${lift}%`);
+        lastLift = lift;
       }
     };
 
-    // Initial calculation
+    const schedule = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateShutter);
+    };
+
+    const onScroll = () => {
+      if (!isVisible) return;
+      schedule();
+    };
+
+    // Initial state.
     updateShutter();
 
+    // Pause all scroll work entirely when the footer is off-screen.
+    let observer: IntersectionObserver | null = null;
+    if (footerRef.current && "IntersectionObserver" in window) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            isVisible = entry.isIntersecting;
+            if (isVisible) schedule();
+          }
+        },
+        { rootMargin: "200px 0px" }
+      );
+      observer.observe(footerRef.current);
+    }
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", updateShutter, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", updateShutter);
+      window.removeEventListener("resize", schedule);
+      observer?.disconnect();
     };
   }, [pathname]);
 
@@ -310,6 +342,11 @@ export default function Footer() {
             )`,
             maskSize: "100% 100%",
             WebkitMaskSize: "100% 100%",
+            // Isolate the mask's rasterization to its own compositor layer so
+            // re-rasterizing on --lift change doesn't invalidate siblings.
+            transform: "translateZ(0)",
+            willChange: "mask-image",
+            backfaceVisibility: "hidden",
           }}
         >
           <Image

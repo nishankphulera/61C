@@ -20,14 +20,21 @@ export type ContentItem = {
   meta?: Record<string, unknown>;
 };
 
-export const FILMS_SECTIONS = ["films", "music-videos", "vertical-films", "more-films"] as const;
+export const FILMS_SECTIONS = [
+  "music-videos",
+  "brand-films",
+  "vertical-films",
+  "documentaries",
+] as const;
 export const PHOTOGRAPHY_SECTIONS = [
-  "product-fnb",
-  "automobile",
-  "events-shows",
+  "fnb",
+  "product",
   "hospitality",
+  "spaces",
   "fashion-lifestyle",
+  "automobiles",
   "artist-profiles",
+  "events",
 ] as const;
 export const DESIGN_SECTIONS = ["design"] as const;
 

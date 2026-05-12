@@ -17,7 +17,7 @@ const PUBLIC = new URL("../public/", import.meta.url).pathname;
 /** Stems under public/ (files must be `{stem}.mp4`). Skip HomePage — keep hand-authored WebM. */
 const STEMS = [
   "Design",
-  "Clapper v1",
+  "Clapperv1",
   "Converse",
   "Vinyl",
   "Drone",

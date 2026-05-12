@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate:sections": "node scripts/migrate-content-sections.cjs"
   },
   "keywords": [],
   "author": "",

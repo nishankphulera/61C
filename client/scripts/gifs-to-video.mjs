@@ -10,13 +10,27 @@ const PUBLIC_DIR = new URL("../public/", import.meta.url).pathname;
 
 const MIN_BYTES = 600 * 1024;
 
-const args = new Set(process.argv.slice(2));
+const rawArgs = process.argv.slice(2);
+const args = new Set(rawArgs);
 const FORCE = args.has("--force");
 const DRY = args.has("--dry");
 const ONLY_HEAVY = args.has("--heavy");
 
+// --only="Foo.gif,Bar.gif" restricts the run to a specific set of files.
+// Useful for regenerating a few assets without re-encoding the entire batch.
+const onlyArg = rawArgs.find((a) => a.startsWith("--only="));
+const ONLY_NAMES = onlyArg
+  ? new Set(
+      onlyArg
+        .slice("--only=".length)
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    )
+  : null;
+
 const HEAVY = new Set([
-  "Clapper v1.gif",
+  "Clapperv1.gif",
   "Converse.gif",
   "Vinyl.gif",
   "Drone.gif",
@@ -55,9 +69,10 @@ let totalOut = 0;
 
 for (const src of files) {
   const name = basename(src);
+  if (ONLY_NAMES && !ONLY_NAMES.has(name)) continue;
   if (ONLY_HEAVY && !HEAVY.has(name)) continue;
   const s = await stat(src);
-  if (s.size < MIN_BYTES && !HEAVY.has(name)) {
+  if (s.size < MIN_BYTES && !HEAVY.has(name) && !ONLY_NAMES?.has(name)) {
     console.log(`-  skip   ${name} (too small)`);
     continue;
   }
@@ -77,17 +92,21 @@ for (const src of files) {
     continue;
   }
 
-  // h.264 mp4 (broad compat, hardware decode everywhere)
+  // h.264 mp4 (broad compat, hardware decode everywhere).
+  //
+  // MP4/H.264 has no alpha channel, so transparent GIFs must be matted onto
+  // a solid background before encoding. ffmpeg's default matte is white,
+  // which is wrong for our bg-black scenes (produces a white halo around
+  // cut-out subjects). The filter below composites each frame over a black
+  // canvas of the same size, then flattens to yuv420p.
   run([
     "-y",
     "-i",
     src,
     "-movflags",
     "+faststart",
-    "-pix_fmt",
-    "yuv420p",
     "-vf",
-    "scale=trunc(iw/2)*2:trunc(ih/2)*2,fps=24",
+    "split[fg][a];[a]drawbox=color=black:t=fill[bg];[bg][fg]overlay=format=auto,scale=trunc(iw/2)*2:trunc(ih/2)*2,fps=24,format=yuv420p",
     "-c:v",
     "libx264",
     "-preset",
@@ -98,13 +117,18 @@ for (const src of files) {
     mp4,
   ]);
 
-  // VP9 webm (smaller, slightly slower decode but transparent if needed)
+  // VP9 webm — preserve the source alpha channel (yuva420p) so any future
+  // non-black background still renders correctly. WebM is only used as a
+  // fallback in the <video> source list, but keeping alpha intact costs us
+  // nothing and avoids re-encoding later.
   run([
     "-y",
     "-i",
     src,
     "-vf",
     "scale=trunc(iw/2)*2:trunc(ih/2)*2,fps=24",
+    "-pix_fmt",
+    "yuva420p",
     "-c:v",
     "libvpx-vp9",
     "-b:v",

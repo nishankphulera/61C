@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import FilmsCard from "@/components/FilmsCard";
 import DigitalFilmsCard from "@/components/DigitalFilmsCard";
-import FilmsGrid from "@/components/FilmsGrid";
 import MusicVideosSection from "@/components/MusicVideosSection";
 import Header from "@/components/Header";
 import FilmRollStrip from "@/components/FilmRollStrip";
+import DraggableHorizontalScroll from "@/components/DraggableHorizontalScroll";
 import Asset from "@/components/Asset";
 import filmsNavImg from "@/components/FILMS.png";
 import musicVideosNavImg from "@/components/MUSIC VIDEOS.png";
@@ -19,11 +19,6 @@ import { compareContentByOrder, ContentItem } from "@/lib/content";
 type FilmCard = { id: string; title: string; imageSrc: string; youtubeUrl: string };
 type MusicCard = { id: string; imageSrc: string; youtubeUrl: string };
 
-const fallbackFilms: FilmCard[] = [
-  { id: "1", title: "The Great Adventure", imageSrc: "https://picsum.photos/800/450?random=1", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-  { id: "2", title: "Mystery of the Lost City", imageSrc: "https://picsum.photos/800/450?random=2", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-  { id: "3", title: "Space Odyssey 2024", imageSrc: "https://picsum.photos/800/450?random=3", youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-];
 const defaultYoutubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const fallbackFilmImage = "https://picsum.photos/800/450?random=88";
 const fallbackMusicImage = "https://picsum.photos/800/450?random=89";
@@ -80,25 +75,22 @@ function resolveCardImage(item: ContentItem, fallback: string): string {
 }
 
 export default function FilmsPage() {
-  const filmsRef = useRef<HTMLDivElement>(null);
-  const digitalFilmsRef = useRef<HTMLDivElement>(null);
-  const filmsGridRef = useRef<HTMLDivElement>(null);
   const musicVideosRef = useRef<HTMLDivElement>(null);
+  const brandFilmsRef = useRef<HTMLDivElement>(null);
+  const verticalFilmsRef = useRef<HTMLDivElement>(null);
+  const documentariesRef = useRef<HTMLDivElement>(null);
 
-  // In view hooks for scroll animations
-  const isFilmsInView = useInView(filmsRef, { once: true, amount: 0.2 });
-  const isDigitalFilmsInView = useInView(digitalFilmsRef, { once: true, amount: 0.2 });
-  const isFilmsGridInView = useInView(filmsGridRef, { once: true, amount: "some" });
   const isMusicVideosInView = useInView(musicVideosRef, { once: true, amount: 0.2 });
+  const isBrandFilmsInView = useInView(brandFilmsRef, { once: true, amount: 0.2 });
+  const isVerticalFilmsInView = useInView(verticalFilmsRef, { once: true, amount: 0.2 });
+  const isDocumentariesInView = useInView(documentariesRef, { once: true, amount: 0.2 });
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll-based parallax for Digital Films section
   const { scrollYProgress } = useScroll({
-    target: digitalFilmsRef,
+    target: verticalFilmsRef,
     offset: ["start end", "end start"],
   });
 
-  // Parallax effect - moves slower than scroll
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
   const [rows, setRows] = useState<ContentItem[]>([]);
@@ -109,7 +101,6 @@ export default function FilmsPage() {
     setIsSectionsLoading(true);
     fetchPublicContent({ page: "films" })
       .then((data) => {
-        console.log("Fetched films data:", data);
         setRows(data);
       })
       .catch(() => setRows([]))
@@ -125,7 +116,6 @@ export default function FilmsPage() {
     return () => window.removeEventListener(MAIN_LOADER_DONE_EVENT, onMainLoaderDone);
   }, []);
 
-  // Animation variants
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -158,10 +148,11 @@ export default function FilmsPage() {
       youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
     }));
   };
-  const films = useMemo(() => mapFilmRows("films"), [rows]);
-  const digitalFilms = useMemo(() => mapFilmRows("vertical-films"), [rows]);
-  const gridFilms = useMemo(() => mapFilmRows("more-films"), [rows]);
+
   const musicVideos = useMemo(() => mapMusicRows(), [rows]);
+  const brandFilms = useMemo(() => mapFilmRows("brand-films"), [rows]);
+  const verticalFilms = useMemo(() => mapFilmRows("vertical-films"), [rows]);
+  const documentaries = useMemo(() => mapFilmRows("documentaries"), [rows]);
 
   const filmRollGifs = ["/HomePage.gif", "/HomePage.gif", "/HomePage.gif"] as const;
 
@@ -181,37 +172,37 @@ export default function FilmsPage() {
   );
   const shouldShowSectionLoader = isMainLoaderDone && isSectionsLoading;
 
+  const filmsLandscapeCarousel = (items: FilmCard[], ariaLabel: string) => (
+    <DraggableHorizontalScroll ariaLabel={ariaLabel} gapClassName="gap-3 md:gap-4">
+      {items.map((film) => (
+        <div key={film.id} className="w-[min(88vw,26rem)] shrink-0">
+          <FilmsCard
+            id={film.id}
+            title={film.title}
+            imageSrc={film.imageSrc}
+            youtubeUrl={film.youtubeUrl}
+          />
+        </div>
+      ))}
+    </DraggableHorizontalScroll>
+  );
+
   return (
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
-      <Asset reverse={false} scrollContainer={scrollRef} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
-      <Asset reverse={true} scrollContainer={scrollRef} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" parallax={0.2} scaleFactor={0.012} rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
+      <Asset reverse={true} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-50" rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
+      <Asset reverse={false} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
+      <Asset reverse={true} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
+      <Asset reverse={true} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
 
       <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
-     
         <FilmRollStrip
           gifs={filmRollGifs}
           className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
           gifAlts={["Films highlight 1", "Films highlight 2", "Films highlight 3"]}
         />
-        <button
-          type="button"
-          onClick={() => scrollToSection(filmsRef)}
-          className="absolute top-160 left-104 z-50 rotate-[-30deg] cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
-          aria-label="Scroll to Films section"
-        >
-          <Image
-            src={filmsNavImg}
-            alt=""
-            className="h-auto w-[min(52vw,11rem)] object-contain md:w-[min(32vw,15rem)]"
-            sizes="(max-width: 768px) 52vw, 15rem"
-            priority
-          />
-        </button>
         <button
           type="button"
           onClick={() => scrollToSection(musicVideosRef)}
@@ -223,11 +214,25 @@ export default function FilmsPage() {
             alt=""
             className="h-auto w-[min(62vw,13rem)] object-contain md:w-[min(38vw,17rem)]"
             sizes="(max-width: 768px) 62vw, 17rem"
+            priority
           />
         </button>
         <button
           type="button"
-          onClick={() => scrollToSection(digitalFilmsRef)}
+          onClick={() => scrollToSection(brandFilmsRef)}
+          className="absolute top-160 left-104 z-50 rotate-[-30deg] cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
+          aria-label="Scroll to Brand Films section"
+        >
+          <Image
+            src={filmsNavImg}
+            alt=""
+            className="h-auto w-[min(52vw,11rem)] object-contain md:w-[min(32vw,15rem)]"
+            sizes="(max-width: 768px) 52vw, 15rem"
+          />
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollToSection(verticalFilmsRef)}
           className="absolute top-200 left-238 z-50 cursor-pointer border-0 bg-transparent p-0 pt-20 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
           aria-label="Scroll to Vertical Films section"
         >
@@ -238,45 +243,21 @@ export default function FilmsPage() {
             sizes="(max-width: 768px) 58vw, 16rem"
           />
         </button>
-   
+        <button
+          type="button"
+          onClick={() => scrollToSection(documentariesRef)}
+          className="absolute top-248 left-180 z-50 cursor-pointer rounded-md border border-yellow-400/60 bg-black/70 px-2 py-1.5 text-xs font-bold uppercase tracking-wide text-yellow-400 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80 md:px-3 md:py-2 md:text-sm"
+          aria-label="Scroll to Documentaries section"
+        >
+          Documentaries
+        </button>
       </div>
 
       <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">
-        {/* Films Section - Width > Height */}
-        <motion.section
-          ref={filmsRef}
-          className="relative z-10 mb-16 -mx-6 md:-mx-10 pt-[0.5rem]"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isFilmsInView ? "visible" : "hidden"}
-        >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0 font-bold">
-            Films
-          </h1>
-     
-          {shouldShowSectionLoader ? (
-            sectionLoader
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-2 px-0 justify-items-start">
-              {films.map((film) => (
-                <FilmsCard
-                  key={film.id}
-                  id={film.id}
-                  title={film.title}
-                  imageSrc={film.imageSrc}
-                  youtubeUrl={film.youtubeUrl}
-                />
-              ))}
-            </div>
-          )}
-        </motion.section>
-
-    
-
-          {/* Music Videos Section — wider breakout than before (-mx-4 md:-mx-8) */}
-          <motion.div
+        <motion.div
+          id="films-music-videos"
           ref={musicVideosRef}
-          className="-mx-4 md:-mx-10"
+          className="mb-16 w-full"
           variants={sectionVariants}
           initial="hidden"
           animate={isMusicVideosInView ? "visible" : "hidden"}
@@ -288,58 +269,74 @@ export default function FilmsPage() {
           )}
         </motion.div>
 
-        {/* Digital Films Section — wider breakout past container padding */}
         <motion.section
-          ref={digitalFilmsRef}
-          className="-mx-3 md:-mx-4"
+          id="films-brand-films"
+          ref={brandFilmsRef}
+          className="relative z-10 mb-16 w-full pt-2"
           variants={sectionVariants}
           initial="hidden"
-          animate={isDigitalFilmsInView ? "visible" : "hidden"}
+          animate={isBrandFilmsInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left px-0 md:px-0 font-bold">
-            Vertical Films
-          </h1>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Brand Films</h1>
+          {shouldShowSectionLoader
+            ? sectionLoader
+            : filmsLandscapeCarousel(
+                brandFilms,
+                "Brand films, scroll horizontally or drag to browse"
+              )}
+        </motion.section>
+
+        <motion.section
+          id="films-vertical-films"
+          ref={verticalFilmsRef}
+          className="relative z-10 mb-16 w-full"
+          variants={sectionVariants}
+          initial="hidden"
+          animate={isVerticalFilmsInView ? "visible" : "hidden"}
+        >
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Vertical Films</h1>
           {shouldShowSectionLoader ? (
             sectionLoader
           ) : (
-            <motion.div
-              className="grid grid-cols-1 md:grid-cols-5"
-              style={{ y: smoothY }}
-            >
+            <motion.div className="grid grid-cols-1 md:grid-cols-5" style={{ y: smoothY }}>
               <div className="md:col-span-5">
-                <div className="grid grid-cols-4 gap-3 md:gap-4">
-                  {digitalFilms.map((film) => (
-                    <DigitalFilmsCard
-                      key={film.id}
-                      id={film.id}
-                      title={film.title}
-                      imageSrc={film.imageSrc}
-                      youtubeUrl={film.youtubeUrl}
-                    />
+                <DraggableHorizontalScroll
+                  ariaLabel="Vertical films, scroll horizontally or drag to browse"
+                  gapClassName="gap-3 md:gap-4"
+                >
+                  {verticalFilms.map((film) => (
+                    <div key={film.id} className="w-[min(48vw,13rem)] shrink-0 md:w-[min(40vw,14rem)]">
+                      <DigitalFilmsCard
+                        id={film.id}
+                        title={film.title}
+                        imageSrc={film.imageSrc}
+                        youtubeUrl={film.youtubeUrl}
+                      />
+                    </div>
                   ))}
-                </div>
+                </DraggableHorizontalScroll>
               </div>
             </motion.div>
           )}
         </motion.section>
 
-
-
-
-      
-
-        <motion.div
-          ref={filmsGridRef}
-          className="relative z-[60] -mx-4 md:-mx-9 pt-3"
+        <motion.section
+          id="films-documentaries"
+          ref={documentariesRef}
+          className="relative z-10 mb-16 w-full"
           variants={sectionVariants}
           initial="hidden"
-          animate={isFilmsGridInView ? "visible" : "hidden"}
+          animate={isDocumentariesInView ? "visible" : "hidden"}
         >
-         
-          <FilmsGrid className="mt-0" title="More Films" videos={gridFilms} />
-        </motion.div>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries</h1>
+          {shouldShowSectionLoader
+            ? sectionLoader
+            : filmsLandscapeCarousel(
+                documentaries,
+                "Documentaries, scroll horizontally or drag to browse"
+              )}
+        </motion.section>
       </div>
-
     </main>
   );
 }

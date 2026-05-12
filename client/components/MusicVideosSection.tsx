@@ -3,6 +3,7 @@
 import { gsap } from "gsap";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
+import DraggableHorizontalScroll from "@/components/DraggableHorizontalScroll";
 
 interface MusicVideo {
   id: string;
@@ -21,8 +22,7 @@ export default function MusicVideosSection({
   videos,
   className = "",
 }: MusicVideosSectionProps) {
-  // Limit to 12 videos for 4x3 grid
-  const displayVideos = videos.slice(0, 12);
+  const displayVideos = videos;
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -76,17 +76,13 @@ export default function MusicVideosSection({
         {title}
       </h2>
 
-      {/* 4x3 Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <DraggableHorizontalScroll ariaLabel="Music videos, scroll horizontally or drag to browse">
         {displayVideos.map((video, index) => (
-          <MusicVideoCard
-            key={video.id}
-            video={video}
-            index={index}
-            onClick={handleCardClick}
-          />
+          <div key={video.id} className="w-[min(88vw,22rem)] shrink-0">
+            <MusicVideoCard video={video} index={index} onClick={handleCardClick} />
+          </div>
         ))}
-      </div>
+      </DraggableHorizontalScroll>
     </section>
   );
 }
@@ -215,7 +211,7 @@ function MusicVideoCard({ video, index, onClick }: MusicVideoCardProps) {
           alt={`Music video ${video.id}`}
           fill
           className="object-cover"
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          sizes="(max-width: 768px) 88vw, 22rem"
         />
       </div>
     </div>

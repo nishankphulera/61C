@@ -102,14 +102,14 @@ export default function AutomobileLifestyle({ images }: AutomobileLifestyleProps
   }, []);
 
   const handleImageClick = (imageSrc: string) => {
-    open(imageSrc, { alt: "Automobile" });
+    open(imageSrc, { alt: "Automobiles" });
   };
 
   return (
       <section ref={sectionRef} className="mb-10 bg-black py-8 px-1 md:px-2">
         {/* Title */}
         <h2 className="text-5xl md:text-6xl  text-yellow-400 mb-8 text-left">
-          Automobile
+          Automobiles
         </h2>
 
         {/* Grid: 6 rows × 4 columns */}
@@ -259,7 +259,7 @@ function AutomobileImageCard({ image, onClick }: AutomobileImageCardProps) {
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
         <Image
           src={image.imageSrc}
-          alt={`Automobile ${image.id}`}
+          alt={`Automobiles ${image.id}`}
           fill
           className="object-contain"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
