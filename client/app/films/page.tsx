@@ -16,12 +16,31 @@ import verticalFilmsNavImg from "@/components/VERTICAL FILMS.png";
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
 
-type FilmCard = { id: string; title: string; imageSrc: string; youtubeUrl: string };
-type MusicCard = { id: string; imageSrc: string; youtubeUrl: string };
+type FilmCard = { id: string; title: string; imageSrc: string; href: string };
+type MusicCard = { id: string; imageSrc: string; href: string };
 
 const defaultYoutubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const fallbackFilmImage = "https://picsum.photos/800/450?random=88";
 const fallbackMusicImage = "https://picsum.photos/800/450?random=89";
+
+/** First valid http(s) URL from candidates; otherwise default watch URL. */
+function externalHref(...candidates: (string | undefined | null)[]): string {
+  for (const c of candidates) {
+    const t = (c ?? "").trim();
+    if (!t) continue;
+    try {
+      const u = new URL(t);
+      if (u.protocol === "http:" || u.protocol === "https:") return u.href;
+    } catch {
+      /* skip invalid */
+    }
+  }
+  try {
+    return new URL(defaultYoutubeUrl).href;
+  } catch {
+    return "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  }
+}
 const MAIN_LOADER_STATE_ATTR = "data-main-loader-state";
 const MAIN_LOADER_DONE_EVENT = "main-loader:done";
 
@@ -135,7 +154,7 @@ export default function FilmsPage() {
       id: item._id,
       title: item.title,
       imageSrc: resolveCardImage(item, fallbackFilmImage),
-      youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
+      href: externalHref(item.youtubeUrl, item.videoUrl),
     }));
   };
   const mapMusicRows = (): MusicCard[] => {
@@ -145,7 +164,7 @@ export default function FilmsPage() {
     return filtered.map((item) => ({
       id: item._id,
       imageSrc: resolveCardImage(item, fallbackMusicImage),
-      youtubeUrl: item.youtubeUrl || item.videoUrl || defaultYoutubeUrl,
+      href: externalHref(item.youtubeUrl, item.videoUrl),
     }));
   };
 
@@ -180,7 +199,7 @@ export default function FilmsPage() {
             id={film.id}
             title={film.title}
             imageSrc={film.imageSrc}
-            youtubeUrl={film.youtubeUrl}
+            href={film.href}
           />
         </div>
       ))}
@@ -310,7 +329,7 @@ export default function FilmsPage() {
                         id={film.id}
                         title={film.title}
                         imageSrc={film.imageSrc}
-                        youtubeUrl={film.youtubeUrl}
+                        href={film.href}
                       />
                     </div>
                   ))}

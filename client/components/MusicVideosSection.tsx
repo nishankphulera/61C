@@ -8,7 +8,7 @@ import DraggableHorizontalScroll from "@/components/DraggableHorizontalScroll";
 interface MusicVideo {
   id: string;
   imageSrc: string;
-  youtubeUrl: string;
+  href: string;
 }
 
 interface MusicVideosSectionProps {
@@ -48,24 +48,6 @@ export default function MusicVideosSection({
     );
   }, []);
 
-  const handleCardClick = (youtubeUrl: string, cardRef: React.RefObject<HTMLDivElement | null>) => {
-    const card = cardRef.current;
-    if (card) {
-      gsap.to(card, {
-        scale: 0.95,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
-        ease: "power2.inOut",
-        onComplete: () => {
-          window.open(youtubeUrl, "_blank");
-        },
-      });
-    } else {
-      window.open(youtubeUrl, "_blank");
-    }
-  };
-
   return (
     <section ref={sectionRef} className={`mb-16 ${className}`}>
       {/* Title */}
@@ -79,7 +61,7 @@ export default function MusicVideosSection({
       <DraggableHorizontalScroll ariaLabel="Music videos, scroll horizontally or drag to browse">
         {displayVideos.map((video, index) => (
           <div key={video.id} className="w-[min(88vw,22rem)] shrink-0">
-            <MusicVideoCard video={video} index={index} onClick={handleCardClick} />
+            <MusicVideoCard video={video} index={index} />
           </div>
         ))}
       </DraggableHorizontalScroll>
@@ -90,11 +72,10 @@ export default function MusicVideosSection({
 interface MusicVideoCardProps {
   video: MusicVideo;
   index: number;
-  onClick: (youtubeUrl: string, cardRef: React.RefObject<HTMLDivElement | null>) => void;
 }
 
-function MusicVideoCard({ video, index, onClick }: MusicVideoCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
+function MusicVideoCard({ video, index }: MusicVideoCardProps) {
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -195,15 +176,17 @@ function MusicVideoCard({ video, index, onClick }: MusicVideoCardProps) {
   }, [index]);
 
   return (
-    <div
+    <a
       ref={cardRef}
-      className="relative w-full cursor-pointer overflow-hidden rounded-lg shadow-lg"
+      href={video.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative block w-full cursor-pointer overflow-hidden rounded-lg shadow-lg no-underline"
       style={{
         aspectRatio: "16/9",
         minHeight: "200px",
         transformStyle: "preserve-3d",
       }}
-      onClick={() => onClick(video.youtubeUrl, cardRef)}
     >
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
         <Image
@@ -214,7 +197,7 @@ function MusicVideoCard({ video, index, onClick }: MusicVideoCardProps) {
           sizes="(max-width: 768px) 88vw, 22rem"
         />
       </div>
-    </div>
+    </a>
   );
 }
 

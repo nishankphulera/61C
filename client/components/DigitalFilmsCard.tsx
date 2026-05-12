@@ -6,7 +6,8 @@ interface DigitalFilmsCardProps {
   id: string;
   title: string;
   imageSrc: string;
-  youtubeUrl: string;
+  /** Destination when the card is activated (opens in a new tab). */
+  href: string;
   className?: string;
 }
 
@@ -14,21 +15,19 @@ export default function DigitalFilmsCard({
   id: _id,
   title,
   imageSrc,
-  youtubeUrl,
+  href,
   className = "",
 }: DigitalFilmsCardProps) {
-  const handleClick = () => {
-    window.open(youtubeUrl, "_blank");
-  };
-
   return (
-    <div
-      className={`relative w-full cursor-pointer overflow-hidden rounded-lg shadow-lg ${className}`}
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`relative block w-full cursor-pointer overflow-hidden rounded-lg shadow-lg no-underline ${className}`}
       style={{
         aspectRatio: "2/4",
         maxHeight: "420px",
       }}
-      onClick={handleClick}
     >
       <div className="relative h-full w-full overflow-hidden">
         <Image
@@ -61,6 +60,6 @@ export default function DigitalFilmsCard({
           </svg>
         </div>
       </div>
-    </div>
+    </a>
   );
 }

@@ -8,7 +8,8 @@ import {
   type ReactNode,
 } from "react";
 
-const DRAG_THRESHOLD_PX = 10;
+/** Pixels of horizontal movement before we treat the gesture as a drag (not a click). */
+const DRAG_THRESHOLD_PX = 28;
 
 type DraggableHorizontalScrollProps = {
   children: ReactNode;
@@ -58,6 +59,15 @@ export default function DraggableHorizontalScroll({
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
+    const target = e.target;
+    if (
+      target instanceof Element &&
+      target.closest(
+        "a[href], button, input, textarea, select, [role='button']"
+      )
+    ) {
+      return;
+    }
     const el = scrollRef.current;
     if (!el) return;
     dragState.current = {

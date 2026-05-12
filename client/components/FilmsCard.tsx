@@ -8,7 +8,8 @@ interface FilmsCardProps {
   id: string;
   title: string;
   imageSrc: string;
-  youtubeUrl: string;
+  /** Destination when the card is activated (opens in a new tab). */
+  href: string;
   className?: string;
 }
 
@@ -16,10 +17,10 @@ export default function FilmsCard({
   id,
   title,
   imageSrc,
-  youtubeUrl,
+  href,
   className = "",
 }: FilmsCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const playIconRef = useRef<HTMLDivElement>(null);
   const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
@@ -146,34 +147,18 @@ export default function FilmsCard({
     };
   }, [id]);
 
-  const handleClick = () => {
-    const card = cardRef.current;
-    if (card) {
-      gsap.to(card, {
-        scale: 0.95,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
-        ease: "power2.inOut",
-        onComplete: () => {
-          window.open(youtubeUrl, "_blank");
-        },
-      });
-    } else {
-      window.open(youtubeUrl, "_blank");
-    }
-  };
-
   return (
-    <div
+    <a
       ref={cardRef}
-      className={`relative w-full cursor-pointer overflow-hidden rounded-lg shadow-lg ${className}`}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`relative block w-full cursor-pointer overflow-hidden rounded-lg shadow-lg no-underline ${className}`}
       style={{
         aspectRatio: "21/9", // Width > Height (landscape) - reduced height
         minHeight: "240px",
         transformStyle: "preserve-3d",
       }}
-      onClick={handleClick}
     >
       <div ref={imageRef} className="relative w-full h-full overflow-hidden">
         {imageStatus !== "loaded" ? (
@@ -231,7 +216,7 @@ export default function FilmsCard({
           </svg>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 

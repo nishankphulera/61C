@@ -33,7 +33,7 @@ export default function FilmsGrid({
             id={video.id}
             title={video.title}
             imageSrc={video.imageSrc}
-            youtubeUrl={video.youtubeUrl}
+            href={video.youtubeUrl}
           />
         ))}
       </div>
