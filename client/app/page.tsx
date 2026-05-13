@@ -10,8 +10,11 @@ import ExploreSection from "../components/ExploreSection";
 
 export default function LandingPage() {
   const tvSectionRef = useRef<HTMLDivElement | null>(null);
+  // once:true keeps the TV mounted at its rest position after the first reveal so it never reverse-fades
+  // when the user scrolls past — that was the "uneasy fade on the bottom of the TV".
   const isTVInView = useInView(tvSectionRef, {
-    amount: 0.1,
+    once: true,
+    amount: 0.15,
     margin: "0px 0px -10% 0px",
   });
 
@@ -45,9 +48,10 @@ export default function LandingPage() {
         className="relative min-h-[80svh] md:min-h-[90vh]"
       >
         <motion.div
-          initial={{ opacity: 0, y: 72 }}
-          animate={isTVInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 72 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 32 }}
+          animate={isTVInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+          // Out-expo curve (fast in, gentle settle) reads as a single seamless rise rather than an opacity+slide combo.
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="relative min-h-[80svh] md:min-h-[90vh] w-full will-change-[transform,opacity]"
         >
           <TVDisplay />
