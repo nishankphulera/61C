@@ -10,6 +10,8 @@ import {
 
 /** Pixels of horizontal movement before we treat the gesture as a drag (not a click). */
 const DRAG_THRESHOLD_PX = 28;
+/** Prefer page vertical scroll when movement is mostly vertical beyond this slip. */
+const VERTICAL_ABORT_THRESHOLD_PX = 10;
 
 type DraggableHorizontalScrollProps = {
   children: ReactNode;
@@ -30,8 +32,10 @@ export default function DraggableHorizontalScroll({
   const dragState = useRef<{
     pointerId: number;
     startX: number;
+    startY: number;
     startScrollLeft: number;
     dragging: boolean;
+    captured: boolean;
   } | null>(null);
   const suppressNextClickRef = useRef(false);
 
@@ -57,7 +61,18 @@ export default function DraggableHorizontalScroll({
     return () => document.removeEventListener("click", stopClickIfSuppressed, true);
   }, [stopClickIfSuppressed]);
 
+  const releaseIfCaptured = (el: HTMLDivElement, pointerId: number, captured: boolean) => {
+    if (!captured) return;
+    try {
+      el.releasePointerCapture(pointerId);
+    } catch {
+      /* ignore */
+    }
+  };
+
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    // Let touch use native vertical page scroll + native overflow-x scrolling; Lenis/syncTouch fights pointer-driven drag on mobile otherwise.
+    if (e.pointerType === "touch") return;
     if (e.button !== 0) return;
     const target = e.target;
     if (
@@ -73,14 +88,11 @@ export default function DraggableHorizontalScroll({
     dragState.current = {
       pointerId: e.pointerId,
       startX: e.clientX,
+      startY: e.clientY,
       startScrollLeft: el.scrollLeft,
       dragging: false,
+      captured: false,
     };
-    try {
-      el.setPointerCapture(e.pointerId);
-    } catch {
-      /* ignore */
-    }
   };
 
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -89,13 +101,33 @@ export default function DraggableHorizontalScroll({
     if (!state || !el || e.pointerId !== state.pointerId) return;
 
     const dx = e.clientX - state.startX;
-    if (!state.dragging && Math.abs(dx) >= DRAG_THRESHOLD_PX) {
-      state.dragging = true;
+    const dy = e.clientY - state.startY;
+
+    if (!state.dragging) {
+      if (
+        Math.abs(dy) >= VERTICAL_ABORT_THRESHOLD_PX &&
+        Math.abs(dy) > Math.abs(dx)
+      ) {
+        dragState.current = null;
+        return;
+      }
+      if (
+        Math.abs(dx) >= DRAG_THRESHOLD_PX &&
+        Math.abs(dx) > Math.abs(dy)
+      ) {
+        state.dragging = true;
+        try {
+          el.setPointerCapture(e.pointerId);
+          state.captured = true;
+        } catch {
+          /* ignore */
+        }
+      }
+      return;
     }
-    if (state.dragging) {
-      el.scrollLeft = state.startScrollLeft - dx;
-      e.preventDefault();
-    }
+
+    el.scrollLeft = state.startScrollLeft - dx;
+    e.preventDefault();
   };
 
   const endPointer = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -106,14 +138,9 @@ export default function DraggableHorizontalScroll({
     if (state.dragging) {
       suppressNextClickRef.current = true;
     }
+    const hadCapture = state.captured;
     dragState.current = null;
-    if (el) {
-      try {
-        el.releasePointerCapture(e.pointerId);
-      } catch {
-        /* ignore */
-      }
-    }
+    if (el) releaseIfCaptured(el, e.pointerId, hadCapture);
   };
 
   return (
@@ -122,8 +149,11 @@ export default function DraggableHorizontalScroll({
       role="region"
       aria-label={ariaLabel}
       data-lenis-prevent
-      className={`scrollbar-hide cursor-grab overflow-x-auto overflow-y-hidden active:cursor-grabbing ${className}`}
-      style={{ touchAction: "pan-x" }}
+      className={`scrollbar-hide cursor-grab overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing ${className}`}
+      style={{
+        touchAction: "auto",
+        WebkitOverflowScrolling: "touch",
+      }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}

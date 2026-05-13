@@ -176,7 +176,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
-  // { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
+  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
   { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
