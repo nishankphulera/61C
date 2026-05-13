@@ -50,6 +50,13 @@ function validatePayload(payload: ContentPayload): string | null {
     return "All images must be valid URLs";
   }
 
+  if (payload.order !== undefined && payload.order !== null) {
+    const o = Number(payload.order);
+    if (Number.isFinite(o) && o < -1) {
+      return "order must be -1, 0, or a positive integer";
+    }
+  }
+
   return null;
 }
 
@@ -117,11 +124,25 @@ export async function createContent(req: Request, res: Response): Promise<void> 
 
   const youtubeUrl = payload.youtubeUrl?.trim() || payload.videoUrl?.trim() || "";
   const sectionTrimmed = payload.section.trim();
-  let order = Number.isFinite(payload.order as number) ? Number(payload.order) : 0;
-  if (!Number.isFinite(order) || order <= 0) {
+
+  let orderNum = 0;
+  if (payload.order !== undefined && payload.order !== null) {
+    const n = Number(payload.order);
+    if (Number.isFinite(n)) orderNum = n;
+  }
+
+  let order: number;
+  if (orderNum === -1) {
+    await Content.updateMany(
+      { page: payload.page, section: sectionTrimmed },
+      { $inc: { order: 1 } }
+    );
+    order = 1;
+  } else if (orderNum === 0) {
     order = await nextOrderForSection(payload.page, sectionTrimmed);
   } else {
-    await clearOrderSlot(payload.page, sectionTrimmed, order);
+    await clearOrderSlot(payload.page, sectionTrimmed, orderNum);
+    order = orderNum;
   }
 
   const created = await Content.create({
@@ -174,9 +195,59 @@ export async function updateContent(req: Request, res: Response): Promise<void> 
 
   const sectionTrimmed = merged.section.trim();
   const pageStr = merged.page as string;
-  let nextOrder = Number.isFinite(merged.order as number) ? Number(merged.order) : existing.order;
-  if (!Number.isFinite(nextOrder) || nextOrder <= 0) {
-    nextOrder = await nextOrderForSection(pageStr, sectionTrimmed);
+  const nextOrder = Number(merged.order);
+  if (!Number.isFinite(nextOrder)) {
+    res.status(400).json({ message: "Invalid order" });
+    return;
+  }
+
+  if (nextOrder === -1) {
+    const youtubeMerged =
+      merged.youtubeUrl?.trim() || merged.videoUrl?.trim() || "";
+    const others = await Content.find({
+      page: pageStr,
+      section: sectionTrimmed,
+      _id: { $ne: existing._id },
+    }).sort({ order: 1, createdAt: -1 });
+
+    const bulkOps = [
+      {
+        updateOne: {
+          filter: { _id: existing._id },
+          update: {
+            $set: {
+              page: pageStr,
+              section: sectionTrimmed,
+              title: merged.title.trim(),
+              description: merged.description?.trim() || "",
+              mediaType: merged.mediaType,
+              thumbnailUrl: merged.thumbnailUrl?.trim() || "",
+              youtubeUrl: youtubeMerged,
+              videoUrl: youtubeMerged,
+              images: merged.images ?? [],
+              order: 1,
+              isPublished: merged.isPublished ?? true,
+              meta: merged.meta ?? {},
+            },
+          },
+        },
+      },
+      ...others.map((doc, i) => ({
+        updateOne: {
+          filter: { _id: doc._id },
+          update: { $set: { order: i + 2 } },
+        },
+      })),
+    ];
+    await Content.bulkWrite(bulkOps);
+    const updated = await Content.findById(existing._id);
+    res.json(updated);
+    return;
+  }
+
+  let resolvedOrder = nextOrder;
+  if (nextOrder === 0) {
+    resolvedOrder = await nextOrderForSection(pageStr, sectionTrimmed);
   } else {
     await clearOrderSlot(pageStr, sectionTrimmed, nextOrder, existing._id.toString());
   }
@@ -190,7 +261,7 @@ export async function updateContent(req: Request, res: Response): Promise<void> 
   existing.youtubeUrl = merged.youtubeUrl?.trim() || merged.videoUrl?.trim() || "";
   existing.videoUrl = existing.youtubeUrl;
   existing.images = merged.images ?? [];
-  existing.order = nextOrder;
+  existing.order = resolvedOrder;
   existing.isPublished = merged.isPublished ?? true;
   existing.meta = merged.meta ?? {};
 

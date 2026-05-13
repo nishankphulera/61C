@@ -129,6 +129,8 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
     [items, itemsPerRow]
   );
 
+  console.log("imageRows",imageRows);
+
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const rowRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const directionsRef = React.useRef<number[]>([]);

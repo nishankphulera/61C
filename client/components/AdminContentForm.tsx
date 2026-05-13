@@ -48,8 +48,13 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    setSubmitting(true);
     setError("");
+    const orderVal = Number(form.order);
+    if (Number.isFinite(orderVal) && orderVal < -1) {
+      setError("order must be -1, 0, or a positive integer");
+      return;
+    }
+    setSubmitting(true);
     try {
       const payload: Partial<ContentItem> = {
         page: form.page,
@@ -181,16 +186,21 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
           <span>Order</span>
           <input
             type="number"
-            min={0}
+            min={-1}
             step={1}
             value={form.order}
-            onChange={(e) => setForm((prev) => ({ ...prev, order: Number(e.target.value) }))}
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                order: e.target.value === "" ? 0 : Number(e.target.value),
+              }))
+            }
             className="w-full rounded-md bg-black px-3 py-2"
           />
           <span className="block text-xs text-white/60">
-            1 = first in this section (row-major in grids). Use 0 to auto-place as last (next free slot). If you set
-            an order that another item already uses, that existing item is permanently removed (replaced) so only
-            your row keeps that slot — on both new and edit.
+            -1 prepends to the front of this section (others shift down; no destructive replace). 0 uses the next
+            free slot (last). 1+ sets an explicit slot; if that slot is taken, the existing row is removed and
+            replaced. Order must not be below -1.
           </span>
         </label>
         <label className="mt-6 inline-flex items-center gap-2 text-sm">

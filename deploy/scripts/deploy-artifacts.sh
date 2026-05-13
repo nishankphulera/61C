@@ -18,6 +18,7 @@ Optional environment variables:
   REMOTE_CLIENT_ENV     Remote env file loaded before starting client
   REMOTE_SERVER_ENV     Remote env file loaded before starting server
   REMOTE_STAGING_DIR    Where uploads land (default: <REMOTE_APP_DIR>/incoming; avoid /tmp on full tmpfs)
+  SKIP_BRAND_LOGO_COMPRESS  Set to 1 to skip npm run compress:brand-logos (default: run before client build)
 
 Example (Amazon Linux):
   EC2_HOST=ec2-1-2-3-4.compute.amazonaws.com \
@@ -92,6 +93,14 @@ ensure_deps() {
 echo "Preparing local dependencies ..."
 ensure_deps "$CLIENT_DIR"
 ensure_deps "$SERVER_DIR"
+
+# Regenerate client/public/brands/*.webp from public/1.png..28.png so the zip includes optimized assets.
+if [[ "${SKIP_BRAND_LOGO_COMPRESS:-}" == "1" ]]; then
+  echo "Skipping brand logo compression (SKIP_BRAND_LOGO_COMPRESS=1)."
+else
+  echo "Compressing brand logos (client: npm run compress:brand-logos) ..."
+  (cd "$CLIENT_DIR" && npm run compress:brand-logos)
+fi
 
 echo "Building client locally ..."
 (

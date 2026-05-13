@@ -9,7 +9,9 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
 const publicRoutes_1 = __importDefault(require("./routes/publicRoutes"));
+const mongoConnect_1 = require("./lib/mongoConnect");
 dotenv_1.default.config();
+(0, mongoConnect_1.preferIpv4Dns)();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || "";
@@ -55,14 +57,50 @@ if (!MONGO_URI.trim()) {
     mongoose_1.default.set("bufferCommands", false);
 }
 else {
-    void mongoose_1.default
-        .connect(MONGO_URI)
-        .then(() => {
-        console.log("MongoDB connected ✅");
-    })
-        .catch((err) => {
-        console.error("MongoDB connection failed ❌", err);
-        console.warn("Continuing without MongoDB. Admin login route is still available.");
-        mongoose_1.default.set("bufferCommands", false);
-    });
+    const mongoOptions = { family: 4 };
+    void (async () => {
+        let connectUri = MONGO_URI;
+        if (MONGO_URI.startsWith("mongodb+srv://")) {
+            try {
+                connectUri = await (0, mongoConnect_1.expandMongoSrvToTcpUri)(MONGO_URI);
+                console.log("Resolved mongodb+srv to mongodb:// host list in Node (avoids driver querySrv).");
+            }
+            catch (expandErr) {
+                console.warn("Could not expand SRV in Node DNS; falling back to driver SRV resolution.", expandErr instanceof Error ? expandErr.message : expandErr);
+                connectUri = MONGO_URI;
+            }
+        }
+        try {
+            await mongoose_1.default.connect(connectUri, mongoOptions);
+            console.log("MongoDB connected ✅");
+        }
+        catch (err) {
+            const srv = MONGO_URI.startsWith("mongodb+srv://");
+            const usedExpanded = connectUri !== MONGO_URI;
+            if (srv && !usedExpanded && (0, mongoConnect_1.isLikelySrvDnsFailure)(err)) {
+                try {
+                    console.warn("Driver SRV failed; retrying after SRV expand (set MONGO_DNS_SERVERS if this repeats).");
+                    const expanded = await (0, mongoConnect_1.expandMongoSrvToTcpUri)(MONGO_URI);
+                    await mongoose_1.default.connect(expanded, mongoOptions);
+                    console.log("MongoDB connected ✅ (expanded SRV → TCP URI)");
+                    return;
+                }
+                catch (secondErr) {
+                    console.error("MongoDB connection failed ❌", secondErr);
+                    console.error("Previous error:", err);
+                    console.warn("Continuing without MongoDB. For Atlas: set MONGO_DNS_SERVERS=8.8.8.8,8.8.4.4 in server/.env or use the standard mongodb:// connection string.");
+                    mongoose_1.default.set("bufferCommands", false);
+                    return;
+                }
+            }
+            console.error("MongoDB connection failed ❌", err);
+            if (srv && (0, mongoConnect_1.isLikelySrvDnsFailure)(err)) {
+                console.warn("Continuing without MongoDB. If you see querySrv errors: MONGO_DNS_SERVERS=8.8.8.8,8.8.4.4 in server/.env, or switch MONGO_URI to Atlas standard (mongodb://…).");
+            }
+            else {
+                console.warn("Continuing without MongoDB. Admin login route is still available.");
+            }
+            mongoose_1.default.set("bufferCommands", false);
+        }
+    })();
 }

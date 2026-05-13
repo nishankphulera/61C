@@ -49,7 +49,7 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="absolute right-4 top-4 z-10 rounded-full p-2 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="absolute -right-2 -top-2 z-10 rounded-full p-2 text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             aria-label="Close menu"
           >
             <XMarkIcon className="h-8 w-8" aria-hidden />
@@ -57,7 +57,7 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
 
           <nav
             data-lenis-prevent
-            className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-14 pb-[max(1rem,env(safe-area-inset-bottom))]"
+            className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-0 pb-[max(1rem,env(safe-area-inset-bottom))]"
             aria-label="Primary"
           >
             <div className="flex w-full flex-col">
