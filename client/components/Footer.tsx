@@ -327,7 +327,7 @@ export default function Footer() {
         }}
       >
         <div
-          className="relative h-full w-full"
+          className="absolute left-1/2 top-0 h-full w-[107vw] max-w-none -translate-x-1/2"
           style={{
             maskImage: `linear-gradient(
               to bottom,
@@ -359,7 +359,7 @@ export default function Footer() {
             alt=""
             fill
             className="object-cover object-top"
-            sizes="100vw"
+            sizes="110vw"
           />
         </div>
       </div>
