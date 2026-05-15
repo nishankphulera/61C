@@ -174,10 +174,14 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
 
       <label className="space-y-1 text-sm block">
         <span>Gallery image URLs (one per line)</span>
+        <p className="text-xs text-zinc-400">
+          Google Drive share links are supported (file must be shared as anyone with the link).
+        </p>
         <textarea
           value={form.imagesText}
           onChange={(e) => setForm((prev) => ({ ...prev, imagesText: e.target.value }))}
           className="h-28 w-full rounded-md bg-black px-3 py-2"
+          placeholder="https://drive.google.com/file/d/.../view"
         />
       </label>
 

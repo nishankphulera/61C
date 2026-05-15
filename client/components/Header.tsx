@@ -78,25 +78,20 @@ export default function Header() {
         {/* Right: Hamburger Menu */}
         <button
           type="button"
-          className="relative z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none"
+          className="relative z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls={navPanelId}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <svg
-            width="36"
-            height="36"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            focusable="false"
-            className="w-7 h-7 md:w-10 md:h-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] text-white/90"
-          >
-            <path
-              fill="currentColor"
-              d="M4 6.75A.75.75 0 0 1 4.75 6h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 6.75ZM4 12a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 12Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75a.75.75 0 0 1-.75-.75Z"
-            />
-          </svg>
+          <Image
+            src="/bb.png"
+            alt=""
+            width={40}
+            height={40}
+            className="size-7 object-contain md:size-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            aria-hidden
+          />
         </button>
       </div>
 

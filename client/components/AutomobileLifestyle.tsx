@@ -1,7 +1,7 @@
 "use client";
 
 import { gsap } from "gsap";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -247,7 +247,7 @@ function AutomobileImageCard({ image, onClick }: AutomobileImageCardProps) {
   return (
     <div
       ref={cardRef}
-      className="automobile-card relative cursor-pointer overflow-hidden rounded-lg shadow-lg w-full h-full"
+      className="automobile-card relative cursor-pointer overflow-hidden rounded-lg bg-black/40 shadow-lg w-full h-full"
       style={{
         gridRow: `${image.row} / span ${image.rowSpan}`,
         gridColumn: image.column,
@@ -256,12 +256,11 @@ function AutomobileImageCard({ image, onClick }: AutomobileImageCardProps) {
       }}
       onClick={handleClick}
     >
-      <div ref={imageRef} className="relative w-full h-full overflow-hidden">
-        <Image
+      <div ref={imageRef} className="relative flex h-full w-full items-center justify-center overflow-hidden">
+        <GalleryImage
           src={image.imageSrc}
           alt={`Automobiles ${image.id}`}
           fill
-          className="object-contain"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
         />
       </div>

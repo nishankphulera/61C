@@ -14,51 +14,7 @@ import PhotographySpaces from "@/components/PhotographySpaces";
 import { PhotographyLightboxProvider } from "@/components/PhotographyLightboxContext";
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
-
-function extractYouTubeVideoId(url: string): string | null {
-  try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.toLowerCase();
-    if (host.includes("youtu.be")) {
-      const id = parsed.pathname.replace("/", "").trim();
-      return id || null;
-    }
-    if (host.includes("youtube.com")) {
-      if (parsed.pathname.startsWith("/watch")) return parsed.searchParams.get("v");
-      if (parsed.pathname.startsWith("/embed/")) {
-        return parsed.pathname.split("/embed/")[1]?.split("/")[0] || null;
-      }
-      if (parsed.pathname.startsWith("/shorts/")) {
-        return parsed.pathname.split("/shorts/")[1]?.split("/")[0] || null;
-      }
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
-
-function isImageUrl(url: string): boolean {
-  try {
-    const parsed = new URL(url);
-    const pathname = parsed.pathname.toLowerCase();
-    const hasImageExtension = /\.(avif|webp|png|jpe?g|gif|svg)$/i.test(pathname);
-    const knownImageHosts = ["picsum.photos", "i.ytimg.com", "img.youtube.com"];
-    return hasImageExtension || knownImageHosts.includes(parsed.hostname.toLowerCase());
-  } catch {
-    return false;
-  }
-}
-
-function normalizeImageUrl(url: string, item: ContentItem): string | null {
-  const value = url.trim();
-  if (!value) return null;
-  if (isImageUrl(value)) return value;
-
-  const videoSource = item.youtubeUrl?.trim() || item.videoUrl?.trim() || value;
-  const videoId = extractYouTubeVideoId(videoSource);
-  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null;
-}
+import { normalizeGalleryImageUrl } from "@/lib/mediaUrls";
 
 export default function PhotographyPage() {
   const fnbRef = useRef<HTMLDivElement>(null);
@@ -118,7 +74,7 @@ export default function PhotographyPage() {
           ? item.images
           : [item.thumbnailUrl || item.youtubeUrl || item.videoUrl || ""];
         return candidates
-          .map((candidate) => normalizeImageUrl(candidate, item))
+          .map((candidate) => normalizeGalleryImageUrl(candidate, item))
           .filter((image): image is string => Boolean(image));
       });
 

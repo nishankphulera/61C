@@ -135,6 +135,7 @@ export function PhotographyLightboxProvider({
               <img
                 src={payload.src}
                 alt={payload.alt ?? "Photography"}
+                referrerPolicy="no-referrer"
                 className="max-h-[min(82dvh,82vh)] max-w-full rounded-md object-contain shadow-[0_25px_80px_-12px_rgba(0,0,0,0.85)] ring-1 ring-white/15"
               />
             </motion.div>

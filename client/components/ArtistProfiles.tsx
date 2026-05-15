@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -420,12 +420,11 @@ function ArtistProfileCard({ image, height, onClick }: ArtistProfileCardProps) {
       }}
       onClick={handleClick}
     >
-      <div ref={imageRef} className="relative w-full h-full overflow-hidden">
-        <Image
+      <div ref={imageRef} className="relative flex h-full w-full items-center justify-center overflow-hidden bg-black/40">
+        <GalleryImage
           src={image.imageSrc}
           alt={`Artist profile ${image.id}`}
           fill
-          className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
         />
       </div>

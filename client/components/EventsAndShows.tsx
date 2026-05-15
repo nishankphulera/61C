@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -400,7 +400,7 @@ function EventCard({ image, onClick }: EventCardProps) {
   return (
     <div
       ref={cardRef}
-      className="event-card relative cursor-pointer overflow-hidden rounded-lg shadow-lg flex-shrink-0"
+      className="event-card relative cursor-pointer overflow-hidden rounded-lg bg-black/40 shadow-lg flex-shrink-0"
       style={{
         width: `${image.width}px`,
         height: `${image.height}px`,
@@ -408,12 +408,11 @@ function EventCard({ image, onClick }: EventCardProps) {
       }}
       onClick={handleClick}
     >
-      <div ref={imageRef} className="relative w-full h-full overflow-hidden">
-        <Image
+      <div ref={imageRef} className="relative flex h-full w-full items-center justify-center overflow-hidden">
+        <GalleryImage
           src={image.imageSrc}
           alt={`Event ${image.id}`}
           fill
-          className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
         />
       </div>

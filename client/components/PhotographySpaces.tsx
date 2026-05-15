@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -87,13 +87,13 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
             key={img.id}
             type="button"
             onClick={() => open(img.imageSrc, { alt: `Spaces ${img.id}` })}
-            className="spaces-card group relative aspect-square w-full min-w-0 cursor-zoom-in overflow-hidden rounded-lg border-0 bg-transparent p-0 text-left shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="spaces-card group relative aspect-square w-full min-w-0 cursor-zoom-in overflow-hidden rounded-lg border-0 bg-black/40 p-0 text-left shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            <Image
+            <GalleryImage
               src={img.imageSrc}
               alt={`Spaces ${img.id}`}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="transition-transform duration-500 group-hover:scale-105"
               sizes="(max-width: 768px) 50vw, 33vw"
             />
           </button>

@@ -174,6 +174,11 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+function shouldHideFooter(pathname: string | null) {
+  return pathname === "/contact" || pathname === "/about";
+}
+
 const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
   { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
@@ -211,7 +216,7 @@ export default function Footer() {
   const shutterRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (pathname === "/contact") return;
+    if (shouldHideFooter(pathname)) return;
     if (typeof window === "undefined") return;
 
     let ticking = false;
@@ -293,7 +298,7 @@ export default function Footer() {
     };
   }, [pathname]);
 
-  if (pathname === "/contact") return null;
+  if (shouldHideFooter(pathname)) return null;
 
   return (
     <footer

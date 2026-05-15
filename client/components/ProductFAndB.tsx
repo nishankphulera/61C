@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -228,16 +228,15 @@ function ProductImageCard({ image, imageAltPrefix, onClick }: ProductImageCardPr
   return (
     <div
       ref={cardRef}
-      className="product-card relative min-w-0 aspect-square w-full cursor-pointer overflow-hidden rounded-lg shadow-lg"
+      className="product-card relative min-w-0 aspect-square w-full cursor-pointer overflow-hidden rounded-lg bg-black/40 shadow-lg"
       style={{ transformStyle: "preserve-3d" }}
       onClick={handleClick}
     >
-      <div ref={imageRef} className="relative w-full h-full overflow-hidden">
-        <Image
+      <div ref={imageRef} className="relative flex h-full w-full items-center justify-center overflow-hidden">
+        <GalleryImage
           src={image.imageSrc}
           alt={`${imageAltPrefix} ${image.id}`}
           fill
-          className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 16vw"
         />
       </div>

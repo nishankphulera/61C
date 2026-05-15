@@ -2,7 +2,7 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
+import GalleryImage from "@/components/GalleryImage";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
@@ -403,12 +403,11 @@ function FashionCard({ image, onClick }: FashionCardProps) {
       }}
       onClick={handleClick}
     >
-      <div ref={imageRef} className="relative w-full h-full overflow-hidden">
-        <Image
+      <div ref={imageRef} className="relative flex h-full w-full items-center justify-center overflow-hidden bg-black/40">
+        <GalleryImage
           src={image.imageSrc}
           alt={`Fashion ${image.id}`}
           fill
-          className="object-cover"
           sizes="(max-width: 640px) 50vw, 400px"
         />
       </div>
