@@ -190,7 +190,7 @@ export default function ContactView() {
         </section>
 
         {/* Studios */}
-        <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
+        {/* <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
             <div className="md:border-r md:pr-10" style={{ borderColor: GREEN_ACCENT }}>
               <h2 className="text-lg font-bold uppercase tracking-wide" style={{ color: YELLOW }}>
                 UK studio
@@ -211,7 +211,61 @@ export default function ContactView() {
                 Contact :
               </p>
             </div>
-        </div>
+        </div> */}
+         <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
+            <div className="flex-1 md:pr-8 md:text-right">
+              <p className="text-xl font-bold uppercase tracking-wide md:text-5xl">
+                UK Studio
+              </p>
+              <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl tracking-wide">
+                Registered office address:
+              </p>
+              <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
+                71-75 Shelton Street,
+                <br />
+                Covent Garden,
+                <br />
+                London,
+                <br />
+                WC2H 9JQ
+              </address>
+              <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
+                Phone No: +44 7345651920
+              </p>
+            </div>
+
+            <div
+              className="hidden shrink-0 self-stretch bg-[#1a4d2e] md:block md:w-px md:min-h-48"
+              aria-hidden
+            />
+
+            <div
+              className="h-px w-full shrink-0 bg-[#1a4d2e] md:hidden"
+              aria-hidden
+            />
+
+            <div className="flex-1 md:pl-8 md:text-left">
+              <p className="text-lg font-bold uppercase tracking-wide md:text-5xl">
+                India Studio
+              </p>
+              <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl">
+                Registered office address:
+              </p>
+              <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
+                House No.55,
+                <br />
+                Second Floor, Gali No2,
+                <br />
+                Saidullajab Village,
+                <br />
+                New Delhi, 110030
+              </address>
+              <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
+                Phone No: +918266029164
+              </p>
+            </div>
+            
+          </div>
 
         {/* Form */}
         <form onSubmit={onSubmit} className="mt-10 max-w-4xl space-y-6 md:mt-14">

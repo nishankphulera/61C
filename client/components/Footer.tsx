@@ -402,7 +402,7 @@ export default function Footer() {
             ))}
           </div>
           <a href="mailto:admin@61cstudios.com" className="text-[#E4DA4D]">
-            admin@61cstudios.com
+            hello@61cstudios.com
           </a>
         </div>
 
