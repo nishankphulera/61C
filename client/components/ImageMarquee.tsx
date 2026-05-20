@@ -271,7 +271,9 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
       className="[--marquee-img:72px] md:[--marquee-img:140px] py-12 md:py-20 bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center z-10"
       style={{ contain: "layout paint style" }}
     >
-      <h2 className="sr-only">{title}</h2>
+      <h2 className="relative z-20 mb-8 md:mb-12 px-4 text-center text-2xl font-bold uppercase tracking-widest text-white/90 md:text-3xl">
+        {title}
+      </h2>
       {/* Noise overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03] z-[10] mix-blend-overlay"

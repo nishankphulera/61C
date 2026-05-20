@@ -67,13 +67,15 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
                   href={href}
                   className="group relative block w-full min-w-0 shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                 >
-                  <Image
-                    src={imageSrc}
-                    alt={label}
-                    width={100}
-                    height={100}
-                    className="w-full max-w-full object-cover object-center drop-shadow-sm transition-transform group-hover:scale-[1.02]"
-                  />
+                  <div className="relative h-30 w-full sm:h-22 md:h-22">
+                    <Image
+                      src={imageSrc}
+                      alt={label}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-center drop-shadow-sm transition-transform group-hover:scale-[1.02]"
+                    />
+                  </div>
                 </Link>
               ))}
             </div>

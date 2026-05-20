@@ -24,15 +24,14 @@ const ExploreSection: React.FC = () => {
 
   return (
     <>
+    
       {/* Mobile: stacked nav cards (desktop uses parallax collage below) */}
       <section
         className="sm:hidden space-y-8 max-w-lg mx-auto w-full pt-6 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] pb-[max(4rem,calc(env(safe-area-inset-bottom)+2rem))]"
         aria-label="Explore"
         style={{ contain: "layout paint", contentVisibility: "auto" }}
       >
-        <h2 className="text-center text-sm font-semibold tracking-[0.2em] uppercase text-white/60">
-          Explore
-        </h2>
+        
         <Card
           layout="stacked"
           title="FILMS"
@@ -64,6 +63,7 @@ const ExploreSection: React.FC = () => {
         className="hidden sm:block relative h-[200vh] bg-black"
         style={{ contain: "layout paint", contentVisibility: "auto" }}
       >
+       
         {isSceneInView && (
           <>
             <Asset

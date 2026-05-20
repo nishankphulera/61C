@@ -59,10 +59,15 @@ export default function LandingPage() {
       </div>
       {/* Image Marquee below the TV */}
       <div className="relative mt-0 z-10 w-full bg-black">
-        <ImageMarquee title="Our Work" imageSize={120} rows={3} />
+        <ImageMarquee title="Brands We Work With" imageSize={120} rows={3} />
         {/* Giant Background Asset overlapping the Marquee */}
       </div>
-
+      <div className="align-center justify-center flex mb-8">
+      <h2 className="text-white text-3xl font-bold uppercase tracking-widest opacity-80 z-20">
+           Our Work
+        </h2>
+      </div>
+      
       <ExploreSection />
     </main>
   );

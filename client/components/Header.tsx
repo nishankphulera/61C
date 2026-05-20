@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useId, useState } from "react";
 import { NavModal } from "@/components/NavModal";
-
+import { useRouter } from "next/navigation";
 /** Pixels of vertical scroll before the center wordmark is hidden */
 const TITLE_HIDE_SCROLL_PX = 32;
 
@@ -14,7 +14,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [titleHidden, setTitleHidden] = useState(false);
   const navPanelId = useId();
-
+  const router = useRouter();
   useEffect(() => {
     // Track the last computed value locally so we only call setState when the
     // threshold is actually crossed — calling setState on every scroll event
@@ -74,7 +74,23 @@ export default function Header() {
             />
           </Link>
         </div>
-
+        <button
+          type="button"
+          className="absolute right-24 top-5 z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls={navPanelId}
+          onClick={() => router.push("comingsoon")}
+        >
+          <Image
+            src="/ukFlagGif.gif"
+            alt=""
+            width={40}
+            height={40}
+            className="size-7 object-contain md:size-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            aria-hidden
+          />
+        </button>
         {/* Right: Hamburger Menu */}
         <button
           type="button"

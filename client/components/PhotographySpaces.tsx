@@ -2,9 +2,10 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GalleryImage from "@/components/GalleryImage";
+import PhotographySquareCard from "@/components/PhotographySquareCard";
 import React, { useEffect, useRef } from "react";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
+import { PHOTO_UNIFORM_GRID_CLASS } from "@/lib/photographyUniformGrid";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,7 +48,7 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
               start: "top 82%",
               toggleActions: "play none none none",
             },
-          },
+          }
         );
       }
 
@@ -69,7 +70,7 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
               start: "top 88%",
               toggleActions: "play none none none",
             },
-          },
+          }
         );
       }
     }, section);
@@ -81,22 +82,16 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
     <section ref={sectionRef} className="mb-16 -mx-4 md:-mx-8">
       <h2 className="mb-12 px-4 text-left text-5xl text-yellow-400 md:px-8 md:text-6xl">Spaces</h2>
 
-      <div className="spaces-grid grid w-full grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-3 px-4 md:gap-4 lg:gap-6 md:px-8">
+      <div className={`spaces-grid ${PHOTO_UNIFORM_GRID_CLASS}`}>
         {list.map((img) => (
-          <button
+          <PhotographySquareCard
             key={img.id}
-            type="button"
-            onClick={() => open(img.imageSrc, { alt: `Spaces ${img.id}` })}
-            className="spaces-card group relative aspect-square w-full min-w-0 cursor-zoom-in overflow-hidden rounded-lg border-0 bg-black/40 p-0 text-left shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            <GalleryImage
-              src={img.imageSrc}
-              alt={`Spaces ${img.id}`}
-              fill
-              className="transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 33vw"
-            />
-          </button>
+            id={img.id}
+            imageSrc={img.imageSrc}
+            alt={`Spaces ${img.id}`}
+            cardClassName="spaces-card"
+            onOpen={() => open(img.imageSrc, { alt: `Spaces ${img.id}` })}
+          />
         ))}
       </div>
     </section>

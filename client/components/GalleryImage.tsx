@@ -10,6 +10,11 @@ type GalleryImageProps = {
   fill?: boolean;
   width?: number;
   height?: number;
+  /**
+   * When `fill` is set, controls how the bitmap fits the box.
+   * `contain` = full image visible (letterboxing). `cover` = fill box, crop overflow (uniform grid tiles).
+   */
+  fit?: "contain" | "cover";
 };
 
 /** Gallery image with correct referrer policy for Google-hosted assets. */
@@ -21,6 +26,7 @@ export default function GalleryImage({
   fill,
   width,
   height,
+  fit = "contain",
 }: GalleryImageProps) {
   const needsNoReferrer =
     src.startsWith("/api/drive-image/") ||
@@ -28,7 +34,11 @@ export default function GalleryImage({
     src.includes("drive.google.com") ||
     src.includes("drive.usercontent.google.com");
 
-  const fitClass = fill ? "object-contain" : "";
+  const fitClass = fill
+    ? fit === "cover"
+      ? "object-cover object-center"
+      : "object-contain"
+    : "";
   const mergedClassName = [fitClass, className].filter(Boolean).join(" ");
 
   return (
