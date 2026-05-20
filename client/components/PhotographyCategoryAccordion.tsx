@@ -6,49 +6,49 @@ import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext"
 /** Accordion order matches page: F&B → Product → Hospitality → Spaces → Fashion → Automobiles → Artists Profiles → Events */
 const CARDS = [
   {
-    src: "/Frame5.jpg",
+    src: "/f&b.jpg",
     title: "F&B",
     overlay: "bg-emerald-800/50",
     sectionId: "photography-fnb",
   },
   {
-    src: "/Frame5.jpg",
+    src: "/produyct%20.jpg",
     title: "Product",
     overlay: "bg-teal-900/45",
     sectionId: "photography-product",
   },
   {
-    src: "/Frame2.jpg",
+    src: "/hopsitalityspace.jpg",
     title: "Hospitality",
     overlay: "bg-orange-600/50",
     sectionId: "photography-hospitality",
   },
   {
-    src: "/Frame3.jpg",
+    src: "/spacearchitech.jpg",
     title: "Spaces",
     overlay: "bg-slate-700/50",
     sectionId: "photography-spaces",
   },
   {
-    src: "/Frame1.jpg",
+    src: "/fashion%20ndlifestyle.jpg",
     title: "Fashion & Lifestyle",
     overlay: "bg-pink-600/55",
     sectionId: "photography-fashion",
   },
   {
-    src: "/Frame4.jpg",
+    src: "/auto.jpg",
     title: "Automobiles",
     overlay: "bg-violet-600/45",
     sectionId: "photography-automobiles",
   },
   {
-    src: "/Frame3.jpg",
+    src: "/artistprofile.jpg",
     title: "Artists Profiles",
     overlay: "bg-indigo-900/55",
     sectionId: "photography-artist-profiles",
   },
   {
-    src: "/Frame6.jpg",
+    src: "/eventshows%20.jpg",
     title: "Events",
     overlay: "bg-red-800/50",
     sectionId: "photography-events",
