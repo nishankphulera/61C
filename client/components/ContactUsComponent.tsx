@@ -222,7 +222,7 @@ export default function ContactUsComponent() {
         </div> */}
          <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 text-[#ffef00] md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
             <div className="flex-1 md:pr-8 md:text-right">
-              <p className="text-xl font-bold uppercase tracking-wide md:text-5xl">
+              <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
                 UK Studio
               </p>
               <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl tracking-wide">
@@ -253,7 +253,7 @@ export default function ContactUsComponent() {
             />
 
             <div className="flex-1 md:pl-8 md:text-left">
-              <p className="text-lg font-bold uppercase tracking-wide md:text-5xl">
+              <p className="text-lg font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
                 India Studio
               </p>
               <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl">
@@ -324,7 +324,16 @@ export default function ContactUsComponent() {
               autoComplete="tel"
             />
           </label>
-          <label className="flex flex-col gap-2">
+          <div className="flex min-h-[52px] flex-col justify-end">
+            <button
+              type="submit"
+              disabled={formSubmitting}
+              className="w-full rounded border-2 border-[#F7E509] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-widest text-[#F7E509] transition-colors hover:bg-[#F7E509]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509] disabled:pointer-events-none disabled:opacity-50 md:w-auto md:min-w-[12rem]"
+            >
+              {formSubmitting ? "Sending…" : "Send"}
+            </button>
+          </div>
+          <label className="flex flex-col gap-2 md:col-span-2">
             <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: YELLOW }}>
               Message
             </span>
@@ -348,14 +357,6 @@ export default function ContactUsComponent() {
             {formFeedback.text}
           </p>
         ) : null}
-
-        <button
-          type="submit"
-          disabled={formSubmitting}
-          className="rounded border-2 border-[#F7E509] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-widest text-[#F7E509] transition-colors hover:bg-[#F7E509]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509] disabled:pointer-events-none disabled:opacity-50"
-        >
-          {formSubmitting ? "Sending…" : "Send"}
-        </button>
       </form>
     </section>
     </>

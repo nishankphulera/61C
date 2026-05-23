@@ -176,7 +176,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function shouldHideFooter(pathname: string | null) {
-  return pathname === "/contact" || pathname === "/about";
+  return pathname === "/contact" || pathname === "/about" || pathname === "/uk";
 }
 
 const LINKS = [

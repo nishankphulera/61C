@@ -80,14 +80,14 @@ export default function Header() {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls={navPanelId}
-          onClick={() => router.push("comingsoon")}
+          onClick={() => router.push("/uk")}
         >
           <Image
             src="/ukFlagGif.gif"
             alt=""
-            width={40}
+            width={56}
             height={40}
-            className="size-7 object-contain md:size-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+            className="h-8 w-11 object-contain md:h-11 md:w-16 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
             aria-hidden
           />
         </button>

@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import {
   ContentItem,
   ContentPage,
+  getSectionLabel,
   getSectionOptionsByPage,
   MEDIA_TYPE_OPTIONS,
   PAGE_OPTIONS,
@@ -111,7 +112,7 @@ export default function AdminContentForm({ initial, onSubmit, submitLabel }: Pro
           >
             {sectionOptions.map((section) => (
               <option key={section} value={section}>
-                {section}
+                {getSectionLabel(section)}
               </option>
             ))}
           </select>

@@ -20,27 +20,27 @@ export default function PhotographyPage() {
   const fnbRef = useRef<HTMLDivElement>(null);
   const productRef = useRef<HTMLDivElement>(null);
   const hospitalityRef = useRef<HTMLDivElement>(null);
-  const spacesRef = useRef<HTMLDivElement>(null);
+  const architectureRef = useRef<HTMLDivElement>(null);
   const fashionRef = useRef<HTMLDivElement>(null);
-  const automobilesRef = useRef<HTMLDivElement>(null);
   const artistProfilesRef = useRef<HTMLDivElement>(null);
+  const automobilesRef = useRef<HTMLDivElement>(null);
   const eventsRef = useRef<HTMLDivElement>(null);
 
   const isFnbInView = useInView(fnbRef, { once: true, amount: 0.2 });
   const isProductInView = useInView(productRef, { once: true, amount: 0.2 });
   const isHospitalityInView = useInView(hospitalityRef, { once: true, amount: 0.2 });
-  const isSpacesInView = useInView(spacesRef, { once: true, amount: 0.2 });
+  const isArchitectureInView = useInView(architectureRef, { once: true, amount: 0.2 });
   const isFashionInView = useInView(fashionRef, {
     once: true,
     amount: 0.22,
     margin: "-12% 0px -30% 0px",
   });
-  const isAutomobilesInView = useInView(automobilesRef, { once: true, amount: 0.2 });
   const isArtistInView = useInView(artistProfilesRef, {
     once: true,
     amount: 0.32,
     margin: "-10% 0px -36% 0px",
   });
+  const isAutomobilesInView = useInView(automobilesRef, { once: true, amount: 0.2 });
   const isEventsInView = useInView(eventsRef, {
     once: true,
     amount: 0.15,
@@ -127,14 +127,14 @@ export default function PhotographyPage() {
           </motion.div>
 
           <motion.div
-            id="photography-spaces"
-            ref={spacesRef}
+            id="photography-architecture-real-estate"
+            ref={architectureRef}
             className="scroll-mt-[4.5rem]"
             variants={sectionVariants}
             initial="hidden"
-            animate={isSpacesInView ? "visible" : "hidden"}
+            animate={isArchitectureInView ? "visible" : "hidden"}
           >
-            <PhotographySpaces images={imagesBySection("spaces")} />
+            <PhotographySpaces images={imagesBySection("architecture-real-estate")} />
           </motion.div>
 
           <motion.div
@@ -149,17 +149,6 @@ export default function PhotographyPage() {
           </motion.div>
 
           <motion.div
-            id="photography-automobiles"
-            ref={automobilesRef}
-            className="scroll-mt-[4.5rem]"
-            variants={sectionVariants}
-            initial="hidden"
-            animate={isAutomobilesInView ? "visible" : "hidden"}
-          >
-            <AutomobileLifestyle images={imagesBySection("automobiles")} />
-          </motion.div>
-
-          <motion.div
             id="photography-artist-profiles"
             ref={artistProfilesRef}
             className="scroll-mt-[4.5rem]"
@@ -168,6 +157,17 @@ export default function PhotographyPage() {
             animate={isArtistInView ? "visible" : "hidden"}
           >
             <ArtistProfiles images={imagesBySection("artist-profiles")} />
+          </motion.div>
+
+          <motion.div
+            id="photography-automobiles"
+            ref={automobilesRef}
+            className="scroll-mt-[4.5rem]"
+            variants={sectionVariants}
+            initial="hidden"
+            animate={isAutomobilesInView ? "visible" : "hidden"}
+          >
+            <AutomobileLifestyle images={imagesBySection("automobiles")} />
           </motion.div>
 
           <motion.div

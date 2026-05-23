@@ -30,12 +30,33 @@ export const PHOTOGRAPHY_SECTIONS = [
   "fnb",
   "product",
   "hospitality",
-  "spaces",
+  "architecture-real-estate",
   "fashion-lifestyle",
-  "automobiles",
   "artist-profiles",
+  "automobiles",
   "events",
 ] as const;
+
+export const SECTION_LABELS: Record<string, string> = {
+  "music-videos": "Music Videos",
+  "brand-films": "Brand Films",
+  "vertical-films": "Vertical Films",
+  documentaries: "Documentaries",
+  fnb: "F&B",
+  product: "Product",
+  hospitality: "Hospitality",
+  "architecture-real-estate": "Architecture & Real estate",
+  spaces: "Architecture & Real estate (legacy)",
+  "fashion-lifestyle": "Fashion & Lifestyle",
+  automobiles: "Automobiles",
+  "artist-profiles": "Artists Profiles",
+  events: "Events",
+  design: "Design",
+};
+
+export function getSectionLabel(section: string): string {
+  return SECTION_LABELS[section] ?? section;
+}
 export const DESIGN_SECTIONS = ["design"] as const;
 
 export const SECTION_OPTIONS = [

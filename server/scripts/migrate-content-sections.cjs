@@ -14,6 +14,7 @@
  *   more-films + page=films     -> documentaries
  *   automobile + page=photography -> automobiles
  *   events-shows + page=photography -> events
+ *   spaces + page=photography -> architecture-real-estate
  *   product-fnb + page=photography -> fnb OR product (only if PRODUCT_FNB_TO set)
  */
 
@@ -42,6 +43,7 @@ async function main() {
     { page: "films", from: "more-films", to: "documentaries" },
     { page: "photography", from: "automobile", to: "automobiles" },
     { page: "photography", from: "events-shows", to: "events" },
+    { page: "photography", from: "spaces", to: "architecture-real-estate" },
   ];
 
   for (const { page, from, to } of renames) {

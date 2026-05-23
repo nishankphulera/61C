@@ -80,7 +80,9 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
 
   return (
     <section ref={sectionRef} className="mb-16 -mx-4 md:-mx-8">
-      <h2 className="mb-12 px-4 text-left text-5xl text-yellow-400 md:px-8 md:text-6xl">Spaces</h2>
+      <h2 className="mb-12 px-4 text-left text-5xl text-yellow-400 md:px-8 md:text-6xl">
+        Architecture & Real estate
+      </h2>
 
       <div className={`spaces-grid ${PHOTO_UNIFORM_GRID_CLASS}`}>
         {list.map((img) => (
@@ -88,9 +90,11 @@ export default function PhotographySpaces({ images }: PhotographySpacesProps) {
             key={img.id}
             id={img.id}
             imageSrc={img.imageSrc}
-            alt={`Spaces ${img.id}`}
+            alt={`Architecture & Real estate ${img.id}`}
             cardClassName="spaces-card"
-            onOpen={() => open(img.imageSrc, { alt: `Spaces ${img.id}` })}
+            onOpen={() =>
+              open(img.imageSrc, { alt: `Architecture & Real estate ${img.id}` })
+            }
           />
         ))}
       </div>

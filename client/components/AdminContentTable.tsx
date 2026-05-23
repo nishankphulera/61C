@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { ContentItem } from "@/lib/content";
+import { ContentItem, getSectionLabel } from "@/lib/content";
 
 type Props = {
   rows: ContentItem[];
@@ -46,7 +46,7 @@ export default function AdminContentTable({ rows, onDelete }: Props) {
             <tr key={row._id} className="border-t border-white/10">
               <td className="px-3 py-2">{row.title}</td>
               <td className="px-3 py-2">{row.page}</td>
-              <td className="px-3 py-2">{row.section}</td>
+              <td className="px-3 py-2">{getSectionLabel(row.section)}</td>
               <td className="px-3 py-2">{row.mediaType}</td>
               <td className="px-3 py-2">
                 <span

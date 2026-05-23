@@ -22,12 +22,15 @@ export default function CoreLocations() {
       className="relative z-10 bg-black"
       aria-labelledby="core-locations-heading"
     >
-      <h2 id="core-locations-heading" className="sr-only">
-        Core locations
-      </h2>
-
       <div className="mx-auto w-full max-w-7xl">
-        <div className="relative h-[min(100dvh,56rem)] min-h-[240px] w-full md:h-[min(100dvh,56rem)]">
+        <h2
+          id="core-locations-heading"
+          className="px-4 pt-16 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-[#D9E021] md:px-10 md:pt-20"
+        >
+          Core Locations
+        </h2>
+
+        <div className="relative mt-8 h-[min(100dvh,56rem)] min-h-[240px] w-full md:mt-10 md:h-[min(100dvh,56rem)]">
           <Image
             src="/globalreach.jpg"
             alt="Stylized world map with the Gateway of India and Big Ben, representing global creative reach."

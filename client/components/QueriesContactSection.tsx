@@ -44,6 +44,22 @@ const SITE_MAP_LINKS = [
   { label: "Contact Us", href: "/contact" },
 ] as const;
 
+const UK_SITE_MAP_LINKS = [
+  ...SITE_MAP_LINKS.slice(0, 5),
+  { label: "61C Studios UK", href: "/uk" },
+  SITE_MAP_LINKS[5],
+] as const;
+
+const UK_LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/comingsoon" },
+  { label: "Terms of Business", href: "/comingsoon" },
+] as const;
+
+type QueriesContactSectionProps = {
+  showHeader?: boolean;
+  variant?: "default" | "uk";
+};
+
 const IMPORTANT_LINKS = [
   { label: "Policies & Compliance", href: "/comingsoon" },
   { label: "Privacy Policy", href: "/comingsoon" },
@@ -85,7 +101,12 @@ function SocialLoopVideoTile({
   );
 }
 
-export default function QueriesContactSection() {
+export default function QueriesContactSection({
+  showHeader = true,
+  variant = "default",
+}: QueriesContactSectionProps) {
+  const isUk = variant === "uk";
+  const siteMapLinks = isUk ? UK_SITE_MAP_LINKS : SITE_MAP_LINKS;
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -129,34 +150,50 @@ export default function QueriesContactSection() {
       className="bg-black text-[#F7E509]"
       aria-labelledby="queries-heading"
     >
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24">
-        <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end md:justify-between">
-          <h2
-            id="queries-heading"
-            className="text-3xl font-bold uppercase tracking-wide md:text-5xl"
-            style={{ color: YELLOW }}
-          >
-            Send us your queries
+      <div
+        className={
+          isUk
+            ? "w-full px-8 pb-24 pt-4 md:px-12 md:pb-32 md:pt-8 lg:px-16"
+            : "mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-24"
+        }
+      >
+        {!showHeader ? (
+          <h2 id="queries-heading" className="sr-only">
+            Contact form
           </h2>
-          <a
-            href={`mailto:${MAIL}`}
-            className="text-balance font-semibold underline decoration-2 underline-offset-[0.35em] transition-opacity hover:opacity-90 max-md:w-full md:max-w-[min(52vw,26rem)] md:text-right leading-tight break-all md:break-normal"
-            style={{
-              color: YELLOW,
-              fontSize: "clamp(1.5rem, 2.8vw + 1rem, 2.875rem)",
-            }}
-          >
-            {MAIL}
-          </a>
-        </div>
+        ) : null}
 
-        <div
-          className="mt-6 h-px w-full md:mt-8"
-          style={{ backgroundColor: GREEN_RULE }}
-          aria-hidden
-        />
+        {showHeader ? (
+          <>
+            <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end md:justify-between">
+              <h2
+                id="queries-heading"
+                className="text-3xl font-bold uppercase tracking-wide md:text-5xl"
+                style={{ color: YELLOW }}
+              >
+                Send us your queries
+              </h2>
+              <a
+                href={`mailto:${MAIL}`}
+                className="text-balance font-semibold underline decoration-2 underline-offset-[0.35em] transition-opacity hover:opacity-90 max-md:w-full md:max-w-[min(52vw,26rem)] md:text-right leading-tight break-all md:break-normal"
+                style={{
+                  color: YELLOW,
+                  fontSize: "clamp(1.5rem, 2.8vw + 1rem, 2.875rem)",
+                }}
+              >
+                {MAIL}
+              </a>
+            </div>
 
-        <form onSubmit={onSubmit} className="mt-10 md:mt-12">
+            <div
+              className="mt-6 h-px w-full md:mt-8"
+              style={{ backgroundColor: GREEN_RULE }}
+              aria-hidden
+            />
+          </>
+        ) : null}
+
+        <form onSubmit={onSubmit} className={showHeader ? "mt-10 md:mt-12" : "mt-0"}>
           <div className="grid gap-8 md:grid-cols-2 md:gap-x-12 md:gap-y-10">
             <label className="flex flex-col gap-3">
               <span className="text-lg font-semibold uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
@@ -290,72 +327,135 @@ export default function QueriesContactSection() {
           className="mt-16 border-t border-white/10 pt-12 md:mt-20 md:pt-16"
           aria-label="Site map and legal"
         >
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
-            <nav aria-labelledby="queries-sitemap-heading">
-              <h3
-                id="queries-sitemap-heading"
-                className="text-2xl font-bold tracking-wide md:text-3xl"
-                style={{ color: YELLOW }}
-              >
-                Site Map
-              </h3>
-              <ul
-                className="mt-2 list-disc space-y-0 pl-5 text-xl leading-snug md:text-2xl lg:text-3xl"
-                style={{ color: LINK_BLUE }}
-              >
-                {SITE_MAP_LINKS.map((item) => (
-                  <li key={item.href} className="marker:text-[#0000FF]">
-                    <Link
-                      href={item.href}
-                      className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
-                      style={{ color: LINK_BLUE }}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <nav aria-labelledby="queries-important-heading" className="md:flex md:flex-col md:items-end w-full ">
-              <h3
-                id="queries-important-heading"
-                className="text-2xl font-bold tracking-wide md:text-right md:text-3xl"
-                style={{ color: YELLOW }}
-              >
-                Important links
-              </h3>
-              <div className="mt-6 md:flex md:w-full md:justify-end flex-row  ">
-              
+          {isUk ? (
+            <>
+              <nav aria-labelledby="queries-sitemap-heading">
+                <h3
+                  id="queries-sitemap-heading"
+                  className="text-2xl font-bold tracking-wide md:text-3xl"
+                  style={{ color: YELLOW }}
+                >
+                  Site Map
+                </h3>
                 <ul
-                  className="list-none flex flex-col justify-end text-right space-y-0 text-lg leading-snug md:text-2xl lg:text-3xl"
+                  className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg leading-snug md:mt-5 md:text-xl lg:text-2xl"
                   style={{ color: LINK_BLUE }}
-                  >
-                  {IMPORTANT_LINKS.map((item) => (
-                    <li key={item.label} className="marker:text-[#0000FF]">
+                >
+                  {siteMapLinks.map((item) => (
+                    <li key={item.href}>
                       <Link
                         href={item.href}
                         className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
                         style={{ color: LINK_BLUE }}
-                        >
+                      >
                         {item.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
-              </div>
-            </nav>
-          </div>
+              </nav>
 
-          <div
-            className="mt-14 space-y-4 text-base leading-relaxed md:mt-20 md:text-lg"
-            style={{ color: YELLOW }}
-          >
-            <p className="font-bold text-3xl">61C STUDIOS UK LTD (Company Number: 17200017)</p>
-            <p className="font-bold text-3xl">
-              Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All Rights Reserved
-            </p>
-          </div>
+              <div
+                className="mt-10 space-y-4 text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
+                style={{ color: YELLOW }}
+              >
+                <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+                  61C STUDIOS UK LTD (Company Number: 17200017)
+                  <span style={{ color: LINK_BLUE }}>
+                    {" – "}
+                    {UK_LEGAL_LINKS.map((item, index) => (
+                      <span key={item.label}>
+                        {index > 0 ? " | " : null}
+                        <Link
+                          href={item.href}
+                          className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                          style={{ color: LINK_BLUE }}
+                        >
+                          {item.label}
+                        </Link>
+                      </span>
+                    ))}
+                  </span>
+                </p>
+                <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+                  Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
+                  Rights Reserved
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+                <nav aria-labelledby="queries-sitemap-heading">
+                  <h3
+                    id="queries-sitemap-heading"
+                    className="text-2xl font-bold tracking-wide md:text-3xl"
+                    style={{ color: YELLOW }}
+                  >
+                    Site Map
+                  </h3>
+                  <ul
+                    className="mt-2 list-disc space-y-0 pl-5 text-xl leading-snug md:text-2xl lg:text-3xl"
+                    style={{ color: LINK_BLUE }}
+                  >
+                    {siteMapLinks.map((item) => (
+                      <li key={item.href} className="marker:text-[#0000FF]">
+                        <Link
+                          href={item.href}
+                          className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                          style={{ color: LINK_BLUE }}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+
+                <nav
+                  aria-labelledby="queries-important-heading"
+                  className="w-full md:flex md:flex-col md:items-end"
+                >
+                  <h3
+                    id="queries-important-heading"
+                    className="text-2xl font-bold tracking-wide md:text-right md:text-3xl"
+                    style={{ color: YELLOW }}
+                  >
+                    Important links
+                  </h3>
+                  <div className="mt-6 flex-row md:flex md:w-full md:justify-end">
+                    <ul
+                      className="flex list-none flex-col justify-end space-y-0 text-right text-lg leading-snug md:text-2xl lg:text-3xl"
+                      style={{ color: LINK_BLUE }}
+                    >
+                      {IMPORTANT_LINKS.map((item) => (
+                        <li key={item.label} className="marker:text-[#0000FF]">
+                          <Link
+                            href={item.href}
+                            className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                            style={{ color: LINK_BLUE }}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+
+              <div
+                className="mt-14 space-y-4 text-base leading-relaxed md:mt-20 md:text-lg"
+                style={{ color: YELLOW }}
+              >
+                <p className="text-3xl font-bold">61C STUDIOS UK LTD (Company Number: 17200017)</p>
+                <p className="text-3xl font-bold">
+                  Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All Rights
+                  Reserved
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>

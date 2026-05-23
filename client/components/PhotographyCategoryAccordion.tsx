@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
-/** Accordion order matches page: F&B → Product → Hospitality → Spaces → Fashion → Automobiles → Artists Profiles → Events */
+/** Accordion order matches page: F&B → Product → Hospitality → Architecture & Real estate → Fashion → Artists Profiles → Automobiles → Events */
 const CARDS = [
   {
     src: "/f&b.jpg",
@@ -18,16 +18,16 @@ const CARDS = [
     sectionId: "photography-product",
   },
   {
-    src: "/hopsitalityspace.jpg",
+    src: "/spacearchitech.jpg",
     title: "Hospitality",
     overlay: "bg-orange-600/50",
     sectionId: "photography-hospitality",
   },
   {
-    src: "/spacearchitech.jpg",
-    title: "Spaces",
+    src: "/hopsitalityspace.jpg",
+    title: "Architecture & Real estate",
     overlay: "bg-slate-700/50",
-    sectionId: "photography-spaces",
+    sectionId: "photography-architecture-real-estate",
   },
   {
     src: "/fashion%20ndlifestyle.jpg",
@@ -36,16 +36,16 @@ const CARDS = [
     sectionId: "photography-fashion",
   },
   {
-    src: "/auto.jpg",
-    title: "Automobiles",
-    overlay: "bg-violet-600/45",
-    sectionId: "photography-automobiles",
-  },
-  {
     src: "/artistprofile.jpg",
     title: "Artists Profiles",
     overlay: "bg-indigo-900/55",
     sectionId: "photography-artist-profiles",
+  },
+  {
+    src: "/auto.jpg",
+    title: "Automobiles",
+    overlay: "bg-violet-600/45",
+    sectionId: "photography-automobiles",
   },
   {
     src: "/eventshows%20.jpg",

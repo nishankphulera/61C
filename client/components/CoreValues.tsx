@@ -33,9 +33,9 @@ const CORE_VALUES = [
 ] as const;
 
 const valueTitleClass =
-  "text-[clamp(1.25rem,2.5vw+0.5rem,1.75rem)] font-extrabold leading-tight tracking-[-0.04em] text-[#FF499E]";
+  "text-[clamp(2.2rem,4vw+1rem,3rem)] font-extrabold leading-tight tracking-[-0.04em] text-[#FF499E]";
 const valueBodyClass =
-  "mt-2 text-base font-medium leading-[1.35] tracking-[-0.02em] text-[#FFFF00] sm:text-lg md:text-xl";
+  "mt-2 text-xl font-medium leading-[1.4] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl md:text-3xl";
 
 export default function CoreValues() {
   return (
@@ -74,7 +74,7 @@ export default function CoreValues() {
           ))}
         </motion.div>
 
-        <ul className="mt-8 flex max-w-3xl list-none flex-col gap-10 p-0 text-left md:mt-12 md:gap-12 lg:gap-14">
+        <ul className="mt-8 flex max-w-7xl list-none flex-col gap-10 p-0 text-left md:mt-12 md:gap-12 lg:gap-14">
           {CORE_VALUES.map(({ title, body }) => (
             <li key={title} className="text-left">
               <p className={valueTitleClass}>{title}</p>
