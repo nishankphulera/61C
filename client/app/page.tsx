@@ -57,18 +57,20 @@ export default function LandingPage() {
           <TVDisplay />
         </motion.div>
       </div>
+      {/* <div className="align-center justify-center flex mb-8">
+      <h2 className="text-white text-3xl font-bold uppercase tracking-widest opacity-80 z-20">
+           Explore
+        </h2>
+      </div> */}
+      <ExploreSection />
+
       {/* Image Marquee below the TV */}
       <div className="relative mt-0 z-10 w-full bg-black">
         <ImageMarquee title="Brands We Work With" imageSize={120} rows={3} />
         {/* Giant Background Asset overlapping the Marquee */}
       </div>
-      <div className="align-center justify-center flex mb-8">
-      <h2 className="text-white text-3xl font-bold uppercase tracking-widest opacity-80 z-20">
-           Our Work
-        </h2>
-      </div>
+     
       
-      <ExploreSection />
     </main>
   );
 }
