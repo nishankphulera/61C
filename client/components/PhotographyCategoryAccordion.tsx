@@ -48,7 +48,7 @@ const CARDS = [
     sectionId: "photography-automobiles",
   },
   {
-    src: "/eventshows%20.jpg",
+    src: "/eventshows.jpg",
     title: "Events",
     overlay: "bg-red-800/50",
     sectionId: "photography-events",

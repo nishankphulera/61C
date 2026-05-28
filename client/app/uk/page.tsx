@@ -30,7 +30,7 @@ export default function UkPage() {
       <Header />
 
       <main className="relative flex w-full flex-col">
-        <section className="relative min-h-[100dvh] overflow-hidden" aria-label="61C Studios UK">
+        {/* <section className="relative min-h-[100dvh] overflow-hidden" aria-label="61C Studios UK">
           <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
             <Image
               src="/uk-hero.jpg"
@@ -47,8 +47,26 @@ export default function UkPage() {
               RIGHT, LET&apos;S CRACK ON!
             </h1>
           </div>
-        </section>
+        </section> */}
+<section className="relative min-h-[100dvh] overflow-hidden" aria-label="61C Studios UK">
+  <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="h-full w-full object-cover object-center"
+    >
+      <source src="/UKshowreel.mp4" type="video/mp4" />
+    </video>
+  </div>
 
+  <div className="relative z-10 flex min-h-[100dvh] w-full items-center justify-center px-6 pb-16 pt-[4.5rem] md:px-10">
+    <h1 className="max-w-[min(100%,56rem)] text-center text-[clamp(1.35rem,7.2vw,3.75rem)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-[#FFFF00] drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(1.5rem,8.5vw,4.75rem)]">
+      RIGHT, LET&apos;S CRACK ON!
+    </h1>
+  </div>
+</section>
         <section
           className="relative z-10 bg-black px-8 pb-20 pt-12 md:px-12 md:pb-28 md:pt-16 lg:px-16 lg:pb-32"
           aria-labelledby="uk-intro-heading"
@@ -100,7 +118,9 @@ export default function UkPage() {
 
           <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
             From London and Manchester to Leeds, Liverpool, Sheffield and
+            <br className="hidden sm:block" />
             Birmingham, we help businesses tell their stories in a way that
+            <br className="hidden sm:block" />
             feels modern, considered and built for today&apos;s audiences.
           </p>
 
@@ -161,18 +181,22 @@ export default function UkPage() {
         </section>
         <section
           className="relative z-10 bg-black px-8 pb-20 pt-12 md:px-12 md:pb-28 md:pt-16 lg:px-16 lg:pb-32"
-          aria-labelledby="uk-creative-process-heading"
+          aria-labelledby="uk-services-heading"
         >
-         
+          <h2 id="uk-services-heading" className="sr-only">
+            Services across the UK
+          </h2>
 
           <p className="max-w-none text-left text-base font-bold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
-          We work across hospitality, food & beverage, fashion, lifestyle, architecture, real estate, automotive, events, products and artist profiles, bringing a cinematic approach to every brief. 
-          
-
+            We work across hospitality, food &amp; beverage, fashion, lifestyle,
+            architecture, real estate, automotive, events, products and artist
+            profiles, bringing a cinematic approach to every brief.
           </p>
-          <p className="mt-8 max-w-none text-left text-base font-bold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
 
-          If you’re looking for creative support across video, photography, branding or design anywhere in the UK, get in touch today for a tailored quote.
+          <p className="mt-8 max-w-none text-left text-base font-bold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
+            If you&apos;re looking for creative support across video, photography,
+            branding or design anywhere in the UK, get in touch today for a tailored
+            quote.
           </p>
         </section>
 
