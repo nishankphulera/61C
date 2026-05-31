@@ -28,7 +28,7 @@ export default function LandingPage() {
       {/* Section 0 */}
       {/* <TitleWithSurroundingAssets /> */}
       <div
-        className="relative w-full max-sm:ps-[max(1rem,env(safe-area-inset-left))] max-sm:pe-[max(1rem,env(safe-area-inset-right))]"
+        className="relative w-full -top-[10vh]"
         style={{
           contain: "layout paint",
           transform: "translateZ(0)",
@@ -45,7 +45,7 @@ export default function LandingPage() {
       </div>
       <div
         ref={tvSectionRef}
-        className="relative min-h-[80svh] md:min-h-[90vh]"
+        className="relative min-h-[80svh] md:min-h-[90vh] -top-[10vh]"
       >
         <motion.div
           initial={{ opacity: 0, y: 32 }}

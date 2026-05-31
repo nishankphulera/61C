@@ -24,14 +24,14 @@ const ExploreSection: React.FC = () => {
 
   return (
     <>
-    
+
       {/* Mobile: stacked nav cards (desktop uses parallax collage below) */}
       <section
         className="sm:hidden space-y-8 max-w-lg mx-auto w-full pt-6 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] pb-[max(4rem,calc(env(safe-area-inset-bottom)+2rem))]"
         aria-label="Explore"
         style={{ contain: "layout paint", contentVisibility: "auto" }}
       >
-        
+
         <Card
           layout="stacked"
           title="FILMS"
@@ -63,7 +63,7 @@ const ExploreSection: React.FC = () => {
         className="hidden sm:block relative h-[200vh] bg-black"
         style={{ contain: "layout paint", contentVisibility: "auto" }}
       >
-       
+
         {isSceneInView && (
           <>
             <Asset
@@ -77,7 +77,7 @@ const ExploreSection: React.FC = () => {
               zIndex={35}
             />
             <Asset
-              src="/Vinyl.gif"
+              src="/Vinyl.webp"
               className="w-[37.5rem] md:w-[45.5rem] opacity-100"
               rotate={-3.7}
               position={{
@@ -96,7 +96,7 @@ const ExploreSection: React.FC = () => {
 
             <div className="absolute inset-0 z-50">
               <Asset
-                src="/Clapperv1.gif"
+                src="/Clapperboard.png"
                 className="w-[12rem] md:w-[17rem] opacity-68"
                 rotate={0}
                 position={{
@@ -132,7 +132,7 @@ const ExploreSection: React.FC = () => {
                 }}
               />
               <Asset
-                src="/Converse.gif"
+                src="/Converse.webp"
                 className="w-[32rem] md:w-[42rem] opacity-68"
                 rotate={0}
                 position={{
@@ -154,7 +154,7 @@ const ExploreSection: React.FC = () => {
 
             <Asset
               reverse={true}
-              src="/Drone.gif"
+              src="/Drone.png"
               className="w-[21rem] md:w-[24rem] opacity-68"
               rotate={-0.8}
               position={{
