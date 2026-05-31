@@ -233,10 +233,10 @@ export default function Footer() {
       const rect = footer.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Progress: 0 when footer enters viewport, 1 when it exits top.
+      // Progress: 0 when footer enters viewport.
+      // Multiplying the height by 1.5 makes the animation even slower
       const start = viewportHeight;
-      const end = -rect.height;
-      const span = start - end || 1;
+      const span = rect.height * 1.8 || 1;
       const progress = Math.max(0, Math.min(1, (start - rect.top) / span));
 
       // Quantize translate to 0.1% — sub-pixel precision below this is
@@ -327,7 +327,7 @@ export default function Footer() {
         }}
       >
         <div
-          className="absolute left-1/2 top-0 h-full w-[107vw] max-w-none -translate-x-1/2"
+          className="absolute inset-x-0 top-0 h-full w-full max-w-none"
           style={{
             maskImage: `linear-gradient(
               to bottom,
@@ -359,7 +359,7 @@ export default function Footer() {
             alt=""
             fill
             className="object-cover object-top"
-            sizes="110vw"
+            sizes="100vw"
           />
         </div>
       </div>
@@ -441,9 +441,9 @@ export default function Footer() {
               <Image
                 src={imageSrc}
                 alt={label}
-                width={100}
+                width={300}
                 height={100}
-                className="h-auto w-[160px] md:w-[100px] object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
+                className="h-auto w-[180px] md:w-[200px] lg:w-[240px] object-contain object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
               />
             </Link>
           ))}
