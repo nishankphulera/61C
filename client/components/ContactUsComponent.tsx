@@ -335,6 +335,23 @@ export default function ContactUsComponent() {
           </div>
         </div>
 
+        {/* Queries header */}
+        <div className="mx-auto mt-10 max-w-4xl flex flex-wrap items-center justify-between gap-4 px-6 md:mt-14 md:px-10">
+          <span
+            className="text-lg font-semibold uppercase tracking-wide md:text-2xl"
+            style={{ color: YELLOW }}
+          >
+            Send Us Your Queries
+          </span>
+          <a
+            href="mailto:hello@61cstudios.com"
+            className="text-lg font-semibold md:text-2xl transition-opacity hover:opacity-80"
+            style={{ color: YELLOW }}
+          >
+            hello@61cstudios.com
+          </a>
+        </div>
+
         <form
           onSubmit={onSubmit}
           className="mx-auto mt-10 max-w-4xl space-y-6 px-6 pb-16 md:mt-14 md:px-10"

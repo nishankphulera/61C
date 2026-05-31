@@ -302,6 +302,17 @@ export default function CoreServices() {
             );
           })}
         </motion.ul>
+        <div
+          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] md:mt-20 md:space-y-10 lg:mt-24"
+          aria-label="How we work across industries"
+        >
+          <p className="text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)]">
+            We craft end-to-end creative production solutions. That’s everything from concept development and creative direction to film production, videos, photography, branding & design, and social-first content.
+
+
+          </p>
+
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 28 }}

@@ -170,7 +170,7 @@
 
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -185,7 +185,6 @@ const LINKS = [
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
   { href: "/comingsoon", label: "Design", imageSrc: "/Design.webp" },
-
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];
 
@@ -210,10 +209,56 @@ const SOCIAL = [
   },
 ];
 
+/**
+ * Returns viewport-aware animation parameters so the shutter effect
+ * feels consistent across mobile / tablet / desktop.
+ *
+ * The shutter image is 1600×1164 (landscape). On narrow portrait screens
+ * the image is zoomed in heavily by `object-cover`, so we need a shorter
+ * translate range and a faster lift to keep the "rolling shutter" illusion.
+ */
+function getShutterParams(viewportWidth: number) {
+  if (viewportWidth < 640) {
+    // Mobile: open wider so all nav links are visible
+    return { spanMultiplier: 1.3, maxTranslate: 95, liftStart: 8, liftRange: 130 };
+  }
+  if (viewportWidth < 1024) {
+    // Tablet
+    return { spanMultiplier: 1.5, maxTranslate: 105, liftStart: 10, liftRange: 128 };
+  }
+  // Desktop
+  return { spanMultiplier: 1.8, maxTranslate: 115, liftStart: 12, liftRange: 125 };
+}
+
 export default function Footer() {
   const pathname = usePathname();
   const footerRef = useRef<HTMLElement | null>(null);
   const shutterRef = useRef<HTMLDivElement | null>(null);
+
+  const updateShutter = useCallback(() => {
+    const footer = footerRef.current;
+    const shutter = shutterRef.current;
+    if (!footer || !shutter) return;
+
+    const rect = footer.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+
+    const { spanMultiplier, maxTranslate, liftStart, liftRange } =
+      getShutterParams(viewportWidth);
+
+    // Progress: 0 when footer top enters viewport bottom, 1 near end.
+    const start = viewportHeight;
+    const span = rect.height * spanMultiplier || 1;
+    const progress = Math.max(0, Math.min(1, (start - rect.top) / span));
+
+    // Quantize to 0.1% to avoid unnecessary compositor writes.
+    const translateY = Math.round(-progress * maxTranslate * 10) / 10;
+    const lift = Math.round(liftStart + progress * liftRange);
+
+    shutter.style.transform = `translate3d(0, ${translateY}%, 0)`;
+    shutter.style.setProperty("--lift", `${lift}%`);
+  }, []);
 
   useEffect(() => {
     if (shouldHideFooter(pathname)) return;
@@ -221,48 +266,14 @@ export default function Footer() {
 
     let ticking = false;
     let isVisible = true;
-    let lastLift = -1;
-    let lastTranslate = Number.NaN;
-
-    const updateShutter = () => {
-      ticking = false;
-      const footer = footerRef.current;
-      const shutter = shutterRef.current;
-      if (!footer || !shutter) return;
-
-      const rect = footer.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-
-      // Progress: 0 when footer enters viewport.
-      // Multiplying the height by 1.5 makes the animation even slower
-      const start = viewportHeight;
-      const span = rect.height * 1.8 || 1;
-      const progress = Math.max(0, Math.min(1, (start - rect.top) / span));
-
-      // Quantize translate to 0.1% — sub-pixel precision below this is
-      // visually identical but still costs a compositor write each frame.
-      const translateY = Math.round(-progress * 1000) / 10;
-
-      // The big one: the mask gradient is recomputed every time --lift
-      // changes. Quantizing to whole-percent reduces the number of unique
-      // masks from "every frame" to at most ~118 across the whole scroll,
-      // which avoids rasterizing a viewport-sized gradient on every tick.
-      const lift = Math.round(12 + progress * 118);
-
-      if (translateY !== lastTranslate) {
-        shutter.style.transform = `translate3d(0, ${translateY}%, 0)`;
-        lastTranslate = translateY;
-      }
-      if (lift !== lastLift) {
-        shutter.style.setProperty("--lift", `${lift}%`);
-        lastLift = lift;
-      }
-    };
 
     const schedule = () => {
       if (ticking) return;
       ticking = true;
-      requestAnimationFrame(updateShutter);
+      requestAnimationFrame(() => {
+        ticking = false;
+        updateShutter();
+      });
     };
 
     const onScroll = () => {
@@ -296,16 +307,16 @@ export default function Footer() {
       window.removeEventListener("resize", schedule);
       observer?.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, updateShutter]);
 
   if (shouldHideFooter(pathname)) return null;
 
   return (
     <footer
       ref={footerRef}
-      className="relative isolate min-h-[min(85dvh,720px)] overflow-hidden"
+      className="relative isolate min-h-[100dvh] sm:min-h-[95dvh] md:min-h-[90dvh] lg:min-h-[min(85dvh,720px)] overflow-hidden"
     >
-      {/* Background */}
+      {/* ─── Background (shutterroll — what's revealed behind the shutter) ─── */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <Image
           src="/shutterroll.webp"
@@ -316,10 +327,16 @@ export default function Footer() {
         />
       </div>
 
-      {/* Shutter layer */}
+      {/* ─── Shutter layer ─── */}
+      {/*
+        Use 100vh height so the shutter image covers exactly one viewport
+        regardless of the footer's own height. This keeps the shutter
+        texture at its natural aspect ratio and avoids distortion/line
+        artifacts that happen with percentage-based heights on tablets.
+      */}
       <div
         ref={shutterRef}
-        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-20 mt-[112px] h-full w-full"
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 mt-[56px] sm:mt-[72px] md:mt-[88px] lg:mt-[112px] h-[100vh] w-full"
         aria-hidden
         style={{
           willChange: "transform",
@@ -327,7 +344,7 @@ export default function Footer() {
         }}
       >
         <div
-          className="absolute inset-x-0 top-0 h-full w-full max-w-none"
+          className="absolute inset-x-0 top-0 h-full w-full max-w-none bg-black"
           style={{
             maskImage: `linear-gradient(
               to bottom,
@@ -347,8 +364,7 @@ export default function Footer() {
             )`,
             maskSize: "100% 100%",
             WebkitMaskSize: "100% 100%",
-            // Isolate the mask's rasterization to its own compositor layer so
-            // re-rasterizing on --lift change doesn't invalidate siblings.
+            // Isolate the mask's rasterization to its own compositor layer.
             transform: "translateZ(0)",
             willChange: "mask-image",
             backfaceVisibility: "hidden",
@@ -364,10 +380,23 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto mt-[50dvh] grid max-w-7xl grid-cols-1 gap-12 px-6 pb-14 pt-[min(14dvh,104px)] md:grid-cols-2 lg:grid-cols-3 md:items-end md:px-10">
-        {/* Left */}
-        <div className="flex flex-col gap-8 items-center md:items-start order-1 md:col-span-1 lg:order-1 text-center md:text-left">
+      {/* ─── Content ─── */}
+      <div
+        className={[
+          "relative z-10 mx-auto grid max-w-7xl",
+          // Vertical push — content sits below the shutter reveal zone
+          "mt-[55dvh] sm:mt-[50dvh] md:mt-[48dvh] lg:mt-[50dvh]",
+          // 3-col only at lg (1024px+) — tablets stay single column
+          "grid-cols-1 lg:grid-cols-3",
+          "gap-6 sm:gap-8 lg:gap-10",
+          "px-5 sm:px-6 md:px-8 lg:px-10",
+          "pb-10 lg:pb-14",
+          "pt-[min(8dvh,60px)] lg:pt-[min(10dvh,80px)]",
+          "lg:items-end",
+        ].join(" ")}
+      >
+        {/* ── Left: Connect + social + email ── */}
+        <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left">
           <Link
             href="/contact"
             className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80"
@@ -378,11 +407,12 @@ export default function Footer() {
               alt="Contact us — Let's connect"
               width={280}
               height={100}
-              className="h-auto w-[220px] md:w-auto max-w-full transition-opacity hover:opacity-90"
+              className="h-auto w-[180px] sm:w-[220px] lg:w-auto lg:max-w-[280px] object-contain transition-opacity hover:opacity-90"
             />
           </Link>
-          <div className="flex flex-wrap justify-center md:justify-start items-center gap-6">
-            <div className="flex gap-4">
+
+          <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 sm:gap-4 lg:gap-6">
+            <div className="flex gap-2.5 sm:gap-3 lg:gap-4">
               {SOCIAL.map(({ label, href, srcWebm, srcMp4 }) => (
                 <Link key={label} href={href} target="_blank">
                   <video
@@ -393,7 +423,7 @@ export default function Footer() {
                     preload="metadata"
                     width={48}
                     height={48}
-                    className="h-12 w-12 object-cover"
+                    className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 object-cover"
                     aria-label={label}
                   >
                     <source src={srcWebm} type="video/webm" />
@@ -403,7 +433,10 @@ export default function Footer() {
               ))}
             </div>
             <Link
-              href={process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ?? "https://www.instagram.com/offset_61c/"}
+              href={
+                process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ??
+                "https://www.instagram.com/offset_61c/"
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80 rounded-md"
@@ -414,36 +447,40 @@ export default function Footer() {
                 alt="Offset logo"
                 width={112}
                 height={48}
-                className="h-12 w-auto object-contain"
+                className="h-8 sm:h-10 lg:h-12 w-auto object-contain"
               />
             </Link>
           </div>
-          <a href="mailto:hello@61cstudios.com" className="text-[#E4DA4D]">
+
+          <a
+            href="mailto:hello@61cstudios.com"
+            className="text-[#E4DA4D] text-xs sm:text-sm md:text-base lg:text-lg"
+          >
             hello@61cstudios.com
           </a>
         </div>
 
-        {/* Center */}
-        <div className="flex justify-center order-2 md:order-3 lg:order-2 md:col-span-2 lg:col-span-1">
+        {/* ── Center: Pot ── */}
+        <div className="flex justify-center lg:col-span-1 order-last lg:order-none">
           <Image
             src="/Pot.webp"
             alt=""
             width={280}
             height={280}
-            className="h-auto w-[200px] md:w-auto max-w-full"
+            className="h-auto w-[140px] sm:w-[180px] lg:w-auto lg:max-w-[280px] object-contain"
           />
         </div>
 
-        {/* Right */}
-        <nav className="font-sans flex flex-col items-center md:items-end order-3 md:order-2 lg:order-3 md:col-span-1 gap-4">
+        {/* ── Right: Navigation links ── */}
+        <nav className="font-sans grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col items-center lg:items-end lg:col-span-1 gap-1 sm:gap-2 lg:gap-3">
           {LINKS.map(({ href, label, imageSrc }) => (
-            <Link key={href} href={href}>
+            <Link key={href} href={href} className="block">
               <Image
                 src={imageSrc}
                 alt={label}
                 width={300}
                 height={100}
-                className="h-auto w-[180px] md:w-[200px] lg:w-[240px] object-contain object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
+                className="h-auto w-full sm:w-auto lg:w-auto lg:max-w-[240px] object-contain object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
               />
             </Link>
           ))}

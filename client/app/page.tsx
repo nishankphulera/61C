@@ -28,7 +28,7 @@ export default function LandingPage() {
       {/* Section 0 */}
       {/* <TitleWithSurroundingAssets /> */}
       <div
-        className="relative w-full py-6 md:py-10 max-sm:ps-[max(1rem,env(safe-area-inset-left))] max-sm:pe-[max(1rem,env(safe-area-inset-right))]"
+        className="relative w-full max-sm:ps-[max(1rem,env(safe-area-inset-left))] max-sm:pe-[max(1rem,env(safe-area-inset-right))]"
         style={{
           contain: "layout paint",
           transform: "translateZ(0)",
