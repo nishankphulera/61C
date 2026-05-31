@@ -4,9 +4,11 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 /** Pixels of horizontal movement before we treat the gesture as a drag (not a click). */
 const DRAG_THRESHOLD_PX = 28;
@@ -29,6 +31,8 @@ export default function DraggableHorizontalScroll({
   gapClassName = "gap-4 md:gap-6",
 }: DraggableHorizontalScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const dragState = useRef<{
     pointerId: number;
     startX: number;
@@ -60,6 +64,31 @@ export default function DraggableHorizontalScroll({
     document.addEventListener("click", stopClickIfSuppressed, true);
     return () => document.removeEventListener("click", stopClickIfSuppressed, true);
   }, [stopClickIfSuppressed]);
+
+  const updateScrollState = useCallback(() => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    updateScrollState();
+    window.addEventListener("resize", updateScrollState);
+    return () => window.removeEventListener("resize", updateScrollState);
+  }, [updateScrollState, children]);
+
+  const scrollByAmount = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      const scrollAmount = clientWidth * 0.8;
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const releaseIfCaptured = (el: HTMLDivElement, pointerId: number, captured: boolean) => {
     if (!captured) return;
@@ -144,22 +173,50 @@ export default function DraggableHorizontalScroll({
   };
 
   return (
-    <div
-      ref={scrollRef}
-      role="region"
-      aria-label={ariaLabel}
-      data-lenis-prevent
-      className={`scrollbar-hide cursor-grab overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing ${className}`}
-      style={{
-        touchAction: "auto",
-        WebkitOverflowScrolling: "touch",
-      }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endPointer}
-      onPointerCancel={endPointer}
-    >
-      <div className={`flex w-max min-w-max flex-row ${gapClassName}`}>{children}</div>
+    <div className="relative flex items-center group w-full">
+      <div className="shrink-0 flex justify-center mr-2 md:mr-4">
+        <button
+          onClick={() => scrollByAmount("left")}
+          disabled={!canScrollLeft}
+          className={`z-10 p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer
+            ${canScrollLeft ? "text-white/70 hover:text-white hover:bg-white/10" : "opacity-0 pointer-events-none"}
+          `}
+          aria-label="Scroll left"
+        >
+          <ChevronLeftIcon className="w-6 h-6 md:w-8 md:h-8" />
+        </button>
+      </div>
+
+      <div
+        ref={scrollRef}
+        role="region"
+        aria-label={ariaLabel}
+        className={`scrollbar-hide cursor-grab overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing flex-1 min-w-0 ${className}`}
+        style={{
+          touchAction: "auto",
+          WebkitOverflowScrolling: "touch",
+        }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endPointer}
+        onPointerCancel={endPointer}
+        onScroll={updateScrollState}
+      >
+        <div className={`flex w-max min-w-max flex-row ${gapClassName}`}>{children}</div>
+      </div>
+
+      <div className="shrink-0 flex justify-center ml-2 md:ml-4">
+        <button
+          onClick={() => scrollByAmount("right")}
+          disabled={!canScrollRight}
+          className={`z-10 p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer
+            ${canScrollRight ? "text-white/70 hover:text-white hover:bg-white/10" : "opacity-0 pointer-events-none"}
+          `}
+          aria-label="Scroll right"
+        >
+          <ChevronRightIcon className="w-6 h-6 md:w-8 md:h-8" />
+        </button>
+      </div>
     </div>
   );
 }

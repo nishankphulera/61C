@@ -102,7 +102,7 @@
 
 //       {/* Content */}
 //       <div className="relative z-10 mx-auto mt-[50dvh] grid max-w-7xl grid-cols-1 gap-12 px-6 pb-14 pt-[min(14dvh,104px)] md:grid-cols-3 md:items-end md:px-10">
-        
+
 //         {/* Left */}
 //         <div className="flex flex-col gap-8">
 //           <Image
@@ -150,7 +150,7 @@
 //               <Link
 //                 key={href}
 //                 href={href}
-                
+
 //                 // className="group relative flex min-h-0 flex-1 items-center justify-center bg-[#0000FF] p-2 transition-colors hover:bg-[#0000cc] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
 //               >
 //                 <Image
@@ -181,10 +181,10 @@ function shouldHideFooter(pathname: string | null) {
 
 const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
-  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
+  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
-  { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
+  { href: "/comingsoon", label: "Design", imageSrc: "/Design.webp" },
 
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];
@@ -319,7 +319,7 @@ export default function Footer() {
       {/* Shutter layer */}
       <div
         ref={shutterRef}
-        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-20 mt-[112px] h-[100vh] w-full"
+        className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-20 mt-[112px] h-full w-full"
         aria-hidden
         style={{
           willChange: "transform",
@@ -365,9 +365,9 @@ export default function Footer() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto mt-[50dvh] grid max-w-7xl grid-cols-1 gap-12 px-6 pb-14 pt-[min(14dvh,104px)] md:grid-cols-3 md:items-end md:px-10">
+      <div className="relative z-10 mx-auto mt-[50dvh] grid max-w-7xl grid-cols-1 gap-12 px-6 pb-14 pt-[min(14dvh,104px)] md:grid-cols-2 lg:grid-cols-3 md:items-end md:px-10">
         {/* Left */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 items-center md:items-start order-1 md:col-span-1 lg:order-1 text-center md:text-left">
           <Link
             href="/contact"
             className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80"
@@ -378,47 +378,64 @@ export default function Footer() {
               alt="Contact us — Let's connect"
               width={280}
               height={100}
-              className="h-auto w-auto max-w-full transition-opacity hover:opacity-90"
+              className="h-auto w-[220px] md:w-auto max-w-full transition-opacity hover:opacity-90"
             />
           </Link>
-          <div className="flex gap-4">
-            {SOCIAL.map(({ label, href, srcWebm, srcMp4 }) => (
-              <Link key={label} href={href} target="_blank">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 object-cover"
-                  aria-label={label}
-                >
-                  <source src={srcWebm} type="video/webm" />
-                  <source src={srcMp4} type="video/mp4" />
-                </video>
-              </Link>
-            ))}
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-6">
+            <div className="flex gap-4">
+              {SOCIAL.map(({ label, href, srcWebm, srcMp4 }) => (
+                <Link key={label} href={href} target="_blank">
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    width={48}
+                    height={48}
+                    className="h-12 w-12 object-cover"
+                    aria-label={label}
+                  >
+                    <source src={srcWebm} type="video/webm" />
+                    <source src={srcMp4} type="video/mp4" />
+                  </video>
+                </Link>
+              ))}
+            </div>
+            <Link
+              href={process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ?? "https://www.instagram.com/offset_61c/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80 rounded-md"
+              aria-label="Offset Instagram"
+            >
+              <Image
+                src="/offset.png"
+                alt="Offset logo"
+                width={112}
+                height={48}
+                className="h-12 w-auto object-contain"
+              />
+            </Link>
           </div>
-          <a href="mailto:admin@61cstudios.com" className="text-[#E4DA4D]">
+          <a href="mailto:hello@61cstudios.com" className="text-[#E4DA4D]">
             hello@61cstudios.com
           </a>
         </div>
 
         {/* Center */}
-        <div className="flex justify-center">
+        <div className="flex justify-center order-2 md:order-3 lg:order-2 md:col-span-2 lg:col-span-1">
           <Image
             src="/Pot.webp"
             alt=""
             width={280}
             height={280}
-            className="h-auto w-auto max-w-full"
+            className="h-auto w-[200px] md:w-auto max-w-full"
           />
         </div>
 
         {/* Right */}
-        <nav className="font-sans">
+        <nav className="font-sans flex flex-col items-center md:items-end order-3 md:order-2 lg:order-3 md:col-span-1 gap-4">
           {LINKS.map(({ href, label, imageSrc }) => (
             <Link key={href} href={href}>
               <Image
@@ -426,7 +443,7 @@ export default function Footer() {
                 alt={label}
                 width={100}
                 height={100}
-                className="h-auto w-full object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
+                className="h-auto w-[160px] md:w-[100px] object-cover object-center drop-shadow-sm transition-transform hover:scale-[1.02]"
               />
             </Link>
           ))}

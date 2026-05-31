@@ -68,57 +68,16 @@ function renderOverlayLabel(label: string, layout?: OverlayLabelLayout) {
   );
 }
 
-const CORE_SERVICE_LABEL_WIDTH_CLASS =
-  "w-[min(max(158%,24rem),min(calc(100vw-3rem),42rem))] sm:w-[min(max(158%,27rem),min(calc(100vw-4rem),46rem))] md:w-[min(max(158%,29rem),min(calc(100vw-5rem),50rem))]";
-
 const SHOWCASE_LABEL_WIDTH_CLASS =
   "w-[min(29rem,calc(100vw-2rem))] sm:w-[min(33rem,calc(100vw-2.5rem))] md:w-[min(38rem,calc(100vw-3rem))] lg:w-[min(42rem,calc(100vw-3.5rem))] xl:w-[min(45rem,calc(100vw-4rem))]";
 
-/** Optional per-item labelLayout: position, width, fontSize, lineHeight, textAlign, lineBreakAt */
-const CORE_SERVICES: readonly { label: string; labelLayout?: OverlayLabelLayout }[] = [
-  { label: "Film & video production",labelLayout: {
-    left: "88%",
-    top: "52%",
-    width: "min(28rem, 90vw)",
-    textAlign: "center",
-    lineBreakAt: 6,
-
-  }, },
-  { label: "Social-first & digital content",labelLayout: {
-    left: "78%",
-    top: "42%",
-    width: "min(28rem, 90vw)",
-    textAlign: "right",
-    lineBreakAt: 12,
-  }, },
-  { label: "Studio & outdoor photography",labelLayout: {
-    left: "68%",
-    top: "62%",
-    width: "min(28rem, 90vw)",
-    textAlign: "center",
-    lineBreakAt: 6,
-  }, },
-  { label: "Branded campaigns & assets",labelLayout: {
-    left: "48%",
-    top: "52%",
-    width: "min(28rem, 90vw)",
-    textAlign: "center",
-    lineBreakAt: 17,
-  }, },
-  { label: "Branding & design",labelLayout: {
-    left: "78%",
-    top: "52%",
-    width: "min(28rem, 90vw)",
-    textAlign: "center",
-    lineBreakAt: 10,
-  }, },
-  { label: "Creative direction & concept development",labelLayout: {
-    left: "78%",
-    top: "52%",
-    width: "min(28rem, 90vw)",
-    textAlign: "center",
-    lineBreakAt: 18,
-  }, },
+const CORE_SERVICES: readonly { label: string; image: string }[] = [
+  { label: "Film & video production", image: "/cv1.png" },
+  { label: "Social-first & digital content", image: "/cv2.png" },
+  { label: "Studio & outdoor photography", image: "/cv3.png" },
+  { label: "Branded campaigns & assets", image: "/cv4.png" },
+  { label: "Branding & design", image: "/cv5.png" },
+  { label: "Creative direction & concept development", image: "/cv6.png" },
 ];
 
 /** 4×3 showcase — optional labelLayout: position, width, fontSize, lineBreakAt, etc. */
@@ -127,123 +86,147 @@ const INDUSTRY_SHOWCASE: readonly {
   image: string;
   labelLayout?: OverlayLabelLayout;
 }[] = [
-  { label: "Brand films", image: "/brnad.jpg",labelLayout: {
-    left: "82%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(12rem, 55vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-  }, },
-  { label: "Documentaries", image: "/colage2.jpg",labelLayout: {
-    left: "92%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(12rem, 45vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-    lineBreakAt: 4,
+    {
+      label: "Brand films", image: "/brnad.jpg", labelLayout: {
+        left: "82%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(12rem, 55vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+      },
+    },
+    {
+      label: "Documentaries", image: "/colage2.jpg", labelLayout: {
+        left: "92%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(12rem, 45vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+        lineBreakAt: 4,
 
-  }, },
-  { label: "Music Videos", image: "/colage3.jpg",labelLayout: {
-    left: "92%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-    lineBreakAt: 6,
-  }, },
-  { label: "Fashion & Lifestyle", image: "/fashion ndlifestyle.jpg",labelLayout: {
-    left: "92%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-  }, },
-  { label: "Products", image: "/Bottle 2.webp",labelLayout: {
-    left: "42%",
-    top: "18%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-  }, },
-  { label: "Hospitality", image: "/Frame2.jpg",labelLayout: {
-    left: "78%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "3.0rem",
-    lineHeight: "1.1",
-    lineBreakAt: 6,
-  }, },
-  { label: "F&B", image: "/f&b.jpg",labelLayout: {
-    left: "100%",
-    top: "18%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-  }, },
-  { label: "Architecture & Real estate", image: "/spacearchitech.jpg",labelLayout: {
-    left: "82%",
-    top: "24%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.4rem",
-    lineHeight: "1.1",
-    lineBreakAt: 12,
-  }, },
-  { label: "Automobiles", image: "/auto.jpg",labelLayout: {
-    left: "82%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-    lineBreakAt: 4,
-  }, },
-  { label: "Artist Profiles", image: "/aetisrprfile.jpg",labelLayout: {
-    left: "72%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-    lineBreakAt: 6,
-  }, },
-  { label: "Events", image: "/eventshows.jpg",labelLayout: {
-    left: "82%",
-    top: "16%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-  }, },
-  { label: "Corporate films", image: "cooporatefilms.jpg",labelLayout: {
-    left: "102%",
-    top: "28%",
-    translateX: "-50%",
-    translateY: "-50%",
-    width: "min(22rem, 95vw)",
-    fontSize: "2.8rem",
-    lineHeight: "1.1",
-    lineBreakAt: 9,
-  }, },
-];
+      },
+    },
+    {
+      label: "Music Videos", image: "/colage3.jpg", labelLayout: {
+        left: "92%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+        lineBreakAt: 6,
+      },
+    },
+    {
+      label: "Fashion & Lifestyle", image: "/fashion ndlifestyle.jpg", labelLayout: {
+        left: "92%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+      },
+    },
+    {
+      label: "Products", image: "/Bottle 2.webp", labelLayout: {
+        left: "42%",
+        top: "18%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+      },
+    },
+    {
+      label: "Hospitality", image: "/Frame2.jpg", labelLayout: {
+        left: "78%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "3.0rem",
+        lineHeight: "1.1",
+        lineBreakAt: 6,
+      },
+    },
+    {
+      label: "F&B", image: "/f&b.jpg", labelLayout: {
+        left: "100%",
+        top: "18%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+      },
+    },
+    {
+      label: "Architecture & Real estate", image: "/spacearchitech.jpg", labelLayout: {
+        left: "82%",
+        top: "24%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.4rem",
+        lineHeight: "1.1",
+        lineBreakAt: 12,
+      },
+    },
+    {
+      label: "Automobiles", image: "/auto.jpg", labelLayout: {
+        left: "82%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+        lineBreakAt: 4,
+      },
+    },
+    {
+      label: "Artist Profiles", image: "/aetisrprfile.jpg", labelLayout: {
+        left: "72%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+        lineBreakAt: 6,
+      },
+    },
+    {
+      label: "Events", image: "/eventshows.jpg", labelLayout: {
+        left: "82%",
+        top: "16%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+      },
+    },
+    {
+      label: "Corporate films", image: "/cooporatefilms.jpg", labelLayout: {
+        left: "102%",
+        top: "28%",
+        translateX: "-50%",
+        translateY: "-50%",
+        width: "min(22rem, 95vw)",
+        fontSize: "2.8rem",
+        lineHeight: "1.1",
+        lineBreakAt: 9,
+      },
+    },
+  ];
 
 const labelTypographyBase =
   "font-extrabold tracking-[-0.05em] text-[#FFFF00]";
@@ -292,27 +275,32 @@ export default function CoreServices() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.12, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 grid list-none grid-cols-1 gap-3 p-0 sm:mt-12 sm:grid-cols-2 sm:gap-4 md:gap-5 lg:gap-6"
+          className="mx-auto mt-10 grid w-full max-w-[min(100%,41rem)] list-none grid-cols-1 gap-6 p-0 sm:mt-12 sm:max-w-[min(100%,46rem)] sm:grid-cols-2 sm:gap-8 md:max-w-[min(100%,52rem)] md:gap-10 lg:max-w-[min(100%,62rem)] lg:gap-12"
           aria-label="Service offerings"
         >
-          {CORE_SERVICES.map(({ label, labelLayout }) => (
-            <li
-              key={label}
-              className="relative flex w-full items-center justify-center overflow-visible py-12 sm:py-14 md:py-16"
-            >
-              <div className="relative w-[clamp(11.25rem,34vw,15.75rem)] shrink-0 sm:w-[clamp(12rem,31vw,17rem)] md:w-[clamp(12.75rem,28vw,18.75rem)]">
-                <div className="aspect-square w-full bg-[#3B44F6]" aria-hidden />
-                <p
-                  style={buildOverlayLabelStyle(labelLayout)}
-                  className={`pointer-events-none absolute z-10 px-3 text-balance ${labelTypographyBase} ${
-                    hasCustomLabelFontSize(labelLayout) ? "" : labelTypographySize
-                  } ${hasCustomLabelWidth(labelLayout) ? "" : CORE_SERVICE_LABEL_WIDTH_CLASS}`}
-                >
-                  {renderOverlayLabel(label, labelLayout)}
-                </p>
-              </div>
-            </li>
-          ))}
+          {CORE_SERVICES.map(({ label, image }) => {
+            // "Creative Direction" (cv6) has smaller drawn content to fit its long text. 
+            // "Branding & Design" (cv5) has a wider intrinsic canvas (1645px vs 1475px).
+            // We scale them up so their colored squares visually match the top row.
+            let scaleClass = "";
+            if (image === "/cv5.png") scaleClass = "scale-[1.05] sm:scale-[1.11] -translate-x-4 sm:-translate-x-6 lg:-translate-x-8";
+
+            return (
+              <li
+                key={label}
+                className="relative flex w-full items-center justify-center overflow-visible"
+              >
+                <Image
+                  src={image}
+                  alt={label}
+                  width={800}
+                  height={600}
+                  className={`h-auto w-full object-contain ${scaleClass}`}
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+              </li>
+            );
+          })}
         </motion.ul>
 
         <motion.div
@@ -350,9 +338,8 @@ export default function CoreServices() {
                   </div>
                   <p
                     style={buildOverlayLabelStyle(labelLayout)}
-                    className={`pointer-events-none absolute z-10 px-2 text-pretty sm:px-2.5 md:px-3 ${showcaseLabelTypographyBase} ${
-                      hasCustomLabelFontSize(labelLayout) ? "" : showcaseLabelTypographySize
-                    } ${hasCustomLabelWidth(labelLayout) ? "" : SHOWCASE_LABEL_WIDTH_CLASS}`}
+                    className={`pointer-events-none absolute z-10 px-2 text-pretty sm:px-2.5 md:px-3 ${showcaseLabelTypographyBase} ${hasCustomLabelFontSize(labelLayout) ? "" : showcaseLabelTypographySize
+                      } ${hasCustomLabelWidth(labelLayout) ? "" : SHOWCASE_LABEL_WIDTH_CLASS}`}
                   >
                     {renderOverlayLabel(label, labelLayout)}
                   </p>

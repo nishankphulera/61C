@@ -155,8 +155,8 @@ export default function FilmsCard({
       rel="noopener noreferrer"
       className={`relative block w-full cursor-pointer overflow-hidden rounded-lg shadow-lg no-underline ${className}`}
       style={{
-        aspectRatio: "21/9", // Width > Height (landscape) - reduced height
-        minHeight: "240px",
+        aspectRatio: "16/9",
+        minHeight: "200px",
         transformStyle: "preserve-3d",
       }}
     >

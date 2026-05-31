@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
     "http://localhost:3000",
   ],
   images: {
-    // Serve images directly from /public to avoid production 400s from /_next/image.
-    unoptimized: true,
+    // Enable dynamic image optimization in production to compress and format assets.
+    unoptimized: false,
     qualities: [75, 100],
     remotePatterns: [
       {

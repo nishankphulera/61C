@@ -191,29 +191,39 @@ export default function FilmsPage() {
   );
   const shouldShowSectionLoader = isMainLoaderDone && isSectionsLoading;
 
-  const filmsLandscapeCarousel = (items: FilmCard[], ariaLabel: string) => (
-    <DraggableHorizontalScroll ariaLabel={ariaLabel} gapClassName="gap-3 md:gap-4">
-      {items.map((film) => (
-        <div key={film.id} className="w-[min(88vw,26rem)] shrink-0">
-          <FilmsCard
-            id={film.id}
-            title={film.title}
-            imageSrc={film.imageSrc}
-            href={film.href}
-          />
-        </div>
-      ))}
-    </DraggableHorizontalScroll>
-  );
+  const filmsLandscapeCarousel = (items: FilmCard[], ariaLabel: string, maxPerRow: number = 10) => {
+    const chunks = [];
+    for (let i = 0; i < items.length; i += maxPerRow) {
+      chunks.push(items.slice(i, i + maxPerRow));
+    }
+    return (
+      <div className="flex flex-col gap-6 md:gap-8">
+        {chunks.map((chunk, chunkIndex) => (
+          <DraggableHorizontalScroll key={chunkIndex} ariaLabel={`${ariaLabel} row ${chunkIndex + 1}`} gapClassName="gap-3 md:gap-4">
+            {chunk.map((film) => (
+              <div key={film.id} className="w-[min(88vw,22rem)] shrink-0">
+                <FilmsCard
+                  id={film.id}
+                  title={film.title}
+                  imageSrc={film.imageSrc}
+                  href={film.href}
+                />
+              </div>
+            ))}
+          </DraggableHorizontalScroll>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <main ref={scrollRef} className="min-h-screen bg-black w-full">
       <Header />
-      <Asset reverse={true} src="/chair.png" className="w-[16rem] md:w-[16rem] opacity-50" rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
-      <Asset reverse={false} src="/Clapperboard.png" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
-      <Asset reverse={true} src="/Megaphone.png" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
-      <Asset reverse={true} src="/Pelicancase.png" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
-      <Asset reverse={true} src="/Pot.png" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} src="/Chair.webp" className="w-[16rem] md:w-[16rem] opacity-50" rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
+      <Asset reverse={false} src="/Clapperboard.webp" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
+      <Asset reverse={true} src="/Megaphone.webp" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
+      <Asset reverse={true} src="/Pelicancase.webp" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
+      <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
       <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
 
       <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">

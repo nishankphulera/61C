@@ -24,19 +24,19 @@ export default function TitleWithSurroundingAssets({
 }: TitleWithSurroundingAssetsProps) {
   // Default assets array with positions and sizes
   const defaultAssets: AssetConfig[] = [
-    { src: "/Megaphone.png", x: "4%", y: "4%", rotate: 0, width: "500px", height: "500px" },
+    { src: "/Megaphone.webp", x: "4%", y: "4%", rotate: 0, width: "500px", height: "500px" },
     {
-      src: "/unknown.png", x: "4%", y: "22%", rotate: -20, width: "300px", height: "300px", mirror
+      src: "/unknown.webp", x: "4%", y: "22%", rotate: -20, width: "300px", height: "300px", mirror
         : 'horizontal'
     },
-    { src: "/Clapperboard.png", x: "64%", y: "60%", rotate: 0, width: "500px", height: "500px", mirror: "horizontal" },
+    { src: "/Clapperboard.webp", x: "64%", y: "60%", rotate: 0, width: "500px", height: "500px", mirror: "horizontal" },
     { src: "/disk.png", x: "96%", y: "10%", rotate: -30, width: "380px", height: "380px" },
-    { src: "/Cassette.png", x: "40%", y: "6%", rotate: -20, width: "360px", height: "360px" },
-    { src: "/Vinyl.png", x: "5%", y: "44%", rotate: 0, width: "400px", height: "400px" },
-    { src: "/Converse.png", x: "70%", y: "-2%", rotate: -150, width: "400px", height: "400px" },
-    { src: "/Pelican Case.png", x: "100%", y: "28%", rotate: 10, width: "400px", height: "400px" },
-    { src: "/Lego.png", x: "25%", y: "60%", rotate: 20, width: "640px", height: "640px" },
-    { src: "/Chair.png", x: "90%", y: "56%", rotate: 30, width: "700px", height: "700px", mirror: "horizontal" },
+    { src: "/Cassette.webp", x: "40%", y: "6%", rotate: -20, width: "360px", height: "360px" },
+    { src: "/Vinyl.webp", x: "5%", y: "44%", rotate: 0, width: "400px", height: "400px" },
+    { src: "/Converse.webp", x: "70%", y: "-2%", rotate: -150, width: "400px", height: "400px" },
+    { src: "/Pelican Case.webp", x: "100%", y: "28%", rotate: 10, width: "400px", height: "400px" },
+    { src: "/Lego.webp", x: "25%", y: "60%", rotate: 20, width: "640px", height: "640px" },
+    { src: "/Chair.webp", x: "90%", y: "56%", rotate: 30, width: "700px", height: "700px", mirror: "horizontal" },
   ];
 
   const assetsToRender = assets || defaultAssets;

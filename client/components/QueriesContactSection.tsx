@@ -51,7 +51,7 @@ const UK_SITE_MAP_LINKS = [
 ] as const;
 
 const UK_LEGAL_LINKS = [
-  { label: "Privacy Policy", href: "/comingsoon" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms of Business", href: "/comingsoon" },
 ] as const;
 
@@ -62,7 +62,7 @@ type QueriesContactSectionProps = {
 
 const IMPORTANT_LINKS = [
   { label: "Policies & Compliance", href: "/comingsoon" },
-  { label: "Privacy Policy", href: "/comingsoon" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Cookie Policy", href: "/comingsoon" },
   { label: "Health & Safety", href: "/comingsoon" },
   { label: "Insurance & Compliance", href: "/comingsoon" },
@@ -194,85 +194,91 @@ export default function QueriesContactSection({
         ) : null}
 
         <form onSubmit={onSubmit} className={showHeader ? "mt-10 md:mt-12" : "mt-0"}>
-          <div className="grid gap-8 md:grid-cols-2 md:gap-x-12 md:gap-y-10">
-            <label className="flex flex-col gap-3">
-              <span className="text-lg font-semibold uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
-                Full Name
-              </span>
-              <input
-                name="fullName"
-                value={form.fullName}
-                onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
-                className={inputClass}
-                style={{ backgroundColor: CORAL_INPUT }}
-                autoComplete="name"
-                required
-              />
-            </label>
-            <label className="flex flex-col gap-3">
-              <span className="text-lg font-semibold uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
-                E-mail
-              </span>
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className={inputClass}
-                style={{ backgroundColor: CORAL_INPUT }}
-                autoComplete="email"
-                required
-              />
-            </label>
-            <label className="flex flex-col gap-3">
-              <span className="text-lg font-semibold uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
-                Phone
-              </span>
-              <input
-                name="phone"
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className={inputClass}
-                style={{ backgroundColor: CORAL_INPUT }}
-                autoComplete="tel"
-              />
-            </label>
-            <label className="flex flex-col gap-3">
-              <span className="text-lg font-semibold uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
-                Message
-              </span>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                rows={1}
-                className={`${inputClass} min-h-[56px] resize-none md:min-h-[60px]`}
-                style={{ backgroundColor: CORAL_INPUT }}
-                required
-              />
-            </label>
+          <div className="flex flex-col gap-8 md:flex-row md:gap-x-12 items-stretch">
+            {/* Left Column */}
+            <div className="flex flex-1 flex-col gap-8 md:gap-10">
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Full Name
+                </span>
+                <input
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
+                  className={inputClass}
+                  style={{ backgroundColor: CORAL_INPUT }}
+                  autoComplete="name"
+                  required
+                />
+              </label>
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Phone
+                </span>
+                <input
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                  className={inputClass}
+                  style={{ backgroundColor: CORAL_INPUT }}
+                  autoComplete="tel"
+                />
+              </label>
+              
+              <div className="flex justify-end md:pl-0 mt-2 md:mt-0">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="bg-[#F7E509] px-14 py-2.5 text-black font-semibold text-lg md:text-xl uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-max"
+                >
+                  {submitting ? "SENDING…" : "SEND"}
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex flex-1 flex-col gap-8 md:gap-10">
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  E-mail
+                </span>
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  className={inputClass}
+                  style={{ backgroundColor: CORAL_INPUT }}
+                  autoComplete="email"
+                  required
+                />
+              </label>
+              <label className="flex flex-col gap-3 grow">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Message
+                </span>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                  className={`${inputClass} grow resize-none min-h-[140px]`}
+                  style={{ backgroundColor: CORAL_INPUT }}
+                  required
+                />
+              </label>
+            </div>
           </div>
 
           {feedback ? (
             <p
               role="status"
-              className="mt-6 text-base font-semibold uppercase tracking-wide md:text-lg"
+              className="mt-6 text-base font-semibold uppercase tracking-wide md:text-lg text-center"
               style={{ color: feedback.type === "ok" ? "#2EE576" : "#f87171" }}
             >
               {feedback.text}
             </p>
           ) : null}
-
-          <div className="mt-10 flex justify-end">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="rounded-none border-2 border-[#F7E509] bg-transparent px-12 py-4 text-base font-bold uppercase tracking-widest text-[#F7E509] transition-colors hover:bg-[#F7E509]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509] disabled:pointer-events-none disabled:opacity-50 md:text-lg md:py-5"
-            >
-              {submitting ? "Sending…" : "Send"}
-            </button>
-          </div>
         </form>
 
         <div className="mt-16 flex flex-col items-stretch gap-10 border-t border-white/10 pt-12 md:mt-20 md:flex-row md:items-center md:gap-0 md:pt-16">

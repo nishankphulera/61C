@@ -35,6 +35,30 @@ const SOCIAL = [
   },
 ] as const;
 
+const LINK_BLUE = "#0000FF";
+
+const SITE_MAP_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Films", href: "/films" },
+  { label: "Photography", href: "/photography" },
+  { label: "Design", href: "/design" },
+  { label: "Contact Us", href: "/contact" },
+] as const;
+
+const UK_SITE_MAP_LINKS = [
+  ...SITE_MAP_LINKS.slice(0, 5),
+  { label: "61C Studios UK", href: "/uk" },
+  SITE_MAP_LINKS[5],
+] as const;
+
+const UK_LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms of Business", href: "/comingsoon" },
+] as const;
+
+const COPYRIGHT_YEAR = 2026;
+
 function SocialTile({
   label,
   href,
@@ -112,10 +136,10 @@ export default function ContactUsComponent() {
 
   return (
     <>
-    <footer
-      ref={footerRef}
-      className="relative isolate min-h-[min(85dvh,720px)] overflow-hidden mt-30"
-    >
+      <footer
+        ref={footerRef}
+        className="relative isolate min-h-[min(85dvh,720px)] overflow-hidden mt-30"
+      >
         {/* Shutter under content */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
@@ -129,7 +153,7 @@ export default function ContactUsComponent() {
         </div>
         <div
           className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-transparent to-black/50"
-          aria-hidden 
+          aria-hidden
         />
 
         <div className="relative z-10 mx-auto mt-[18dvh] grid max-w-7xl grid-cols-1 gap-10 px-6 pb-16 pt-50 md:grid-cols-3 md:items-end md:gap-12 md:px-10">
@@ -169,36 +193,41 @@ export default function ContactUsComponent() {
 
           {/* Right: Mail + Offset */}
           <div className="flex flex-col gap-8 md:col-span-1 md:items-end md:text-right">
-          <a
-            href="mailto:example@email.com"
-            className="group flex w-full max-w-sm flex-col gap-2 p-4 transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right"
-          >
-            <img src="/mailus.png" alt="Mail us" className="w-full h-full object-cover" />
-          </a>
-       
+            <a
+              href="mailto:hello@61cstudios.com"
+              className="group flex flex-col gap-1 transition-colors hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right mb-4 md:mb-0"
+            >
+              <span className="text-2xl md:text-3xl lg:text-4xl font-normal" style={{ color: YELLOW }}>
+                Get in touch for a quote
+              </span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-[#FF009D]">
+                hello@61cstudios.com
+              </span>
+            </a>
+
 
             <Link
               href={OFFSET_INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex w-full max-w-sm flex-col gap-2 2 p-4 transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right"
-              
+
             >
-             <img src="/offset.jpeg" alt="Offset" className="w-full h-full object-cover" />
-            
+              <img src="/offset.jpeg" alt="Offset" className="w-full h-full object-cover" />
+
             </Link>
           </div>
         </div>
-    </footer>
+      </footer>
 
-    <section
-      className="relative z-10 bg-black text-white"
-      aria-label="Studios and contact form"
-    >
-      <div
-        className="mx-auto max-w-7xl px-6 md:px-10"
+      <section
+        className="relative z-10 bg-black text-white"
+        aria-label="Studios and contact form"
       >
-        {/* <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
+        <div
+          className="mx-auto max-w-7xl px-6 md:px-10"
+        >
+          {/* <div className="mt-14 grid gap-8 border-b border-white/10 pb-10 md:mt-16 md:grid-cols-2 md:gap-0">
           <div className="md:border-r md:pr-10" style={{ borderColor: GREEN_ACCENT }}>
             <h2 className="text-xl font-bold uppercase tracking-wide md:text-2xl" style={{ color: YELLOW }}>
               UK studio
@@ -220,7 +249,7 @@ export default function ContactUsComponent() {
             </p>
           </div>
         </div> */}
-         <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 text-[#ffef00] md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
+          <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 text-[#ffef00] md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
             <div className="flex-1 md:pr-8 md:text-right">
               <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
                 UK Studio
@@ -272,92 +301,188 @@ export default function ContactUsComponent() {
                 Phone No: +918266029164
               </p>
             </div>
-            
-          </div>
-      </div>
 
-      <form
-        onSubmit={onSubmit}
-        className="mx-auto mt-10 max-w-4xl space-y-6 px-6 pb-16 md:mt-14 md:px-10"
-      >
-        <div className="h-px w-full max-w-2xl" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
-
-        <div className="grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-8">
-          <label className="flex flex-col gap-2">
-            <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: YELLOW }}>
-              Full name
-            </span>
-            <input
-              name="fullName"
-              value={form.fullName}
-              onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
-              className="min-h-[52px] w-full border-0 px-3 py-3 text-white outline-none ring-0 placeholder:text-white/40 focus:ring-2 focus:ring-[#F7E509]/50"
-              style={{ backgroundColor: RED_INPUT }}
-              autoComplete="name"
-            />
-          </label>
-          <label className="flex flex-col gap-2">
-            <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: YELLOW }}>
-              E-mail
-            </span>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              className="min-h-[52px] w-full border-0 px-3 py-3 text-white outline-none placeholder:text-white/40 focus:ring-2 focus:ring-[#F7E509]/50"
-              style={{ backgroundColor: RED_INPUT }}
-              autoComplete="email"
-            />
-          </label>
-          <label className="flex flex-col gap-2">
-            <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: YELLOW }}>
-              Phone
-            </span>
-            <input
-              name="phone"
-              type="tel"
-              value={form.phone}
-              onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-              className="min-h-[52px] w-full border-0 px-3 py-3 text-white outline-none placeholder:text-white/40 focus:ring-2 focus:ring-[#F7E509]/50"
-              style={{ backgroundColor: RED_INPUT }}
-              autoComplete="tel"
-            />
-          </label>
-          <div className="flex min-h-[52px] flex-col justify-end">
-            <button
-              type="submit"
-              disabled={formSubmitting}
-              className="w-full rounded border-2 border-[#F7E509] bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-widest text-[#F7E509] transition-colors hover:bg-[#F7E509]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509] disabled:pointer-events-none disabled:opacity-50 md:w-auto md:min-w-[12rem]"
-            >
-              {formSubmitting ? "Sending…" : "Send"}
-            </button>
           </div>
-          <label className="flex flex-col gap-2 md:col-span-2">
-            <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: YELLOW }}>
-              Message
-            </span>
-            <textarea
-              name="message"
-              value={form.message}
-              onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-              rows={4}
-              className="min-h-[120px] w-full resize-y border-0 px-3 py-3 text-white outline-none placeholder:text-white/40 focus:ring-2 focus:ring-[#F7E509]/50"
-              style={{ backgroundColor: RED_INPUT }}
-            />
-          </label>
+
+          <div className="mx-auto mt-16 max-w-4xl px-6 md:px-0">
+            <h3 className="text-center text-3xl font-bold md:text-4xl text-[#FFFF00]">
+              Regional Hubs
+            </h3>
+            <div className="mt-8 flex flex-row items-stretch justify-center gap-0">
+              <div className="flex-1 pr-4 md:pr-12 text-right">
+                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+                  <li>Manchester</li>
+                  <li>Liverpool</li>
+                  <li>Leeds</li>
+                  <li>Sheffield</li>
+                  <li>Birmingham</li>
+                </ul>
+              </div>
+
+              {/* No visible divider, just spacing to match the address layout structure */}
+              <div className="w-4 md:w-px shrink-0" aria-hidden />
+
+              <div className="flex-1 pl-4 md:pl-12 text-left">
+                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+                  <li>Delhi - NCR</li>
+                  <li>Mumbai</li>
+                  <li>Bengaluru</li>
+                  <li>Goa</li>
+                  <li>Dehradun</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {formFeedback ? (
+        <form
+          onSubmit={onSubmit}
+          className="mx-auto mt-10 max-w-4xl space-y-6 px-6 pb-16 md:mt-14 md:px-10"
+        >
+          <div className="h-px w-full max-w-2xl mb-8" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
+
+          <div className="flex flex-col gap-8 md:flex-row md:gap-x-12 items-stretch">
+            {/* Left Column */}
+            <div className="flex flex-1 flex-col gap-8 md:gap-10">
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Full Name
+                </span>
+                <input
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
+                  className="min-h-[56px] w-full rounded-none border-0 px-4 py-3.5 text-base text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#F7E509]/40 md:min-h-[60px] md:px-5 md:py-4 md:text-lg"
+                  style={{ backgroundColor: RED_INPUT }}
+                  autoComplete="name"
+                  required
+                />
+              </label>
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Phone
+                </span>
+                <input
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                  className="min-h-[56px] w-full rounded-none border-0 px-4 py-3.5 text-base text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#F7E509]/40 md:min-h-[60px] md:px-5 md:py-4 md:text-lg"
+                  style={{ backgroundColor: RED_INPUT }}
+                  autoComplete="tel"
+                />
+              </label>
+
+              <div className="flex justify-end md:pl-0 mt-2 md:mt-0">
+                <button
+                  type="submit"
+                  disabled={formSubmitting}
+                  className="bg-[#F7E509] px-14 py-2.5 text-black font-semibold text-lg md:text-xl uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-max"
+                >
+                  {formSubmitting ? "SENDING…" : "SEND"}
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex flex-1 flex-col gap-8 md:gap-10">
+              <label className="flex flex-col gap-3">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  E-mail
+                </span>
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  className="min-h-[56px] w-full rounded-none border-0 px-4 py-3.5 text-base text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#F7E509]/40 md:min-h-[60px] md:px-5 md:py-4 md:text-lg"
+                  style={{ backgroundColor: RED_INPUT }}
+                  autoComplete="email"
+                  required
+                />
+              </label>
+              <label className="flex flex-col gap-3 grow">
+                <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+                  Message
+                </span>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                  className="min-h-[56px] w-full rounded-none border-0 px-4 py-3.5 text-base text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#F7E509]/40 md:min-h-[60px] md:px-5 md:py-4 md:text-lg grow resize-none !min-h-[140px]"
+                  style={{ backgroundColor: RED_INPUT }}
+                  required
+                />
+              </label>
+            </div>
+          </div>
+
+          {formFeedback ? (
           <p
             role="status"
-            className="text-sm font-semibold uppercase tracking-wide md:text-base"
+            className="mt-6 text-base font-semibold uppercase tracking-wide md:text-lg text-center"
             style={{ color: formFeedback.type === "ok" ? GREEN_ACCENT : "#f87171" }}
           >
             {formFeedback.text}
           </p>
         ) : null}
       </form>
+
+      <div className="mx-auto max-w-7xl px-6 pb-16 md:px-10">
+        <nav aria-labelledby="queries-sitemap-heading">
+          <h3
+            id="queries-sitemap-heading"
+            className="text-2xl font-bold tracking-wide md:text-3xl"
+            style={{ color: YELLOW }}
+          >
+            Site Map
+          </h3>
+          <ul
+            className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg leading-snug md:mt-5 md:text-xl lg:text-2xl"
+            style={{ color: LINK_BLUE }}
+          >
+            {UK_SITE_MAP_LINKS.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                  style={{ color: LINK_BLUE }}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div
+          className="mt-10 space-y-4 text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
+          style={{ color: YELLOW }}
+        >
+          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+            61C STUDIOS UK LTD (Company Number: 17200017)
+            <span style={{ color: LINK_BLUE }}>
+              {" – "}
+              {UK_LEGAL_LINKS.map((item, index) => (
+                <span key={item.label}>
+                  {index > 0 ? " | " : null}
+                  <Link
+                    href={item.href}
+                    className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                    style={{ color: LINK_BLUE }}
+                  >
+                    {item.label}
+                  </Link>
+                </span>
+              ))}
+            </span>
+          </p>
+          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+            Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
+            Rights Reserved
+          </p>
+        </div>
+      </div>
     </section>
     </>
   );

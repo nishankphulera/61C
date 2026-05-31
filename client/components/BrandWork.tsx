@@ -2,18 +2,29 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValue,
+  useVelocity,
+  useAnimationFrame,
+} from "framer-motion";
 
-/** Exactly 4 rows × 7 logos = 28 assets under `public/brands/{1..28}.webp`. */
+/** Exactly 4 rows × 7.5 logos = 30 assets. */
 const ROW_COUNT = 4;
-const TOTAL_LOGOS = 28;
+const TOTAL_LOGOS = 30;
 
 type BrandLogo = { src: string; alt: string };
 
-const brandLogos: BrandLogo[] = Array.from({ length: TOTAL_LOGOS }, (_, i) => ({
-  src: `/brands/${i + 1}.webp`,
-  alt: `Brand partner ${i + 1}`,
-}));
+const brandLogos: BrandLogo[] = Array.from({ length: TOTAL_LOGOS }, (_, i) => {
+  const num = i + 1;
+  return {
+    src: num === 29 ? "/29.png" : num === 30 ? "/30.png" : `/brands/${num}.webp`,
+    alt: `Brand partner ${num}`,
+  };
+});
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const result: T[][] = [];
@@ -25,10 +36,14 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 
 const brandsPerRow = Math.ceil(TOTAL_LOGOS / ROW_COUNT);
 const brandRows = chunkArray(brandLogos, brandsPerRow);
-console.log("brandRows",brandRows);
 const DEFAULT_DIRECTIONS = Array.from({ length: ROW_COUNT }, (_, i) =>
   i % 2 === 0 ? -1 : 1
 );
+
+const wrap = (min: number, max: number, v: number) => {
+  const rangeSize = max - min;
+  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};
 
 interface RowProps {
   row: BrandLogo[];
@@ -50,17 +65,40 @@ const LightningSeparator = () => (
 );
 
 const MarqueeRow: React.FC<RowProps> = ({ row, direction }) => {
+  const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
-
-  const smoothY = useSpring(scrollY, {
-    damping: 30,
-    stiffness: 80,
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
   });
 
-  const x = useTransform(smoothY, [0, 10000], [0, direction * 15000]);
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+    clamp: false,
+  });
 
-  const repeatedRow = Array(25).fill(row).flat();
-  console.log("repeatedRow",repeatedRow);
+  // Duplicate the row 4 times. Each copy represents 25% of the total width.
+  // We wrap baseX between -25% and 0% to achieve a seamless loop.
+  const x = useTransform(baseX, (v) => `${wrap(-25, 0, v)}%`);
+
+  // Base auto-play speed in percentage of container width per second
+  const baseVelocity = direction * 2;
+
+  useAnimationFrame((_, delta) => {
+    // delta is time since last frame in ms. We convert to seconds for framerate independence.
+    let moveBy = baseVelocity * (delta / 1000);
+
+    const scrollVel = velocityFactor.get();
+    if (scrollVel !== 0) {
+      // Speed up or slow down based on scroll velocity and direction
+      moveBy += scrollVel * (delta / 1000) * 15 * direction;
+    }
+
+    baseX.set(baseX.get() + moveBy);
+  });
+
+  const repeatedRow = [...row, ...row, ...row, ...row];
+
   return (
     <motion.div
       className="flex items-center gap-4 sm:gap-6 md:gap-8 w-max will-change-transform"

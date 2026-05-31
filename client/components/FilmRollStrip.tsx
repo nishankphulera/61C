@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-const FILM_ROLL_SRC = "/filmRoll.png";
+const FILM_ROLL_SRC = "/filmRoll.webp";
 
 /**
  * Overlay rectangles for the three transparent frame windows in filmRoll.png.

@@ -58,13 +58,19 @@ export default function MusicVideosSection({
         {title}
       </h2>
 
-      <DraggableHorizontalScroll ariaLabel="Music videos, scroll horizontally or drag to browse">
-        {displayVideos.map((video, index) => (
-          <div key={video.id} className="w-[min(88vw,22rem)] shrink-0">
-            <MusicVideoCard video={video} index={index} />
-          </div>
+      <div className="flex flex-col gap-6 md:gap-8">
+        {Array.from({ length: Math.ceil(displayVideos.length / 10) }, (_, i) =>
+          displayVideos.slice(i * 10, i * 10 + 10)
+        ).map((chunk, chunkIndex) => (
+          <DraggableHorizontalScroll key={chunkIndex} ariaLabel={`Music videos row ${chunkIndex + 1}, scroll horizontally or drag to browse`}>
+            {chunk.map((video, index) => (
+              <div key={video.id} className="w-[min(88vw,22rem)] shrink-0">
+                <MusicVideoCard video={video} index={chunkIndex * 10 + index} />
+              </div>
+            ))}
+          </DraggableHorizontalScroll>
         ))}
-      </DraggableHorizontalScroll>
+      </div>
     </section>
   );
 }

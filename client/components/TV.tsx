@@ -169,7 +169,7 @@ export default function TV() {
         // }}
       >
         <Image
-          src="/tv.png"
+          src="/tv.webp"
           alt="TV Frame"
           fill
           className="object-contain"

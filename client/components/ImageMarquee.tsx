@@ -43,7 +43,7 @@ const chunkArray = <T,>(arr: T[], size: number): T[][] => {
   return result;
 };
 
-const defaultImages: ImageItem[] = Array.from({ length: 28 }, (_, i) => ({
+const defaultImages: ImageItem[] = Array.from({ length: 30 }, (_, i) => ({
   src: `/${i + 1}.png`,
   alt: `Work ${i + 1}`,
 }));

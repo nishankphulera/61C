@@ -138,7 +138,7 @@ export default function ContactView() {
                 <div className="relative z-10 flex flex-wrap items-end gap-6 sm:gap-8">
                   <div className="hidden w-[min(28%,140px)] shrink-0 sm:block">
                     <Image
-                      src="/Clapperboard.png"
+                      src="/Clapperboard.webp"
                       alt=""
                       width={160}
                       height={200}

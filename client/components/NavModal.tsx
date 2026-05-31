@@ -11,13 +11,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 const LINKS: { href: string; label: string; imageSrc: string }[] = [
-  { href: "/", label: "Home", imageSrc: "/Homenav.png" },
-  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.png" },
-  { href: "/films", label: "Films", imageSrc: "/Filmsnav.png" },
-  { href: "/photography", label: "Photography", imageSrc: "/Photographynav.png" },
-  { href: "/comingsoon", label: "Design", imageSrc: "/Design.png" },
+  { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
+  { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
+  { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
+  { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
+  { href: "/comingsoon", label: "Design", imageSrc: "/Design.webp" },
 
-  { href: "/contact", label: "Contact", imageSrc: "/Contactnav.png" },
+  { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];
 
 export type NavModalProps = {

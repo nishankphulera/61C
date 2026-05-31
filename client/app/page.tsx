@@ -36,7 +36,7 @@ export default function LandingPage() {
         }}
       >
         <img
-          src="/HomePage.gif"
+          src="/headernew.gif"
           alt="Homepage composition preview"
           className="block h-auto w-full"
           decoding="async"
@@ -69,8 +69,8 @@ export default function LandingPage() {
         <ImageMarquee title="Brands We Work With" imageSize={120} rows={3} />
         {/* Giant Background Asset overlapping the Marquee */}
       </div>
-     
-      
+
+
     </main>
   );
 }
