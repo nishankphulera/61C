@@ -226,60 +226,62 @@ export default function FilmsPage() {
       <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
       <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
 
-      <div className="relative z-[60] flex justify-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
+      <div className="relative z-[60] flex flex-col items-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
         <FilmRollStrip
           gifs={filmRollGifs}
           className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
           gifAlts={["Films highlight 1", "Films highlight 2", "Films highlight 3"]}
         />
-        <button
-          type="button"
-          onClick={() => scrollToSection(musicVideosRef)}
-          className="absolute top-100 left-58 z-50 cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
-          aria-label="Scroll to Music Videos section"
-        >
-          <Image
-            src={musicVideosNavImg}
-            alt=""
-            className="h-auto w-[min(62vw,13rem)] object-contain md:w-[min(38vw,17rem)]"
-            sizes="(max-width: 768px) 62vw, 17rem"
-            priority
-          />
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollToSection(brandFilmsRef)}
-          className="absolute top-160 left-104 z-50 rotate-[-30deg] cursor-pointer border-0 bg-transparent p-0 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
-          aria-label="Scroll to Brand Films section"
-        >
-          <Image
-            src={filmsNavImg}
-            alt=""
-            className="h-auto w-[min(52vw,11rem)] object-contain md:w-[min(32vw,15rem)]"
-            sizes="(max-width: 768px) 52vw, 15rem"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollToSection(verticalFilmsRef)}
-          className="absolute top-200 left-238 z-50 cursor-pointer border-0 bg-transparent p-0 pt-20 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
-          aria-label="Scroll to Vertical Films section"
-        >
-          <Image
-            src={verticalFilmsNavImg}
-            alt=""
-            className="h-auto w-[min(58vw,12rem)] object-contain md:w-[min(36vw,16rem)]"
-            sizes="(max-width: 768px) 58vw, 16rem"
-          />
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollToSection(documentariesRef)}
-          className="absolute top-248 left-180 z-50 cursor-pointer rounded-md border border-yellow-400/60 bg-black/70 px-2 py-1.5 text-xs font-bold uppercase tracking-wide text-yellow-400 transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80 md:px-3 md:py-2 md:text-sm"
-          aria-label="Scroll to Documentaries section"
-        >
-          Documentaries
-        </button>
+        <div className="mt-4 flex flex-wrap items-end justify-center gap-6 md:mt-6 md:gap-10">
+          <button
+            type="button"
+            onClick={() => scrollToSection(musicVideosRef)}
+            className="z-50 rotate-[-3deg] cursor-pointer border-0 bg-transparent p-0 transition-all duration-300 hover:scale-110 hover:rotate-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
+            aria-label="Scroll to Music Videos section"
+          >
+            <Image
+              src={musicVideosNavImg}
+              alt=""
+              className="h-auto w-[min(36vw,10rem)] object-contain drop-shadow-[0_0_12px_rgba(250,204,21,0.4)] md:w-[min(22vw,12rem)]"
+              sizes="(max-width: 768px) 36vw, 12rem"
+              priority
+            />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection(brandFilmsRef)}
+            className="z-50 rotate-[2deg] cursor-pointer border-0 bg-transparent p-0 transition-all duration-300 hover:scale-110 hover:rotate-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
+            aria-label="Scroll to Brand Films section"
+          >
+            <Image
+              src={filmsNavImg}
+              alt=""
+              className="h-auto w-[min(30vw,8rem)] object-contain drop-shadow-[0_0_12px_rgba(250,204,21,0.4)] md:w-[min(18vw,10rem)]"
+              sizes="(max-width: 768px) 30vw, 10rem"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection(verticalFilmsRef)}
+            className="z-50 rotate-[-2deg] cursor-pointer border-0 bg-transparent p-0 transition-all duration-300 hover:scale-110 hover:rotate-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
+            aria-label="Scroll to Vertical Films section"
+          >
+            <Image
+              src={verticalFilmsNavImg}
+              alt=""
+              className="h-auto w-[min(34vw,9rem)] object-contain drop-shadow-[0_0_12px_rgba(250,204,21,0.4)] md:w-[min(20vw,11rem)]"
+              sizes="(max-width: 768px) 34vw, 11rem"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection(documentariesRef)}
+            className="z-50 rotate-[3deg] cursor-pointer rounded-sm border-2 border-yellow-400/70 bg-transparent px-4 py-2 font-mono text-sm font-bold uppercase tracking-widest text-yellow-400 drop-shadow-[0_0_12px_rgba(250,204,21,0.3)] transition-all duration-300 hover:scale-110 hover:rotate-0 hover:bg-yellow-400/10 hover:border-yellow-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80 md:px-5 md:py-2.5 md:text-base"
+            aria-label="Scroll to Documentaries section"
+          >
+            Documentaries
+          </button>
+        </div>
       </div>
 
       <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">

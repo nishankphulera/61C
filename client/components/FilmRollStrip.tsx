@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 
-const FILM_ROLL_SRC = "/filmRoll.webp";
+const FILM_ROLL_SRC = "/FilmRollHorizontalMirror.png";
 
 /**
- * Overlay rectangles for the three transparent frame windows in filmRoll.png.
- * Frames sit in the center column (between sprockets); Y bands align with the teal dividers (~47% / ~67%).
+ * Overlay rectangles for the three transparent frame windows in FilmRollHorizontal.png.
+ * Frames are arranged horizontally across the strip; the canister sits on the far right.
+ * Coordinates are relative to the full image bounding box.
  */
 const FRAME_SLOTS = [
-  { top: "28.5%", left: "35.4%", width: "27.2%", height: "18%" },
-  { top: "47.5%", left: "35.4%", width: "27.2%", height: "19%" },
-  { top: "68.5%", left: "35.4%", width: "27.2%", height: "16.5%" },
+  { top: "16%", left: "16%", width: "23.5%", height: "68%" },
+  { top: "16%", left: "44%", width: "23.5%", height: "68%" },
+  { top: "16%", left: "69%", width: "23.5%", height: "68%" },
 ] as const;
 
 export type FilmRollStripProps = {
@@ -56,9 +57,9 @@ export default function FilmRollStrip({
         <Image
           src={FILM_ROLL_SRC}
           alt={filmAlt}
-          width={1024}
-          height={1024}
-          className="relative z-10 h-full w-[60%] select-none pointer-events-none ml-[18.2%]"
+          width={1920}
+          height={540}
+          className="relative z-10 h-auto w-full select-none pointer-events-none"
           priority
           sizes="100vw"
         />

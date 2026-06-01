@@ -14,10 +14,9 @@ const UK_REGIONAL_HUBS = [
   "Birmingham",
 ] as const;
 
-/** Replace with final UK section image when available */
-const UK_INTRO_IMAGE_SRC: string | null = null;
-const UK_REGIONS_IMAGE_SRC: string | null = null;
-const UK_CREATIVE_PROCESS_IMAGE_SRC: string | null = null;
+const UK_INTRO_IMAGE_SRC: string | null = "/Illustration1.jpg";
+const UK_REGIONS_IMAGE_SRC: string | null = "/Illustration2.gif";
+const UK_CREATIVE_PROCESS_IMAGE_SRC: string | null = "/Illustration3.gif";
 
 export const metadata: Metadata = {
   title: "UK | 61C Studios",
@@ -131,6 +130,7 @@ export default function UkPage() {
                   src={UK_REGIONS_IMAGE_SRC}
                   alt=""
                   fill
+                  unoptimized
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 1200px"
                 />
@@ -170,6 +170,7 @@ export default function UkPage() {
                   src={UK_CREATIVE_PROCESS_IMAGE_SRC}
                   alt=""
                   fill
+                  unoptimized
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 1200px"
                 />
