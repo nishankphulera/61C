@@ -97,7 +97,7 @@ export default function AutomobileLifestyle({ images }: AutomobileLifestyleProps
   return (
     <section ref={sectionRef} className="mb-16 -mx-4 md:-mx-8">
       <h2 className="mb-8 px-4 text-left text-5xl text-yellow-400 md:px-8 md:mb-12 md:text-6xl">
-        Automobiles
+        Automotive
       </h2>
 
       <div className={`automobile-grid ${PHOTO_UNIFORM_GRID_CLASS}`}>

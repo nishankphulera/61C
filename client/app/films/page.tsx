@@ -173,7 +173,7 @@ export default function FilmsPage() {
   const verticalFilms = useMemo(() => mapFilmRows("vertical-films"), [rows]);
   const documentaries = useMemo(() => mapFilmRows("documentaries"), [rows]);
 
-  const filmRollGifs = ["/HomePage.gif", "/HomePage.gif", "/HomePage.gif"] as const;
+  const filmRollGifs = ["/Films page header1.mp4", "/Films page Header2.mp4", "/Films page Header3.mp4"] as const;
 
   const scrollToSection = (sectionRef: React.RefObject<HTMLElement | null>) => {
     sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -226,13 +226,13 @@ export default function FilmsPage() {
       <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
       <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
 
-      <div className="relative z-[60] flex flex-col items-center px-4 pt-8 pb-2 md:pt-14 md:pb-4">
+      <div className="relative z-[60] flex flex-col items-center pt-8 pb-2 md:pt-14 md:pb-4 overflow-hidden">
         <FilmRollStrip
           gifs={filmRollGifs}
-          className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl"
+          className="w-[100vw]"
           gifAlts={["Films highlight 1", "Films highlight 2", "Films highlight 3"]}
         />
-        <div className="mt-4 flex flex-wrap items-end justify-center gap-6 md:mt-6 md:gap-10">
+        {/* <div className="mt-4 flex flex-wrap items-end justify-center gap-6 md:mt-6 md:gap-10">
           <button
             type="button"
             onClick={() => scrollToSection(musicVideosRef)}
@@ -281,7 +281,7 @@ export default function FilmsPage() {
           >
             Documentaries
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="relative z-[60] container mx-auto px-2 py-2 md:py-2">
@@ -312,9 +312,9 @@ export default function FilmsPage() {
           {shouldShowSectionLoader
             ? sectionLoader
             : filmsLandscapeCarousel(
-                brandFilms,
-                "Brand films, scroll horizontally or drag to browse"
-              )}
+              brandFilms,
+              "Brand films, scroll horizontally or drag to browse"
+            )}
         </motion.section>
 
         <motion.section
@@ -359,13 +359,13 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isDocumentariesInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries</h1>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries & Character studies</h1>
           {shouldShowSectionLoader
             ? sectionLoader
             : filmsLandscapeCarousel(
-                documentaries,
-                "Documentaries, scroll horizontally or drag to browse"
-              )}
+              documentaries,
+              "Documentaries, scroll horizontally or drag to browse"
+            )}
         </motion.section>
       </div>
     </main>

@@ -87,7 +87,7 @@ const INDUSTRY_SHOWCASE: readonly {
   labelLayout?: OverlayLabelLayout;
 }[] = [
     {
-      label: "Brand films", image: "/brnad.jpg", labelLayout: {
+      label: "Brand films", image: "/brand films .jpg", labelLayout: {
         left: "82%",
         top: "28%",
         translateX: "-50%",
@@ -98,7 +98,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Documentaries", image: "/colage2.jpg", labelLayout: {
+      label: "Documentaries", image: "/documentaries.jpeg", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
@@ -111,7 +111,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Music Videos", image: "/colage3.jpg", labelLayout: {
+      label: "Music Videos", image: "/music videos.jpg", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
@@ -123,7 +123,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Fashion & Lifestyle", image: "/fashion ndlifestyle.jpg", labelLayout: {
+      label: "Fashion & Lifestyle", image: "/fashion & lifestyle.jpg", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
@@ -134,7 +134,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Products", image: "/Bottle 2.webp", labelLayout: {
+      label: "Products", image: "/Products.jpg", labelLayout: {
         left: "42%",
         top: "18%",
         translateX: "-50%",
@@ -145,7 +145,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Hospitality", image: "/Frame2.jpg", labelLayout: {
+      label: "Hospitality", image: "/hospitality.jpg", labelLayout: {
         left: "78%",
         top: "28%",
         translateX: "-50%",
@@ -168,7 +168,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Architecture & Real estate", image: "/spacearchitech.jpg", labelLayout: {
+      label: "Architecture & Real estate", image: "/Arch & real estate.jpg", labelLayout: {
         left: "82%",
         top: "24%",
         translateX: "-50%",
@@ -180,7 +180,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Automobiles", image: "/auto.jpg", labelLayout: {
+      label: "Automotive", image: "/automotives.jpg", labelLayout: {
         left: "82%",
         top: "28%",
         translateX: "-50%",
@@ -192,7 +192,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Artist Profiles", image: "/aetisrprfile.jpg", labelLayout: {
+      label: "Artist Profiles", image: "/artist profile.jpg", labelLayout: {
         left: "72%",
         top: "28%",
         translateX: "-50%",
@@ -204,7 +204,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Events", image: "/eventshows.jpg", labelLayout: {
+      label: "Events", image: "/events.jpg", labelLayout: {
         left: "82%",
         top: "16%",
         translateX: "-50%",
@@ -215,7 +215,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Corporate films", image: "/cooporatefilms.jpg", labelLayout: {
+      label: "Corporate films", image: "/Corporate films.png", labelLayout: {
         left: "102%",
         top: "28%",
         translateX: "-50%",

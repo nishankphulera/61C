@@ -10,13 +10,18 @@ const FILM_ROLL_SRC = "/FilmRollHorizontalMirror.png";
  * Coordinates are relative to the full image bounding box.
  */
 const FRAME_SLOTS = [
-  { top: "16%", left: "16%", width: "23.5%", height: "68%" },
-  { top: "16%", left: "44%", width: "23.5%", height: "68%" },
-  { top: "16%", left: "69%", width: "23.5%", height: "68%" },
+  { top: "17%", left: "15.8%", width: "25.5%", height: "66%" },
+  { top: "17%", left: "42.8%", width: "25.5%", height: "66%" },
+  { top: "17%", left: "68.8%", width: "27.5%", height: "66%" },
 ] as const;
 
+/** Returns true when the source path/URL looks like a video file. */
+function isVideo(src: string): boolean {
+  return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(src);
+}
+
 export type FilmRollStripProps = {
-  /** Public URLs or static paths to three animated GIFs (e.g. `/clip.gif`). GIFs loop by default in the browser. */
+  /** Public URLs or static paths to three media sources (GIFs or MP4s). */
   gifs: readonly [string, string, string];
   className?: string;
   filmAlt?: string;
@@ -30,7 +35,7 @@ export default function FilmRollStrip({
   gifAlts = ["Film frame 1", "Film frame 2", "Film frame 3"],
 }: FilmRollStripProps) {
   return (
-    <div className={`relative inline-block w-full max-w-full ${className}`}>
+    <div className={`relative w-full ${className}`}>
       <div className="relative w-full">
         {FRAME_SLOTS.map((slot, i) => (
           <div
@@ -43,14 +48,26 @@ export default function FilmRollStrip({
               height: slot.height,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element -- animated GIFs */}
-            <img
-              src={gifs[i]}
-              alt={gifAlts[i]}
-              className="h-full w-full object-cover object-center"
-              loading="eager"
-              decoding="async"
-            />
+            {isVideo(gifs[i]) ? (
+              <video
+                src={gifs[i]}
+                autoPlay
+                loop
+                muted
+                playsInline
+                aria-label={gifAlts[i]}
+                className="h-[99%] w-[90%] object-cover object-center"
+              />
+            ) : (
+              /* eslint-disable-next-line @next/next/no-img-element -- animated GIFs */
+              <img
+                src={gifs[i]}
+                alt={gifAlts[i]}
+                className="h-full w-full object-cover object-center"
+                loading="eager"
+                decoding="async"
+              />
+            )}
           </div>
         ))}
 

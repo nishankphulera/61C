@@ -43,7 +43,7 @@ const CARDS = [
   },
   {
     src: "/auto.jpg",
-    title: "Automobiles",
+    title: "Automotive",
     overlay: "bg-violet-600/45",
     sectionId: "photography-automobiles",
   },
