@@ -83,12 +83,18 @@ function isImageUrl(url: string): boolean {
 
 function resolveCardImage(item: ContentItem, fallback: string): string {
   const candidate = item.thumbnailUrl?.trim() || item.images?.[0]?.trim() || "";
-  if (!candidate) return fallback;
-  if (isImageUrl(candidate)) return candidate;
+  if (candidate && isImageUrl(candidate)) return candidate;
 
   const videoSource = item.youtubeUrl?.trim() || item.videoUrl?.trim() || candidate;
+  if (!videoSource) return fallback;
+
   const videoId = extractYouTubeVideoId(videoSource);
   if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+  const lowerSource = videoSource.toLowerCase();
+  if (lowerSource.includes("instagram.com/reel/") || lowerSource.includes("instagram.com/p/")) {
+    return `/api/thumbnail/instagram?url=${encodeURIComponent(videoSource)}`;
+  }
 
   return fallback;
 }
