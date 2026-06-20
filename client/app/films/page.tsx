@@ -91,11 +91,6 @@ function resolveCardImage(item: ContentItem, fallback: string): string {
   const videoId = extractYouTubeVideoId(videoSource);
   if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-  const lowerSource = videoSource.toLowerCase();
-  if (lowerSource.includes("instagram.com/reel/") || lowerSource.includes("instagram.com/p/")) {
-    return `/api/thumbnail/instagram?url=${encodeURIComponent(videoSource)}`;
-  }
-
   return fallback;
 }
 
