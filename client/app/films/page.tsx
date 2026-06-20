@@ -15,8 +15,9 @@ import musicVideosNavImg from "@/components/MUSIC VIDEOS.png";
 import verticalFilmsNavImg from "@/components/VERTICAL FILMS.png";
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
+import { normalizeGalleryImageUrl } from "@/lib/mediaUrls";
 
-type FilmCard = { id: string; title: string; imageSrc: string; href: string };
+type FilmCard = { id: string; title: string; imageSrc: string; href: string; thumbnailUrl?: string };
 type MusicCard = { id: string; imageSrc: string; href: string };
 
 const defaultYoutubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
@@ -44,54 +45,13 @@ function externalHref(...candidates: (string | undefined | null)[]): string {
 const MAIN_LOADER_STATE_ATTR = "data-main-loader-state";
 const MAIN_LOADER_DONE_EVENT = "main-loader:done";
 
-function extractYouTubeVideoId(url: string): string | null {
-  try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.toLowerCase();
-    if (host.includes("youtu.be")) {
-      const id = parsed.pathname.replace("/", "").trim();
-      return id || null;
-    }
-    if (host.includes("youtube.com")) {
-      if (parsed.pathname.startsWith("/watch")) {
-        return parsed.searchParams.get("v");
-      }
-      if (parsed.pathname.startsWith("/embed/")) {
-        return parsed.pathname.split("/embed/")[1]?.split("/")[0] || null;
-      }
-      if (parsed.pathname.startsWith("/shorts/")) {
-        return parsed.pathname.split("/shorts/")[1]?.split("/")[0] || null;
-      }
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
-
-function isImageUrl(url: string): boolean {
-  try {
-    const parsed = new URL(url);
-    const pathname = parsed.pathname.toLowerCase();
-    const hasImageExtension = /\.(avif|webp|png|jpe?g|gif|svg)$/i.test(pathname);
-    const knownImageHosts = ["picsum.photos", "i.ytimg.com", "img.youtube.com"];
-    return hasImageExtension || knownImageHosts.includes(parsed.hostname.toLowerCase());
-  } catch {
-    return false;
-  }
-}
-
 function resolveCardImage(item: ContentItem, fallback: string): string {
   const candidate = item.thumbnailUrl?.trim() || item.images?.[0]?.trim() || "";
-  if (candidate && isImageUrl(candidate)) return candidate;
-
-  const videoSource = item.youtubeUrl?.trim() || item.videoUrl?.trim() || candidate;
-  if (!videoSource) return fallback;
-
-  const videoId = extractYouTubeVideoId(videoSource);
-  if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-
-  return fallback;
+  const result = normalizeGalleryImageUrl(candidate, {
+    youtubeUrl: item.youtubeUrl,
+    videoUrl: item.videoUrl,
+  });
+  return result || fallback;
 }
 
 export default function FilmsPage() {
@@ -121,6 +81,7 @@ export default function FilmsPage() {
     setIsSectionsLoading(true);
     fetchPublicContent({ page: "films" })
       .then((data) => {
+        console.log("rows", data)
         setRows(data);
       })
       .catch(() => setRows([]))
@@ -154,6 +115,7 @@ export default function FilmsPage() {
     return filtered.map((item) => ({
       id: item._id,
       title: item.title,
+      thumbnailUrl: item.thumbnailUrl ? (normalizeGalleryImageUrl(item.thumbnailUrl) || undefined) : undefined,
       imageSrc: resolveCardImage(item, fallbackFilmImage),
       href: externalHref(item.youtubeUrl, item.videoUrl),
     }));
@@ -173,6 +135,9 @@ export default function FilmsPage() {
   const brandFilms = useMemo(() => mapFilmRows("brand-films"), [rows]);
   const verticalFilms = useMemo(() => mapFilmRows("vertical-films"), [rows]);
   const documentaries = useMemo(() => mapFilmRows("documentaries"), [rows]);
+
+
+  console.log("logging vertical films", verticalFilms)
 
   const filmRollGifs = ["/Films page header1.mp4", "/Films page Header2.mp4", "/Films page Header3.mp4"] as const;
 
@@ -302,19 +267,19 @@ export default function FilmsPage() {
         </motion.div>
 
         <motion.section
-          id="films-brand-films"
-          ref={brandFilmsRef}
+          id="films-documentaries"
+          ref={documentariesRef}
           className="relative z-10 mb-16 w-full pt-2"
           variants={sectionVariants}
           initial="hidden"
-          animate={isBrandFilmsInView ? "visible" : "hidden"}
+          animate={isDocumentariesInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Brand Films</h1>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries & Artist profiles</h1>
           {shouldShowSectionLoader
             ? sectionLoader
             : filmsLandscapeCarousel(
-              brandFilms,
-              "Brand films, scroll horizontally or drag to browse"
+              documentaries,
+              "Documentaries, scroll horizontally or drag to browse"
             )}
         </motion.section>
 
@@ -343,6 +308,7 @@ export default function FilmsPage() {
                         title={film.title}
                         imageSrc={film.imageSrc}
                         href={film.href}
+                        thumbnailUrl={film.thumbnailUrl}
                       />
                     </div>
                   ))}
@@ -353,19 +319,19 @@ export default function FilmsPage() {
         </motion.section>
 
         <motion.section
-          id="films-documentaries"
-          ref={documentariesRef}
+          id="films-brand-films"
+          ref={brandFilmsRef}
           className="relative z-10 mb-16 w-full"
           variants={sectionVariants}
           initial="hidden"
-          animate={isDocumentariesInView ? "visible" : "hidden"}
+          animate={isBrandFilmsInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries & Character studies</h1>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Brand Films</h1>
           {shouldShowSectionLoader
             ? sectionLoader
             : filmsLandscapeCarousel(
-              documentaries,
-              "Documentaries, scroll horizontally or drag to browse"
+              brandFilms,
+              "Brand films, scroll horizontally or drag to browse"
             )}
         </motion.section>
       </div>

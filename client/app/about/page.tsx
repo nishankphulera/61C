@@ -21,13 +21,13 @@ export default function AboutPage() {
         {/* Hero — background scoped to this block */}
         <section className="relative min-h-[100dvh] overflow-hidden">
           <div className="pointer-events-none absolute inset-0">
-            <Image
-              src="/aboutbg.jpg"
-              alt=""
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="100vw"
+            <video
+              src="/aboutusshowreel.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full object-cover object-center"
             />
           </div>
 

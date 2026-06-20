@@ -9,6 +9,7 @@ interface DigitalFilmsCardProps {
   /** Destination when the card is activated (opens in a new tab). */
   href: string;
   className?: string;
+  thumbnailUrl?: string;
 }
 
 export default function DigitalFilmsCard({
@@ -17,6 +18,7 @@ export default function DigitalFilmsCard({
   imageSrc,
   href,
   className = "",
+  thumbnailUrl,
 }: DigitalFilmsCardProps) {
   return (
     <a
@@ -32,7 +34,7 @@ export default function DigitalFilmsCard({
       {/* Background Image */}
       <div className="relative h-full w-full overflow-hidden bg-zinc-900">
         <Image
-          src={imageSrc}
+          src={thumbnailUrl || imageSrc}
           alt={title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -67,7 +69,7 @@ export default function DigitalFilmsCard({
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
-        
+
         {/* Left Side: Profile, Title, Audio */}
         <div className="flex-1 pr-4">
           {/* User Info */}
@@ -80,7 +82,7 @@ export default function DigitalFilmsCard({
             <span className="text-white text-sm font-semibold tracking-tight">61cstudios</span>
             <span className="text-white text-[10px] px-2 py-[2px] rounded border border-white/40 font-medium ml-1">Follow</span>
           </div>
-          
+
           {/* Caption / Title */}
           <p className="text-white text-sm line-clamp-2 mb-3 font-medium">
             {title}

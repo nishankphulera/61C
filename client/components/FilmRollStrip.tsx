@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-const FILM_ROLL_SRC = "/FilmRollHorizontalMirror.png";
+const FILM_ROLL_SRC = "/horizontal filmroll.png";
 
 /**
  * Overlay rectangles for the three transparent frame windows in FilmRollHorizontal.png.
@@ -10,9 +10,9 @@ const FILM_ROLL_SRC = "/FilmRollHorizontalMirror.png";
  * Coordinates are relative to the full image bounding box.
  */
 const FRAME_SLOTS = [
-  { top: "17%", left: "15.8%", width: "25.5%", height: "66%" },
-  { top: "17%", left: "42.8%", width: "25.5%", height: "66%" },
-  { top: "17%", left: "68.8%", width: "27.5%", height: "66%" },
+  { top: "28%", left: "12.5%", width: "24.2%", height: "46.5%" },
+  { top: "28%", left: "37.3%", width: "24.2%", height: "46.5%" },
+  { top: "28%", left: "62.1%", width: "24.2%", height: "46.5%" },
 ] as const;
 
 /** Returns true when the source path/URL looks like a video file. */
@@ -56,14 +56,14 @@ export default function FilmRollStrip({
                 muted
                 playsInline
                 aria-label={gifAlts[i]}
-                className="h-[99%] w-[90%] object-cover object-center"
+                className="h-full w-full object-cover object-center scale-[1.02]"
               />
             ) : (
               /* eslint-disable-next-line @next/next/no-img-element -- animated GIFs */
               <img
                 src={gifs[i]}
                 alt={gifAlts[i]}
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center scale-[1.02]"
                 loading="eager"
                 decoding="async"
               />
