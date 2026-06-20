@@ -52,12 +52,14 @@ export const SECTION_LABELS: Record<string, string> = {
   "artist-profiles": "Artists Profiles",
   events: "Events",
   design: "Design",
+  "album-art": "Album Art",
+  "animation": "Animation",
 };
 
 export function getSectionLabel(section: string): string {
   return SECTION_LABELS[section] ?? section;
 }
-export const DESIGN_SECTIONS = ["design"] as const;
+export const DESIGN_SECTIONS = ["album-art", "animation"] as const;
 
 export const SECTION_OPTIONS = [
   ...FILMS_SECTIONS,

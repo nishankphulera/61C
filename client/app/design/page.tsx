@@ -1,43 +1,138 @@
 "use client";
 
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
 import Image from "next/image";
+import { normalizeGalleryImageUrl } from "@/lib/mediaUrls";
 
 export default function DesignPage() {
   const [items, setItems] = useState<ContentItem[]>([]);
 
   useEffect(() => {
-    fetchPublicContent({ page: "design", section: "design" })
+    fetchPublicContent({ page: "design" })
       .then((rows) => setItems([...rows].sort(compareContentByOrder)))
       .catch(() => setItems([]));
   }, []);
 
+  const albumArts = items.filter(i => i.section === "album-art");
+  const animations = items.filter(i => i.section === "animation");
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white selection:bg-pink-500/30">
       <Header />
-      <main className="mx-auto max-w-3xl px-6 pb-16 pt-24 md:pt-28">
-        <h1 className="text-3xl font-semibold tracking-tight">Design</h1>
-        {!items.length ? (
-          <p className="mt-4 text-white/70">Coming soon.</p>
-        ) : (
-          <div className="mt-8 grid gap-5">
-            {items.map((item) => (
-              <article key={item._id} className="rounded-xl border border-white/15 bg-white/5 p-4">
-                <h2 className="text-xl font-medium">{item.title}</h2>
-                {item.description ? <p className="mt-2 text-white/70">{item.description}</p> : null}
-                {item.thumbnailUrl ? (
-                  <div className="relative mt-4 h-64 w-full overflow-hidden rounded-lg">
-                    <Image src={item.thumbnailUrl} alt={item.title} fill className="object-cover" />
-                  </div>
-                ) : null}
-              </article>
+
+      {/* Hero Section */}
+      <section className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+        {/* Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          >
+            <source src="/designshowreel.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+
+      </section>
+
+      <main className="w-full px-6 md:px-10 py-16">
+
+        {/* Philosophy Statement */}
+        <section className="my-16 md:my-24 w-full max-w-[1400px]">
+          <p className="text-[#E4DA4D] text-lg md:text-2xl lg:text-[1.9rem] xl:text-[2rem] leading-[1.3] md:leading-[1.3] font-medium tracking-wide">
+            At 61C Studios, design is an extension of expression and storytelling. It is not treated as a
+            supporting function to grab attention. Every visual ecosystem we create begins with
+            emotion and is led by context. It enhances the narrative, making it impressionable and
+            truly influential. Whether it's an album cover, animation, illustration, or brand identity &
+            assets, we craft designs that feel distinctive, culturally relevant and creatively stimulating.
+          </p>
+        </section>
+
+        {/* ALBUM ART */}
+        <section className="my-24 md:my-32">
+          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+            ALBUM ART
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {albumArts.map((item) => {
+              const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
+              return (
+                <div key={item._id} className="relative aspect-square w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm">
+                  {imgSrc && (
+                    <Image src={imgSrc} alt={item.title} fill className="object-cover" unoptimized />
+                  )}
+                </div>
+              );
+            })}
+            {albumArts.length === 0 && (
+              <p className="col-span-full text-white/50 text-lg">No album art available yet.</p>
+            )}
+          </div>
+        </section>
+
+        {/* ANIMATION */}
+        <section className="my-24 md:my-32">
+          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+            ANIMATION
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {animations.map((item) => {
+              const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
+              return (
+                <div key={item._id} className="relative aspect-[16/9] w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm">
+                  {imgSrc && (
+                    <Image src={imgSrc} alt={item.title} fill className="object-cover" unoptimized />
+                  )}
+                </div>
+              );
+            })}
+            {animations.length === 0 && (
+              <p className="col-span-full text-white/50 text-lg">No animations available yet.</p>
+            )}
+          </div>
+        </section>
+
+        {/* ILLUSTRATION */}
+        <section className="my-24 md:my-32">
+          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+            ILLUSTRATION
+          </h2>
+          <div className="flex flex-col gap-4 md:gap-6">
+            {Array.from({ length: 3 }).map((_, rowIndex) => (
+              <div key={rowIndex} className="flex flex-col md:flex-row gap-4 md:gap-6 h-auto md:h-40 lg:h-56">
+                {Array.from({ length: 4 }).map((_, colIndex) => {
+                  // Even rows: Square, Rect, Square, Rect
+                  // Odd rows: Rect, Square, Rect, Square
+                  const isSquare = (rowIndex % 2 === 0) ? (colIndex % 2 === 0) : (colIndex % 2 !== 0);
+                  const src = isSquare ? "/illustrationex1.png" : "/illustrationex2.jpg";
+                  return (
+                    <div
+                      key={colIndex}
+                      className={`relative overflow-hidden rounded-sm group bg-white/5 ${isSquare ? "w-full md:w-auto md:aspect-square shrink-0" : "w-full md:flex-1"
+                        }`}
+                    >
+                      <img
+                        src={src}
+                        alt={`Illustration ${rowIndex * 4 + colIndex + 1}`}
+                        className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300 block"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             ))}
           </div>
-        )}
+        </section>
+
       </main>
+
     </div>
   );
 }

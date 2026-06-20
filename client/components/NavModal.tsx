@@ -15,7 +15,7 @@ const LINKS: { href: string; label: string; imageSrc: string }[] = [
   { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
   { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
-  { href: "/comingsoon", label: "Design", imageSrc: "/Design.webp" },
+  { href: "/design", label: "Design", imageSrc: "/Design.webp" },
 
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];

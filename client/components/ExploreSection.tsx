@@ -222,7 +222,7 @@ const ExploreSection: React.FC = () => {
               title="Design"
               imageSrc="/Design.gif"
               width="56rem"
-              onClick={() => router.push("/comingsoon")}
+              onClick={() => router.push("/design")}
               rotate={2}
               position={{
                 top: pctOf(17, SCENE_HEIGHT_PX),
