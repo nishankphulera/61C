@@ -50,7 +50,7 @@ export default function DesignPage() {
             At 61C Studios, design is an extension of expression and storytelling. It is not treated as a
             supporting function to grab attention. Every visual ecosystem we create begins with
             emotion and is led by context. It enhances the narrative, making it impressionable and
-            truly influential. Whether it's an album cover, animation, illustration, or brand identity &
+            truly influential. Whether it&apos;s an album cover, animation, illustration, or brand identity &
             assets, we craft designs that feel distinctive, culturally relevant and creatively stimulating.
           </p>
         </section>
