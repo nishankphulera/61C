@@ -74,41 +74,43 @@ export default function Header() {
             />
           </Link>
         </div>
-        <button
-          type="button"
-          className="absolute right-24 top-5 z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls={navPanelId}
-          onClick={() => router.push("/uk")}
-        >
-          <Image
-            src="/ukFlagGif.gif"
-            alt=""
-            width={56}
-            height={40}
-            className="h-8 w-11 object-contain md:h-11 md:w-16 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
-            aria-hidden
-          />
-        </button>
-        {/* Right: Hamburger Menu */}
-        <button
-          type="button"
-          className="relative z-[500] flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls={navPanelId}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <Image
-            src="/bb.png"
-            alt=""
-            width={40}
-            height={40}
-            className="size-7 object-contain md:size-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
-            aria-hidden
-          />
-        </button>
+        {/* Right: Actions */}
+        <div className="relative z-[500] flex items-center gap-2 md:gap-4">
+          <button
+            type="button"
+            className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            aria-label="Switch to UK view"
+            onClick={() => router.push("/uk")}
+          >
+            <Image
+              src="/ukFlagGif.gif"
+              alt=""
+              width={56}
+              height={40}
+              className="h-7 w-10 object-contain md:h-10 md:w-14 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+              aria-hidden
+            />
+          </button>
+          
+          {/* Hamburger Menu */}
+          <button
+            type="button"
+            className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls={navPanelId}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <Image
+              src="/bb.png"
+              alt=""
+              width={40}
+              height={40}
+              className="size-7 object-contain md:size-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
+              aria-hidden
+            />
+          </button>
+        </div>
       </div>
 
       <NavModal

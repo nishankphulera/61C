@@ -60,14 +60,14 @@ export function NavModal({ panelId, open, onClose }: NavModalProps) {
             className="flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-0 pb-[max(1rem,env(safe-area-inset-bottom))]"
             aria-label="Primary"
           >
-            <div className="flex w-full flex-col">
+            <div className="flex h-full w-full flex-col">
               {LINKS.map(({ href, label, imageSrc }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="group relative block w-full min-w-0 shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+                  className="group relative block w-full flex-1 min-h-[4rem] min-w-0 shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                 >
-                  <div className="relative h-30 w-full sm:h-22 md:h-22">
+                  <div className="relative h-full w-full">
                     <Image
                       src={imageSrc}
                       alt={label}

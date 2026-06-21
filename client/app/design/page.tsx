@@ -60,7 +60,7 @@ export default function DesignPage() {
           <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ALBUM ART
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {albumArts.map((item) => {
               const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
               return (
