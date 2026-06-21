@@ -136,7 +136,7 @@ export default function DesignPage() {
                 const colIndex = i % 4;
                 const isSquare = (rowIndex % 2 === 0) ? (colIndex % 2 === 0) : (colIndex % 2 !== 0);
                 const src = isSquare ? SQUARE_IMAGES[sqIdx++] : WIDE_IMAGES[rectIdx++];
-                
+
                 return {
                   id: `dummy-${i}`,
                   src,
@@ -182,9 +182,7 @@ export default function DesignPage() {
                 </div>
               ));
             })()}
-            {illustrations.length === 0 && (
-              <p className="text-white/50 text-lg mt-2">Showing example illustrations. Add illustrations to the CMS to see them here.</p>
-            )}
+
           </div>
         </section>
 
