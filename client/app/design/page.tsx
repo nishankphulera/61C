@@ -46,7 +46,7 @@ export default function DesignPage() {
 
         {/* Philosophy Statement */}
         <section className="my-16 md:my-24 w-full max-w-[1400px]">
-          <p className="text-[#E4DA4D] text-lg md:text-2xl lg:text-[1.9rem] xl:text-[2rem] leading-[1.3] md:leading-[1.3] font-medium tracking-wide">
+          <p className="text-yellow-400 text-lg md:text-2xl lg:text-[1.9rem] xl:text-[2rem] leading-[1.3] md:leading-[1.3] font-medium tracking-wide">
             At 61C Studios, design is an extension of expression and storytelling. It is not treated as a
             supporting function to grab attention. Every visual ecosystem we create begins with
             emotion and is led by context. It enhances the narrative, making it impressionable and
