@@ -36,7 +36,7 @@ export default function LandingPage() {
         }}
       >
         <img
-          src="/Headernew.gif"
+          src="/Homepage1.gif"
           alt="Homepage composition preview"
           className="block h-auto w-full"
           decoding="async"
