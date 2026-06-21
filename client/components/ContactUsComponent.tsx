@@ -170,6 +170,7 @@ export default function ContactUsComponent() {
                 width={280}
                 height={100}
                 className="h-auto w-auto max-w-full transition-opacity hover:opacity-90"
+                style={{ height: "auto" }}
               />
             </Link>
 
@@ -188,6 +189,7 @@ export default function ContactUsComponent() {
               width={260}
               height={280}
               className="h-auto max-h-[min(40vh,280px)] w-auto max-w-full object-contain opacity-95"
+              style={{ height: "auto" }}
             />
           </div>
 

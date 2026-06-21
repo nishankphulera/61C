@@ -122,6 +122,7 @@ export default function ContactView() {
                 width={200}
                 height={260}
                 className="h-auto w-full object-contain opacity-90"
+                style={{ height: "auto" }}
               />
             </div>
 

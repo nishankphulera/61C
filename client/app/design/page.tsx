@@ -19,6 +19,7 @@ export default function DesignPage() {
 
   const albumArts = items.filter(i => i.section === "album-art");
   const animations = items.filter(i => i.section === "animation");
+  const illustrations = items.filter(i => i.section === "illustration");
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-pink-500/30">
@@ -105,29 +106,85 @@ export default function DesignPage() {
             ILLUSTRATION
           </h2>
           <div className="flex flex-col gap-4 md:gap-6">
-            {Array.from({ length: 3 }).map((_, rowIndex) => (
-              <div key={rowIndex} className="flex flex-col md:flex-row gap-4 md:gap-6 h-auto md:h-40 lg:h-56">
-                {Array.from({ length: 4 }).map((_, colIndex) => {
-                  // Even rows: Square, Rect, Square, Rect
-                  // Odd rows: Rect, Square, Rect, Square
-                  const isSquare = (rowIndex % 2 === 0) ? (colIndex % 2 === 0) : (colIndex % 2 !== 0);
-                  const src = isSquare ? "/illustrationex1.png" : "/illustrationex2.jpg";
-                  return (
-                    <div
-                      key={colIndex}
-                      className={`relative overflow-hidden rounded-sm group bg-white/5 ${isSquare ? "w-full md:w-auto md:aspect-square shrink-0" : "w-full md:flex-1"
-                        }`}
-                    >
-                      <img
-                        src={src}
-                        alt={`Illustration ${rowIndex * 4 + colIndex + 1}`}
-                        className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300 block"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+            {(() => {
+              const SQUARE_IMAGES = [
+                "/illustrations1.png",
+                "/illustrations2.jpg",
+                "/illustrations3.jpg",
+                "/illustrations4.jpg",
+                "/illustrations5.jpg",
+                "/illustrations6.jpg",
+                "/illustration7.jpg",
+                "/illustrations8.jpg",
+              ];
+
+              const WIDE_IMAGES = [
+                "/illustrationwide1.jpg",
+                "/illustrationwide2.png",
+                "/illustrationwid3.jpg",
+                "/illustrationwide4.png",
+                "/illustrationwide5.png",
+                "/illustrationwid6.jpg",
+                "/illustrationwide7.jpg",
+                "/illustrationwide8.png",
+              ];
+
+              let sqIdx = 0;
+              let rectIdx = 0;
+              const dummyItems = Array.from({ length: 16 }).map((_, i) => {
+                const rowIndex = Math.floor(i / 4);
+                const colIndex = i % 4;
+                const isSquare = (rowIndex % 2 === 0) ? (colIndex % 2 === 0) : (colIndex % 2 !== 0);
+                const src = isSquare ? SQUARE_IMAGES[sqIdx++] : WIDE_IMAGES[rectIdx++];
+                
+                return {
+                  id: `dummy-${i}`,
+                  src,
+                  title: `illustration  ${i + 1}`,
+                };
+              });
+
+              const displayItems = illustrations.length > 0
+                ? illustrations.map(item => ({
+                  id: item._id,
+                  src: item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || ""),
+                  title: item.title,
+                }))
+                : dummyItems;
+
+              const rows = [];
+              for (let i = 0; i < displayItems.length; i += 4) {
+                rows.push(displayItems.slice(i, i + 4));
+              }
+
+              return rows.map((row, rowIndex) => (
+                <div key={rowIndex} className="flex flex-col md:flex-row gap-4 md:gap-6 h-auto md:h-40 lg:h-56">
+                  {row.map((item, colIndex) => {
+                    // Even rows: Square, Rect, Square, Rect
+                    // Odd rows: Rect, Square, Rect, Square
+                    const isSquare = (rowIndex % 2 === 0) ? (colIndex % 2 === 0) : (colIndex % 2 !== 0);
+                    const src = item.src;
+                    return (
+                      <div
+                        key={item.id}
+                        className={`relative overflow-hidden rounded-sm group bg-white/5 ${isSquare ? "w-full md:w-auto md:aspect-square shrink-0" : "w-full md:flex-1"}`}
+                      >
+                        {src && (
+                          <img
+                            src={src}
+                            alt={item.title}
+                            className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300 block"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ));
+            })()}
+            {illustrations.length === 0 && (
+              <p className="text-white/50 text-lg mt-2">Showing example illustrations. Add illustrations to the CMS to see them here.</p>
+            )}
           </div>
         </section>
 

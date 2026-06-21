@@ -408,6 +408,7 @@ export default function Footer() {
               width={280}
               height={100}
               className="h-auto w-[180px] sm:w-[220px] lg:w-auto lg:max-w-[280px] object-contain transition-opacity hover:opacity-90"
+              style={{ height: "auto" }}
             />
           </Link>
 
@@ -468,6 +469,7 @@ export default function Footer() {
             width={280}
             height={280}
             className="h-auto w-[140px] sm:w-[180px] lg:w-auto lg:max-w-[280px] object-contain"
+            style={{ height: "auto" }}
           />
         </div>
 
