@@ -10,6 +10,7 @@ import { normalizeGalleryImageUrl } from "@/lib/mediaUrls";
 
 export default function DesignPage() {
   const [items, setItems] = useState<ContentItem[]>([]);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchPublicContent({ page: "design" })
@@ -65,7 +66,11 @@ export default function DesignPage() {
             {albumArts.map((item) => {
               const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
               return (
-                <div key={item._id} className="relative aspect-square w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm">
+                <div 
+                  key={item._id} 
+                  className="relative aspect-square w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm cursor-pointer"
+                  onClick={() => imgSrc && setExpandedImage(imgSrc)}
+                >
                   {imgSrc && (
                     <Image src={imgSrc} alt={item.title} fill className="object-cover" unoptimized />
                   )}
@@ -87,7 +92,11 @@ export default function DesignPage() {
             {animations.map((item) => {
               const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
               return (
-                <div key={item._id} className="relative aspect-[16/9] w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm">
+                <div 
+                  key={item._id} 
+                  className="relative aspect-[16/9] w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm cursor-pointer"
+                  onClick={() => imgSrc && setExpandedImage(imgSrc)}
+                >
                   {imgSrc && (
                     <Image src={imgSrc} alt={item.title} fill className="object-cover" unoptimized />
                   )}
@@ -167,7 +176,8 @@ export default function DesignPage() {
                     return (
                       <div
                         key={item.id}
-                        className={`relative overflow-hidden rounded-sm group bg-white/5 ${isSquare ? "w-full md:w-auto md:aspect-square shrink-0" : "w-full md:flex-1"}`}
+                        className={`relative overflow-hidden rounded-sm group bg-white/5 cursor-pointer ${isSquare ? "w-full md:w-auto md:aspect-square shrink-0" : "w-full md:flex-1"}`}
+                        onClick={() => src && setExpandedImage(src)}
                       >
                         {src && (
                           <img
@@ -187,6 +197,20 @@ export default function DesignPage() {
         </section>
 
       </main>
+
+      {/* Lightbox Modal */}
+      {expandedImage && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4 cursor-pointer backdrop-blur-sm"
+          onClick={() => setExpandedImage(null)}
+        >
+          <img
+            src={expandedImage}
+            alt="Expanded view"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+      )}
 
     </div>
   );
