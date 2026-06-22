@@ -174,12 +174,12 @@ export default function DraggableHorizontalScroll({
 
   return (
     <div className="relative flex items-center group w-full">
-      <div className="shrink-0 flex justify-center mr-2 md:mr-4">
+      <div className="absolute left-2 md:left-4 z-20 shrink-0 flex justify-center pointer-events-none">
         <button
           onClick={() => scrollByAmount("left")}
           disabled={!canScrollLeft}
-          className={`z-10 p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer
-            ${canScrollLeft ? "text-white/70 hover:text-white hover:bg-white/10" : "opacity-0 pointer-events-none"}
+          className={`pointer-events-auto p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer bg-black/40 backdrop-blur-sm
+            ${canScrollLeft ? "text-white/90 hover:text-white hover:bg-black/60" : "opacity-0 pointer-events-none"}
           `}
           aria-label="Scroll left"
         >
@@ -205,12 +205,12 @@ export default function DraggableHorizontalScroll({
         <div className={`flex w-max min-w-max flex-row ${gapClassName}`}>{children}</div>
       </div>
 
-      <div className="shrink-0 flex justify-center ml-2 md:ml-4">
+      <div className="absolute right-2 md:right-4 z-20 shrink-0 flex justify-center pointer-events-none">
         <button
           onClick={() => scrollByAmount("right")}
           disabled={!canScrollRight}
-          className={`z-10 p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer
-            ${canScrollRight ? "text-white/70 hover:text-white hover:bg-white/10" : "opacity-0 pointer-events-none"}
+          className={`pointer-events-auto p-1 md:p-2 rounded-full transition-all focus:outline-none cursor-pointer bg-black/40 backdrop-blur-sm
+            ${canScrollRight ? "text-white/90 hover:text-white hover:bg-black/60" : "opacity-0 pointer-events-none"}
           `}
           aria-label="Scroll right"
         >

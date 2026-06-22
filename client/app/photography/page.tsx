@@ -15,6 +15,7 @@ import { PhotographyLightboxProvider } from "@/components/PhotographyLightboxCon
 import { fetchPublicContent } from "@/lib/api";
 import { compareContentByOrder, ContentItem } from "@/lib/content";
 import { normalizeGalleryImageUrl } from "@/lib/mediaUrls";
+import Asset from "@/components/Asset";
 
 export default function PhotographyPage() {
   const fnbRef = useRef<HTMLDivElement>(null);
@@ -84,7 +85,12 @@ export default function PhotographyPage() {
         <Header />
         <div className="container mx-auto px-4 py-8 md:py-12">
           <PhotographyCategoryAccordion className="mb-12 md:mb-16" />
-
+          <Asset reverse={true} src="/Chair.webp" className="w-[16rem] md:w-[16rem] opacity-50" rotate={-10} position={{ top: "3%", right: "-5%" }} zIndex={0} />
+          <Asset reverse={false} src="/Clapperboard.webp" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
+          <Asset reverse={true} src="/Megaphone.webp" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
+          <Asset reverse={true} src="/Pelicancase.webp" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
+          <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
+          <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
           <motion.div
             id="photography-fnb"
             ref={fnbRef}

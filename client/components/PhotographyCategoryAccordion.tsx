@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { usePhotographyLightbox } from "@/components/PhotographyLightboxContext";
 
 /** Accordion order matches page: F&B → Product → Hospitality → Architecture & Real estate → Fashion → Artists Profiles → Automobiles → Events */
 const CARDS = [
@@ -60,33 +59,34 @@ export default function PhotographyCategoryAccordion({
 }: {
   className?: string;
 }) {
-  const { open } = usePhotographyLightbox();
-
   return (
     <div
-      className={`w-full px-1 sm:px-2 md:px-0 ${className}`}
+      className={`relative z-10 w-full px-1 sm:px-2 md:px-0 ${className}`}
       aria-label="Photography categories"
     >
-      <div className="flex h-[min(68vh,600px)] min-h-[300px] w-full gap-1.5 md:gap-2 md:min-h-[520px]">
+      <div className="flex flex-col md:flex-row h-[min(70vh,800px)] min-h-[450px] w-full gap-1.5 md:gap-2 md:h-[min(68vh,600px)] md:min-h-[520px]">
         {CARDS.map((card) => (
           <button
             key={card.sectionId}
             type="button"
-            onClick={() =>
-              open(card.src, {
-                alt: card.title,
-                sectionId: card.sectionId,
-                sectionTitle: card.title,
-              })
-            }
+            onClick={() => {
+              const el = document.getElementById(card.sectionId);
+              if (el) {
+                // Determine a safe offset for the sticky header
+                const yOffset = -80; 
+                const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                open(card.src, {
-                  alt: card.title,
-                  sectionId: card.sectionId,
-                  sectionTitle: card.title,
-                });
+                const el = document.getElementById(card.sectionId);
+                if (el) {
+                  const yOffset = -80; 
+                  const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
               }
             }}
             aria-label={`View ${card.title} full size`}
@@ -116,7 +116,7 @@ export default function PhotographyCategoryAccordion({
               aria-hidden
             />
             <span
-              className="pointer-events-none absolute bottom-4 left-3 z-10 origin-bottom-left -rotate-90 whitespace-nowrap text-[0.5rem] font-bold uppercase leading-none tracking-[0.2em] text-[#f0e6a8] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:bottom-10 md:left-7 md:text-[0.7rem] md:tracking-[0.32em]"
+              className="pointer-events-none absolute bottom-2.5 left-3 z-10 whitespace-nowrap text-[0.6rem] font-bold uppercase leading-none tracking-[0.1em] sm:tracking-[0.2em] text-[#f0e6a8] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:bottom-10 md:left-7 md:origin-bottom-left md:-rotate-90 md:text-[0.7rem] md:tracking-[0.32em]"
             >
               {card.title}
             </span>

@@ -72,7 +72,7 @@ export default function FilmsPage() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
+  // const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
   const [rows, setRows] = useState<ContentItem[]>([]);
   const [isSectionsLoading, setIsSectionsLoading] = useState(true);
   const [isMainLoaderDone, setIsMainLoaderDone] = useState(false);
@@ -286,7 +286,7 @@ export default function FilmsPage() {
         <motion.section
           id="films-vertical-films"
           ref={verticalFilmsRef}
-          className="relative z-10 mb-16 w-full"
+          className="relative z-10 mb-16 w-full mt-20"
           variants={sectionVariants}
           initial="hidden"
           animate={isVerticalFilmsInView ? "visible" : "hidden"}
@@ -295,7 +295,7 @@ export default function FilmsPage() {
           {shouldShowSectionLoader ? (
             sectionLoader
           ) : (
-            <motion.div className="grid grid-cols-1 md:grid-cols-5" style={{ y: smoothY }}>
+            <motion.div className="grid grid-cols-1 md:grid-cols-5" >
               <div className="md:col-span-5">
                 <DraggableHorizontalScroll
                   ariaLabel="Vertical films, scroll horizontally or drag to browse"
@@ -321,7 +321,7 @@ export default function FilmsPage() {
         <motion.section
           id="films-brand-films"
           ref={brandFilmsRef}
-          className="relative z-10 mb-16 w-full"
+          className="relative z-10 mb-16 w-full mt-20"
           variants={sectionVariants}
           initial="hidden"
           animate={isBrandFilmsInView ? "visible" : "hidden"}

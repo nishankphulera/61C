@@ -35,8 +35,8 @@ export default function FilmRollStrip({
   gifAlts = ["Film frame 1", "Film frame 2", "Film frame 3"],
 }: FilmRollStripProps) {
   return (
-    <div className={`relative w-full ${className}`}>
-      <div className="relative w-full">
+    <div className={`relative w-full ${className} flex align-center justify-center mb-20 mt-20`}>
+      <div className="relative w-[86%]">
         {FRAME_SLOTS.map((slot, i) => (
           <div
             key={i}
