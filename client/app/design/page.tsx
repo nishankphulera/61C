@@ -46,11 +46,11 @@ export default function DesignPage() {
       </section>
 
       <main className="w-full px-6 md:px-10 py-16">
-        <Asset reverse={false} src="/Clapperboard.webp" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "22%", left: "-8%" }} zIndex={0} />
+        <Asset reverse={false} src="/Clapperboard.webp" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "24%", left: "-8%" }} zIndex={0} />
         <Asset reverse={true} src="/Megaphone.webp" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
         <Asset reverse={true} src="/Pelicancase.webp" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
         <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
-        <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "-8%" }} zIndex={0} />
+        <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "15%" }} zIndex={0} />
         {/* Philosophy Statement */}
         <section className="my-16 md:my-24 w-full max-w-[1400px]">
           <p className="text-yellow-400 text-lg md:text-2xl lg:text-[1.9rem] xl:text-[2rem] leading-[1.3] md:leading-[1.3] font-medium tracking-wide">
@@ -63,8 +63,8 @@ export default function DesignPage() {
         </section>
 
         {/* ALBUM ART */}
-        <section className="my-24 md:my-32">
-          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+        <section className="relative z-80 my-24 md:my-32">
+          <h2 className="relative z-80 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ALBUM ART
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
@@ -89,8 +89,8 @@ export default function DesignPage() {
         </section>
 
         {/* ANIMATION */}
-        <section className="my-24 md:my-32">
-          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+        <section className="relative z-10 my-24 md:my-32">
+          <h2 className="relative z-10 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ANIMATION
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
@@ -115,8 +115,8 @@ export default function DesignPage() {
         </section>
 
         {/* ILLUSTRATION */}
-        <section className="my-24 md:my-32">
-          <h2 className="text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
+        <section className="relative z-10 my-24 md:my-32">
+          <h2 className="relative z-10 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ILLUSTRATION
           </h2>
           <div className="flex flex-col gap-4 md:gap-6">
