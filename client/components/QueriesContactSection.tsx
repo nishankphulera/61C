@@ -83,13 +83,13 @@ export default function QueriesContactSection({
       aria-label="Studios and contact form"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 text-[#ffef00] md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
-          <div className="flex-1 md:pr-8 md:text-right">
+        <div className="mx-auto mt-14 flex max-w-4xl flex-row items-stretch justify-center gap-0 text-[#ffef00] md:mt-20">
+          <div className="flex-1 pr-4 text-right md:pr-8">
             <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
               UK Studio
             </p>
             <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl tracking-wide">
-              Registered office address:
+              Registered address:
             </p>
             <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
               71-75 Shelton Street,
@@ -101,26 +101,21 @@ export default function QueriesContactSection({
               WC2H 9JQ
             </address>
             <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
-              Phone No: +44 7345651920
+              Phone: +447345651920
             </p>
           </div>
 
           <div
-            className="hidden shrink-0 self-stretch bg-[#1a4d2e] md:block md:w-px md:min-h-48"
+            className="shrink-0 self-stretch bg-[#1a4d2e] w-1 min-h-48"
             aria-hidden
           />
 
-          <div
-            className="h-px w-full shrink-0 bg-[#1a4d2e] md:hidden"
-            aria-hidden
-          />
-
-          <div className="flex-1 md:pl-8 md:text-left">
+          <div className="flex-1 pl-4 text-left md:pl-8">
             <p className="text-lg font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
               India Studio
             </p>
             <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl">
-              Registered office address:
+              Registered address:
             </p>
             <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
               House No.55,
@@ -132,18 +127,18 @@ export default function QueriesContactSection({
               New Delhi, 110030
             </address>
             <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
-              Phone No: +918266029164
+              Phone: +918266029164
             </p>
           </div>
         </div>
 
         <div className="mx-auto mt-16 max-w-4xl px-6 md:px-0">
-          <h3 className="text-center text-3xl font-bold md:text-4xl text-[#FFFF00]">
+          <h3 className="text-center text-3xl font-bold md:text-4xl text-[#FF009D]">
             Regional Hubs
           </h3>
           <div className="mt-8 flex flex-row items-stretch justify-center gap-0">
             <div className="flex-1 pr-4 md:pr-12 text-right">
-              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#0000FF]">
                 <li>Manchester</li>
                 <li>Liverpool</li>
                 <li>Leeds</li>
@@ -156,7 +151,7 @@ export default function QueriesContactSection({
             <div className="w-4 md:w-px shrink-0" aria-hidden />
 
             <div className="flex-1 pl-4 md:pl-12 text-left">
-              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#0000FF]">
                 <li>Delhi - NCR</li>
                 <li>Mumbai</li>
                 <li>Bengaluru</li>
@@ -169,21 +164,21 @@ export default function QueriesContactSection({
       </div>
 
       {/* Queries header */}
-      <div className="mx-auto mt-10 max-w-4xl flex flex-wrap items-center justify-between gap-4 px-6 md:mt-14 md:px-10">
-          <span
-            className="text-lg font-semibold uppercase tracking-wide md:text-2xl"
-            style={{ color: YELLOW }}
-          >
-            Send Us Your Queries
-          </span>
-          <a
-            href="mailto:hello@61cstudios.com"
-            className="text-lg font-semibold md:text-2xl transition-opacity hover:opacity-80"
-            style={{ color: YELLOW }}
-          >
-            hello@61cstudios.com
-          </a>
-        </div>
+      <div className="mx-auto mt-10 max-w-7xl flex flex-col items-center gap-4 text-center md:flex-row md:flex-wrap md:justify-start md:text-left md:gap-0">
+        <span
+          className="text-3xl font-semibold uppercase tracking-wide md:text-5xl md:ml-[10px]"
+          style={{ color: YELLOW, }}
+        >
+          Send Us Your Queries
+        </span>
+        <a
+          href="mailto:hello@61cstudios.com"
+          className="text-xl font-semibold md:text-5xl transition-opacity hover:opacity-80 md:ml-[94px]"
+          style={{ color: "#FF009D" }}
+        >
+          hello@61cstudios.com
+        </a>
+      </div>
 
       <form
         onSubmit={onSubmit}
@@ -223,7 +218,7 @@ export default function QueriesContactSection({
               />
             </label>
 
-            <div className="flex justify-end md:pl-0 mt-2 md:mt-0">
+            <div className="hidden md:flex justify-end md:pl-0 mt-2 md:mt-0">
               <button
                 type="submit"
                 disabled={formSubmitting}
@@ -267,6 +262,16 @@ export default function QueriesContactSection({
           </div>
         </div>
 
+        <div className="flex md:hidden justify-end mt-2">
+          <button
+            type="submit"
+            disabled={formSubmitting}
+            className="bg-[#F7E509] px-14 py-2.5 text-black font-semibold text-lg uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-max"
+          >
+            {formSubmitting ? "SENDING…" : "SEND"}
+          </button>
+        </div>
+
         {formFeedback ? (
           <p
             role="status"
@@ -282,13 +287,13 @@ export default function QueriesContactSection({
         <nav aria-labelledby="queries-sitemap-heading">
           <h3
             id="queries-sitemap-heading"
-            className="text-2xl font-bold tracking-wide md:text-3xl"
+            className="text-center text-lg font-bold tracking-wide md:text-lg"
             style={{ color: YELLOW }}
           >
             Site Map
           </h3>
           <ul
-            className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg leading-snug md:mt-5 md:text-xl lg:text-2xl"
+            className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-2 text-sm leading-snug md:mt-5 md:text-base lg:text-base"
             style={{ color: LINK_BLUE }}
           >
             {siteMapLinks.map((item) => (
@@ -306,10 +311,10 @@ export default function QueriesContactSection({
         </nav>
 
         <div
-          className="mt-10 space-y-4 text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
+          className="mt-10 space-y-4 text-center text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
           style={{ color: YELLOW }}
         >
-          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+          <p className="font-bold text-sm md:text-sm lg:text-sm">
             61C STUDIOS UK LTD (Company Number: 17200017)
             <span style={{ color: LINK_BLUE }}>
               {" – "}
@@ -327,7 +332,7 @@ export default function QueriesContactSection({
               ))}
             </span>
           </p>
-          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+          <p className="font-bold text-sm md:text-sm lg:text-sm">
             Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
             Rights Reserved
           </p>

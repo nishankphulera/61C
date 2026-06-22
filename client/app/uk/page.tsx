@@ -74,19 +74,19 @@ export default function UkPage() {
             About 61C Studios UK
           </h2>
 
-          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26]">
             61C Studios is a creative production house
-            <br className="hidden sm:block" />
+
             creating cinematic content across film, digital,
-            <br className="hidden sm:block" />
+
             print and branded media for clients across the UK.
-            <br className="hidden sm:block" />
+
             We work with artists, brands, corporates and
-            <br className="hidden sm:block" />
+
             growing businesses to make content that feels
-            <br className="hidden sm:block" />
+
             visually sharp, culturally in tune and genuinely
-            <br className="hidden sm:block" />
+
             engaging.
           </p>
 
@@ -117,9 +117,9 @@ export default function UkPage() {
 
           <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
             From London and Manchester to Leeds, Liverpool, Sheffield and
-            <br className="hidden sm:block" />
+
             Birmingham, we help businesses tell their stories in a way that
-            <br className="hidden sm:block" />
+
             feels modern, considered and built for today&apos;s audiences.
           </p>
 
@@ -246,7 +246,7 @@ export default function UkPage() {
             </div>
           </div> */}
 
-          <div className="mt-16 flex flex-col gap-8 md:mt-24 md:flex-row md:items-end md:justify-between md:gap-6">
+          {/* <div className="mt-16 flex flex-col gap-8 md:mt-24 md:flex-row md:items-end md:justify-between md:gap-6">
             <Link
               href="/contact"
               className="text-lg font-bold uppercase tracking-wide text-[#FFFF00] transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]/60 md:text-3xl lg:text-4xl"
@@ -259,7 +259,7 @@ export default function UkPage() {
             >
               {UK_MAIL}
             </a>
-          </div>
+          </div> */}
 
           <div className="mt-12 h-px w-full bg-[#1a4d2e] md:mt-16" aria-hidden />
         </section>

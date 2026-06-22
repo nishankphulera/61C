@@ -29,9 +29,12 @@
 }
 
 html {
-  overflow-x: clip; /* Better for animations than hidden */
-  position: relative; /* Framer useScroll + target needs non-static scroll root */
-  scroll-behavior: auto; /* Lenis handles smoothing */
+  overflow-x: clip;
+  /* Better for animations than hidden */
+  position: relative;
+  /* Framer useScroll + target needs non-static scroll root */
+  scroll-behavior: auto;
+  /* Lenis handles smoothing */
   /* Global snap on <html> breaks scroll-linked motion (e.g. TV parallax). Snap per-section in components instead. */
 }
 
@@ -40,7 +43,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   background-color: black;
-  overflow-x: clip; /* Better for animations than hidden */
+  overflow-x: clip;
+  /* Better for animations than hidden */
   width: 100%;
   position: relative;
 }
@@ -51,7 +55,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-advent-pro);
 }
 
 .artwork-collage-container {
@@ -307,10 +311,13 @@ h6 {
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }

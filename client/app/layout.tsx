@@ -11,6 +11,12 @@ const figtree = localFont({
   display: "swap",
 });
 
+const adventPro = localFont({
+  src: "../public/fonts/AdventPro_Expanded-ExtraBold.ttf",
+  variable: "--font-advent-pro",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "61cstudios",
   description: "61cstudios",
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${figtree.variable} antialiased`}
+        className={`${figtree.variable} ${adventPro.variable} antialiased`}
       >
         <LoadingScreen />
         <LenisRoot>
