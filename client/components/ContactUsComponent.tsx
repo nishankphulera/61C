@@ -10,6 +10,7 @@ const RED_INPUT = "#C41E2A";
 const GREEN_ACCENT = "#2EE576";
 const MAIL = "hello@61cstudios.com";
 const OFFSET_BLUE = "#2563eb";
+const pink = "#FF009D"
 
 const OFFSET_INSTAGRAM =
   process.env.NEXT_PUBLIC_OFFSET_INSTAGRAM_URL ?? "https://www.instagram.com/offset_61c/";
@@ -143,7 +144,7 @@ export default function ContactUsComponent() {
               href="mailto:hello@61cstudios.com"
               className="group flex flex-col gap-1 transition-colors hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 md:ml-auto md:items-end md:text-right mb-4 md:mb-0"
             >
-              <span className="text-2xl md:text-3xl lg:text-4xl font-normal" style={{ color: YELLOW }}>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-normal" style={{ color: pink }}>
                 Get in touch for a quote
               </span>
               <span className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-yellow-400">
