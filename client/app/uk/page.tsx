@@ -47,21 +47,21 @@ export default function UkPage() {
             </h1>
           </div>
         </section> */}
-        <section className="relative min-h-[100dvh] overflow-hidden" aria-label="61C Studios UK">
+        <section className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden md:aspect-auto md:min-h-[100dvh]" aria-label="61C Studios UK">
           <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
             <video
               autoPlay
               muted
               loop
               playsInline
-              className="h-full w-full object-contain md:object-cover object-center"
+              className="h-full w-full object-cover object-center"
             >
               <source src="/UKshowreel.mp4" type="video/mp4" />
             </video>
           </div>
 
-          <div className="relative z-10 flex min-h-[100dvh] w-full items-center justify-center px-6 pb-16 pt-[4.5rem] md:px-10">
-            <h1 className="max-w-[min(100%,56rem)] text-center text-[clamp(1.35rem,7.2vw,3.75rem)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-yellow-400 text drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(1.5rem,8.5vw,4.75rem)]">
+          <div className="relative z-10 flex w-full flex-col items-center justify-center px-6 md:min-h-[100dvh] md:px-10 md:pb-16 md:pt-[4.5rem]">
+            <h1 className="max-w-[min(100%,56rem)] text-center text-[clamp(1.35rem,7.2vw,3.75rem)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-yellow-400 drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(1.5rem,8.5vw,4.75rem)]">
               RIGHT, LET&apos;S CRACK ON!
             </h1>
           </div>
