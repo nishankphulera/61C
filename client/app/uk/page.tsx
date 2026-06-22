@@ -67,7 +67,7 @@ export default function UkPage() {
           </div>
         </section>
         <section
-          className="relative z-10 bg-black px-[80px] pt-6 md:px-[200px] md:pb-10 md:pt-16 lg:px-[200px] lg:pb-12 "
+          className="relative z-10 bg-black px-[40px] pt-6 md:px-[200px] md:pb-10 md:pt-16 lg:px-[200px] lg:pb-12 "
           aria-labelledby="uk-intro-heading"
         >
           <h2 id="uk-intro-heading" className="sr-only">
@@ -108,7 +108,7 @@ export default function UkPage() {
         </section>
 
         <section
-          className="relative z-10 bg-black px-[80px] md:px-[200px] "
+          className="relative z-10 bg-black px-[40px] md:px-[200px] "
           aria-labelledby="uk-regions-heading"
         >
 
@@ -139,7 +139,7 @@ export default function UkPage() {
         </section>
 
         <section
-          className="relative z-10 bg-black px-[80px] pb-20 pt-4 md:px-[200px] md:pb-28 md:pt-10 lg:px-[200px] lg:pb-32"
+          className="relative z-10 bg-black px-[40px] pb-20 pt-4 md:px-[200px] md:pb-28 md:pt-10 lg:px-[200px] lg:pb-32"
           aria-labelledby="uk-creative-process-heading"
         >
           <h2 id="uk-creative-process-heading" className="sr-only">
@@ -178,7 +178,7 @@ export default function UkPage() {
           </div>
         </section>
         <section
-          className="relative z-10 bg-black px-[80px]  md:px-[200px] "
+          className="relative z-10 bg-black px-[40px]  md:px-[200px] "
           aria-labelledby="uk-services-heading"
         >
           <h2 id="uk-services-heading" className="sr-only">
