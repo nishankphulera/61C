@@ -33,9 +33,9 @@ export default function AboutPage() {
 
           <div className="relative z-0 flex min-h-[100dvh] flex-col pt-[4.5rem] md:pt-[5rem]">
             <div className="flex flex-1 flex-col items-center justify-center px-4 pb-16 md:px-10">
-              <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(2.25rem,5.5vw+0.75rem,6rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-[#F5E14A] drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
+              <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(2.25rem,5.5vw+0.75rem,6rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
                 Visual craft rooted in<br />
-                purpose, culture and design.
+                purpose, culture and design
               </h1>
             </div>
           </div>

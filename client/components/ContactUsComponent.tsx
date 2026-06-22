@@ -161,7 +161,7 @@ export default function ContactUsComponent() {
           <div className="flex flex-col gap-8 md:col-span-1">
             <Link
               href="/contact"
-              className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80"
+              className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
               aria-label="Contact us"
             >
               <Image
@@ -202,7 +202,7 @@ export default function ContactUsComponent() {
               <span className="text-2xl md:text-3xl lg:text-4xl font-normal" style={{ color: YELLOW }}>
                 Get in touch for a quote
               </span>
-              <span className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-[#FF009D]">
+              <span className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-yellow-400">
                 hello@61cstudios.com
               </span>
             </a>
@@ -253,7 +253,7 @@ export default function ContactUsComponent() {
         </div> */}
           <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 text-[#ffef00] md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
             <div className="flex-1 md:pr-8 md:text-right">
-              <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
+              <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-yellow-400">
                 UK Studio
               </p>
               <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl tracking-wide">
@@ -284,7 +284,7 @@ export default function ContactUsComponent() {
             />
 
             <div className="flex-1 md:pl-8 md:text-left">
-              <p className="text-lg font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
+              <p className="text-lg font-bold uppercase tracking-wide md:text-5xl text-yellow-400">
                 India Studio
               </p>
               <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl">
@@ -307,12 +307,12 @@ export default function ContactUsComponent() {
           </div>
 
           <div className="mx-auto mt-16 max-w-4xl px-6 md:px-0">
-            <h3 className="text-center text-3xl font-bold md:text-4xl text-[#FFFF00]">
+            <h3 className="text-center text-3xl font-bold md:text-4xl text-yellow-400">
               Regional Hubs
             </h3>
             <div className="mt-8 flex flex-row items-stretch justify-center gap-0">
               <div className="flex-1 pr-4 md:pr-12 text-right">
-                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-yellow-400">
                   <li>Manchester</li>
                   <li>Liverpool</li>
                   <li>Leeds</li>
@@ -325,7 +325,7 @@ export default function ContactUsComponent() {
               <div className="w-4 md:w-px shrink-0" aria-hidden />
 
               <div className="flex-1 pl-4 md:pl-12 text-left">
-                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#FF009D]">
+                <ul className="flex flex-col gap-3 text-xl md:text-3xl text-yellow-400">
                   <li>Delhi - NCR</li>
                   <li>Mumbai</li>
                   <li>Bengaluru</li>
@@ -437,54 +437,31 @@ export default function ContactUsComponent() {
           </div>
 
           {formFeedback ? (
-          <p
-            role="status"
-            className="mt-6 text-base font-semibold uppercase tracking-wide md:text-lg text-center"
-            style={{ color: formFeedback.type === "ok" ? GREEN_ACCENT : "#f87171" }}
-          >
-            {formFeedback.text}
-          </p>
-        ) : null}
-      </form>
+            <p
+              role="status"
+              className="mt-6 text-base font-semibold uppercase tracking-wide md:text-lg text-center"
+              style={{ color: formFeedback.type === "ok" ? GREEN_ACCENT : "#f87171" }}
+            >
+              {formFeedback.text}
+            </p>
+          ) : null}
+        </form>
 
-      <div className="mx-auto max-w-7xl px-6 pb-16 md:px-10">
-        <nav aria-labelledby="queries-sitemap-heading">
-          <h3
-            id="queries-sitemap-heading"
-            className="text-2xl font-bold tracking-wide md:text-3xl"
-            style={{ color: YELLOW }}
-          >
-            Site Map
-          </h3>
-          <ul
-            className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg leading-snug md:mt-5 md:text-xl lg:text-2xl"
-            style={{ color: LINK_BLUE }}
-          >
-            {UK_SITE_MAP_LINKS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
-                  style={{ color: LINK_BLUE }}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div
-          className="mt-10 space-y-4 text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
-          style={{ color: YELLOW }}
-        >
-          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
-            61C STUDIOS UK LTD (Company Number: 17200017)
-            <span style={{ color: LINK_BLUE }}>
-              {" – "}
-              {UK_LEGAL_LINKS.map((item, index) => (
-                <span key={item.label}>
-                  {index > 0 ? " | " : null}
+        <div className="mx-auto max-w-7xl px-6 pb-16 md:px-10">
+          <nav aria-labelledby="queries-sitemap-heading">
+            <h3
+              id="queries-sitemap-heading"
+              className="text-2xl font-bold tracking-wide md:text-3xl"
+              style={{ color: YELLOW }}
+            >
+              Site Map
+            </h3>
+            <ul
+              className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg leading-snug md:mt-5 md:text-xl lg:text-2xl"
+              style={{ color: LINK_BLUE }}
+            >
+              {UK_SITE_MAP_LINKS.map((item) => (
+                <li key={item.href}>
                   <Link
                     href={item.href}
                     className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
@@ -492,17 +469,40 @@ export default function ContactUsComponent() {
                   >
                     {item.label}
                   </Link>
-                </span>
+                </li>
               ))}
-            </span>
-          </p>
-          <p className="font-bold text-xl md:text-2xl lg:text-3xl">
-            Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
-            Rights Reserved
-          </p>
+            </ul>
+          </nav>
+
+          <div
+            className="mt-10 space-y-4 text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
+            style={{ color: YELLOW }}
+          >
+            <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+              61C STUDIOS UK LTD (Company Number: 17200017)
+              <span style={{ color: LINK_BLUE }}>
+                {" – "}
+                {UK_LEGAL_LINKS.map((item, index) => (
+                  <span key={item.label}>
+                    {index > 0 ? " | " : null}
+                    <Link
+                      href={item.href}
+                      className="font-bold transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0000FF]/80"
+                      style={{ color: LINK_BLUE }}
+                    >
+                      {item.label}
+                    </Link>
+                  </span>
+                ))}
+              </span>
+            </p>
+            <p className="font-bold text-xl md:text-2xl lg:text-3xl">
+              Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
+              Rights Reserved
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }

@@ -66,8 +66,8 @@ export default function DesignPage() {
             {albumArts.map((item) => {
               const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
               return (
-                <div 
-                  key={item._id} 
+                <div
+                  key={item._id}
                   className="relative aspect-square w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm cursor-pointer"
                   onClick={() => imgSrc && setExpandedImage(imgSrc)}
                 >
@@ -92,8 +92,8 @@ export default function DesignPage() {
             {animations.map((item) => {
               const imgSrc = item.thumbnailUrl ? normalizeGalleryImageUrl(item.thumbnailUrl) : (item.images?.[0] || "");
               return (
-                <div 
-                  key={item._id} 
+                <div
+                  key={item._id}
                   className="relative aspect-[16/9] w-full overflow-hidden bg-white/5 hover:scale-[1.02] transition-transform duration-300 rounded-sm cursor-pointer"
                   onClick={() => imgSrc && setExpandedImage(imgSrc)}
                 >
@@ -200,7 +200,7 @@ export default function DesignPage() {
 
       {/* Lightbox Modal */}
       {expandedImage && (
-        <div 
+        <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 p-4 cursor-pointer backdrop-blur-sm"
           onClick={() => setExpandedImage(null)}
         >

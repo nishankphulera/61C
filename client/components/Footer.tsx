@@ -124,7 +124,7 @@
 
 //           <a
 //             href="mailto:admin@61cstudios.com"
-//             className="text-[#E4DA4D]"
+//             className="text-yellow-400"
 //           >
 //             admin@61cstudios.com
 //           </a>
@@ -399,7 +399,7 @@ export default function Footer() {
         <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left">
           <Link
             href="/contact"
-            className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80"
+            className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
             aria-label="Contact us"
           >
             <Image
@@ -440,7 +440,7 @@ export default function Footer() {
               }
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E4DA4D]/80 rounded-md"
+              className="inline-block transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80 rounded-md"
               aria-label="Offset Instagram"
             >
               <Image
@@ -455,7 +455,7 @@ export default function Footer() {
 
           <a
             href="mailto:hello@61cstudios.com"
-            className="text-[#E4DA4D] text-xs sm:text-sm md:text-base lg:text-lg"
+            className="text-yellow-400 text-xs sm:text-sm md:text-base lg:text-lg"
           >
             hello@61cstudios.com
           </a>

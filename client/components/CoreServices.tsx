@@ -229,7 +229,7 @@ const INDUSTRY_SHOWCASE: readonly {
   ];
 
 const labelTypographyBase =
-  "font-extrabold tracking-[-0.05em] text-[#FFFF00]";
+  "font-extrabold tracking-[-0.05em] text-yellow-400";
 
 const labelTypographySize =
   "leading-[1.05] text-[clamp(1.35rem,3.75vw+0.45rem,2.5rem)] sm:text-[clamp(1.45rem,2.85vw+0.55rem,2.85rem)] md:text-[clamp(1.6rem,2.35vw+0.65rem,3.1rem)]";
@@ -243,29 +243,29 @@ const showcaseLabelTypographySize =
 export default function CoreServices() {
   return (
     <section
-      className="relative z-10 bg-black px-8 pt-10 pb-20 md:px-12 md:pt-14 md:pb-28 lg:px-16 lg:pt-16 lg:pb-32"
+      className="relative z-10 bg-black px-8 pt-10 pb-10 md:px-12 md:pt-14 md:pb-18 lg:px-16 lg:pt-16 lg:pb-22"
       aria-labelledby="core-services-heading"
     >
       <div className="mx-auto w-full max-w-7xl">
-        <p className="mx-auto w-fit max-w-full text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-[#FFFF00] sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
+        <p className="mx-auto w-fit max-w-full text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
           61C Studios is a creative production house crafting{" "}
-          <br className="hidden sm:block" />
+
           cinematic visual content across film, digital, print{" "}
-          <br className="hidden sm:block" />
+
           and branded media. Built on over a decade of{" "}
-          <br className="hidden sm:block" />
+
           experience, we partner with artists, corporate,{" "}
-          <br className="hidden sm:block" />
+
           brands and small businesses to create work that{" "}
-          <br className="hidden sm:block" />
+
           feels thoughtful, culturally aware and visually{" "}
-          <br className="hidden sm:block" />
+
           distinct.
         </p>
 
         <h2
           id="core-services-heading"
-          className="mt-10 mb-2 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-[#FFFF00] md:mt-12 lg:mt-14"
+          className="mt-10 mb-2 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:mt-22 lg:mt-20 mb-20"
         >
           Core Services
         </h2>
@@ -303,7 +303,7 @@ export default function CoreServices() {
           })}
         </motion.ul>
         <div
-          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] md:mt-20 md:space-y-10 lg:mt-24"
+          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-yellow-400 md:mt-20 md:space-y-10 lg:mt-24"
           aria-label="How we work across industries"
         >
           <p className="text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)]">
@@ -329,12 +329,12 @@ export default function CoreServices() {
             Industries and formats
           </h3>
           <ul
-            className="mx-auto grid w-full max-w-[min(100%,41rem)] list-none grid-cols-2 justify-items-center gap-x-6 gap-y-11 p-0 sm:max-w-[min(100%,46rem)] sm:gap-x-7 sm:gap-y-12 md:max-w-[min(100%,52rem)] md:grid-cols-3 md:gap-x-8 md:gap-y-15 lg:max-w-[min(100%,62rem)] lg:grid-cols-4 lg:gap-x-10 lg:gap-y-14"
+            className="mx-auto grid w-full max-w-[min(100%,41rem)] list-none grid-cols-2 justify-items-center gap-y-11 gap-x-0 p-0 sm:max-w-[min(100%,46rem)] sm:gap-y-12 sm:gap-x-7 md:max-w-[min(100%,52rem)] md:grid-cols-3 md:gap-y-14 md:gap-x-8 lg:max-w-[min(100%,62rem)] lg:grid-cols-4 lg:gap-y-14 lg:gap-x-10"
           >
             {INDUSTRY_SHOWCASE.map(({ label, image, labelLayout }) => (
               <li
                 key={label}
-                className="w-full pb-19 pt-1 sm:pb-23 md:pb-28 lg:pb-32"
+                className="w-full pb-0 pt-1 sm:pb-0 md:pb-0 lg:pb-0"
               >
                 <div className="relative mx-auto w-full max-w-37 overflow-visible sm:max-w-40 md:max-w-41 lg:max-w-44">
                   <div className="relative aspect-square w-full overflow-hidden">
@@ -361,7 +361,7 @@ export default function CoreServices() {
         </motion.div>
 
         <div
-          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-[#FFFF00] md:mt-20 md:space-y-10 lg:mt-24"
+          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-yellow-400 md:mt-20 md:space-y-10 lg:mt-24"
           aria-label="How we work across industries"
         >
           <p className="text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)]">

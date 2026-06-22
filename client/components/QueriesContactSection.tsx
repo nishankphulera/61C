@@ -82,16 +82,16 @@ export default function QueriesContactSection({
       className="relative z-10 bg-black text-white"
       aria-label="Studios and contact form"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="mx-auto mt-14 flex max-w-4xl flex-row items-stretch justify-center gap-0 text-[#ffef00] md:mt-20">
-          <div className="flex-1 pr-4 text-right md:pr-8">
-            <p className="text-xl font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 text-yellow-400">
+        <div className="mx-auto mt-14 flex max-w-4xl items-center justify-center gap-0 text-[#ffef00] md:mt-20">
+          <div className="flex-1 text-center">
+            <p className="text-xl font-extrabold uppercase tracking-wide md:text-4xl text-yellow-400 mb-[26px]">
               UK Studio
             </p>
-            <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl tracking-wide">
+            <p className="mt-2 text-base font-semibold md:text-3xl tracking-wide text-yellow-400">
               Registered address:
             </p>
-            <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
+            <address className="mt-3 text-base not-italic leading-relaxed md:text-2xl text-[#FF009D] font-semibold">
               71-75 Shelton Street,
               <br />
               Covent Garden,
@@ -100,45 +100,21 @@ export default function QueriesContactSection({
               <br />
               WC2H 9JQ
             </address>
-            <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
+            <p className="mt-2 text-base font-semibold md:text-2xl tracking-wide text-[#FF009D]">
               Phone: +447345651920
             </p>
           </div>
 
-          <div
-            className="shrink-0 self-stretch bg-[#1a4d2e] w-1 min-h-48"
-            aria-hidden
-          />
 
-          <div className="flex-1 pl-4 text-left md:pl-8">
-            <p className="text-lg font-bold uppercase tracking-wide md:text-5xl text-[#FF009D]">
-              India Studio
-            </p>
-            <p className="mt-2 text-base font-semibold opacity-90 md:text-4xl">
-              Registered address:
-            </p>
-            <address className="mt-3 text-base not-italic leading-relaxed md:text-3xl">
-              House No.55,
-              <br />
-              Second Floor, Gali No2,
-              <br />
-              Saidullajab Village,
-              <br />
-              New Delhi, 110030
-            </address>
-            <p className="mt-2 text-base font-semibold opacity-90 md:text-3xl tracking-wide">
-              Phone: +918266029164
-            </p>
-          </div>
         </div>
 
-        <div className="mx-auto mt-16 max-w-4xl px-6 md:px-0">
-          <h3 className="text-center text-3xl font-bold md:text-4xl text-[#FF009D]">
+        <div className="mx-auto mt-10 max-w-4xl px-6 md:px-0 items-center">
+          <h3 className="text-center text-xl font-bold md:text-3xl text-yellow-400">
             Regional Hubs
           </h3>
-          <div className="mt-8 flex flex-row items-stretch justify-center gap-0">
-            <div className="flex-1 pr-4 md:pr-12 text-right">
-              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#0000FF]">
+          <div className="mt-8 flex flex-col items-center justify-center gap-0">
+            <div className="text-center">
+              <ul className="flex flex-col text-xl md:text-2xl text-[#FF009D]">
                 <li>Manchester</li>
                 <li>Liverpool</li>
                 <li>Leeds</li>
@@ -147,33 +123,21 @@ export default function QueriesContactSection({
               </ul>
             </div>
 
-            {/* No visible divider, just spacing to match the address layout structure */}
-            <div className="w-4 md:w-px shrink-0" aria-hidden />
 
-            <div className="flex-1 pl-4 md:pl-12 text-left">
-              <ul className="flex flex-col gap-3 text-xl md:text-3xl text-[#0000FF]">
-                <li>Delhi - NCR</li>
-                <li>Mumbai</li>
-                <li>Bengaluru</li>
-                <li>Goa</li>
-                <li>Dehradun</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Queries header */}
-      <div className="mx-auto mt-10 max-w-7xl flex flex-col items-center gap-4 text-center md:flex-row md:flex-wrap md:justify-start md:text-left md:gap-0">
+      <div className="mx-auto mt-10 max-w-7xl flex flex-col items-center gap-4 text-center lg:flex-row lg:flex-wrap lg:justify-center lg:text-left lg:gap-0">
         <span
-          className="text-3xl font-semibold uppercase tracking-wide md:text-5xl md:ml-[10px]"
-          style={{ color: YELLOW, }}
+          className="text-xl font-semibold uppercase tracking-wide md:text-3xl lg:ml-[10px] text-yellow-400"
         >
           Send Us Your Queries
         </span>
         <a
           href="mailto:hello@61cstudios.com"
-          className="text-xl font-semibold md:text-5xl transition-opacity hover:opacity-80 md:ml-[94px]"
+          className="text-xl font-semibold md:text-3xl transition-opacity hover:opacity-80 lg:ml-[94px]"
           style={{ color: "#FF009D" }}
         >
           hello@61cstudios.com
@@ -184,13 +148,13 @@ export default function QueriesContactSection({
         onSubmit={onSubmit}
         className="mx-auto mt-10 max-w-4xl space-y-6 px-6 pb-16 md:mt-14 md:px-10"
       >
-        <div className="h-px w-full max-w-2xl mb-8" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
+        <div className="h-px w-full max-w-4xl mb-8" style={{ backgroundColor: GREEN_ACCENT }} aria-hidden />
 
-        <div className="flex flex-col gap-8 md:flex-row md:gap-x-12 items-stretch">
+        <div className="text-yellow-400 flex flex-col gap-8 md:flex-row md:gap-x-12 items-stretch">
           {/* Left Column */}
           <div className="flex flex-1 flex-col gap-8 md:gap-10">
             <label className="flex flex-col gap-3">
-              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+              <span className="text-lg font-normal uppercase tracking-wide md:text-xl text-yellow-400" >
                 Full Name
               </span>
               <input
@@ -204,7 +168,7 @@ export default function QueriesContactSection({
               />
             </label>
             <label className="flex flex-col gap-3">
-              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+              <span className="text-lg font-normal uppercase tracking-wide md:text-xl text-yellow-400" >
                 Phone
               </span>
               <input
@@ -218,11 +182,11 @@ export default function QueriesContactSection({
               />
             </label>
 
-            <div className="hidden md:flex justify-end md:pl-0 mt-2 md:mt-0">
+            <div className="hidden md:flex justify-center md:pl-0 mt-2 md:mt-0">
               <button
                 type="submit"
                 disabled={formSubmitting}
-                className="bg-[#F7E509] px-14 py-2.5 text-black font-semibold text-lg md:text-xl uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-max"
+                className="bg-yellow-400 px-14 py-2.5 text-black font-semibold text-lg md:text-xl uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-full text-center"
               >
                 {formSubmitting ? "SENDING…" : "SEND"}
               </button>
@@ -232,7 +196,7 @@ export default function QueriesContactSection({
           {/* Right Column */}
           <div className="flex flex-1 flex-col gap-8 md:gap-10">
             <label className="flex flex-col gap-3">
-              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" >
                 E-mail
               </span>
               <input
@@ -247,7 +211,7 @@ export default function QueriesContactSection({
               />
             </label>
             <label className="flex flex-col gap-3 grow">
-              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" style={{ color: YELLOW }}>
+              <span className="text-lg font-normal uppercase tracking-wide md:text-xl" >
                 Message
               </span>
               <textarea
@@ -262,11 +226,11 @@ export default function QueriesContactSection({
           </div>
         </div>
 
-        <div className="flex md:hidden justify-end mt-2">
+        <div className="flex md:hidden justify-center mt-2 bg-yellow-400">
           <button
             type="submit"
             disabled={formSubmitting}
-            className="bg-[#F7E509] px-14 py-2.5 text-black font-semibold text-lg uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-max"
+            className="bg-yellow-400 px-14 py-2.5 text-black font-semibold text-lg uppercase transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 disabled:opacity-50 w-full text-center"
           >
             {formSubmitting ? "SENDING…" : "SEND"}
           </button>
@@ -283,12 +247,12 @@ export default function QueriesContactSection({
         ) : null}
       </form>
 
-      <div className="mx-auto max-w-7xl px-6 pb-16 md:px-10">
+      <div className="text-yellow-400 mx-auto max-w-7xl px-6 pb-16 md:px-10">
         <nav aria-labelledby="queries-sitemap-heading">
           <h3
             id="queries-sitemap-heading"
             className="text-center text-lg font-bold tracking-wide md:text-lg"
-            style={{ color: YELLOW }}
+
           >
             Site Map
           </h3>
@@ -311,8 +275,8 @@ export default function QueriesContactSection({
         </nav>
 
         <div
-          className="mt-10 space-y-4 text-center text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
-          style={{ color: YELLOW }}
+          className="text-yellow-400 mt-10 space-y-4 text-center text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
+
         >
           <p className="font-bold text-sm md:text-sm lg:text-sm">
             61C STUDIOS UK LTD (Company Number: 17200017)
