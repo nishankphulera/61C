@@ -54,7 +54,7 @@ export default function UkPage() {
               muted
               loop
               playsInline
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-contain md:object-cover object-center"
             >
               <source src="/UKshowreel.mp4" type="video/mp4" />
             </video>
