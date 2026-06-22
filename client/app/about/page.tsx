@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import CoreServices from "@/components/CoreServices";
 import CoreValues from "@/components/CoreValues";
 import CoreLocations from "@/components/CoreLocations";
-import QueriesContactSection from "@/components/QueriesContactSection";
+import AboutQueriesContactSection from "@/components/AboutQueriesContactSection";
 
 export const metadata: Metadata = {
   title: "About | 61C Studios",
@@ -19,8 +19,8 @@ export default function AboutPage() {
 
       <main className="relative flex w-full flex-col">
         {/* Hero — background scoped to this block */}
-        <section className="relative min-h-[100dvh] overflow-hidden">
-          <div className="pointer-events-none absolute inset-0">
+        <section className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden md:aspect-auto md:min-h-[100dvh]">
+          <div className="pointer-events-none absolute inset-0 z-0">
             <video
               src="/aboutusshowreel.mp4"
               autoPlay
@@ -31,20 +31,18 @@ export default function AboutPage() {
             />
           </div>
 
-          <div className="relative z-0 flex min-h-[100dvh] flex-col pt-[4.5rem] md:pt-[5rem]">
-            <div className="flex flex-1 flex-col items-center justify-center px-4 pb-16 md:px-10">
-              <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(2.25rem,5.5vw+0.75rem,6rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
+          <div className="relative z-10 flex w-full flex-col items-center justify-center px-[40px] md:min-h-[100dvh] md:px-[200px] md:pb-16 md:pt-[4.5rem]">
+            <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(1.2rem,3.5vw,2.25rem)] md:text-[clamp(2.25rem,5.5vw+0.75rem,6rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
                 Visual craft rooted in<br />
                 purpose, culture and design
-              </h1>
-            </div>
+            </h1>
           </div>
         </section>
 
         <CoreServices />
         <CoreValues />
         <CoreLocations />
-        <QueriesContactSection />
+        <AboutQueriesContactSection />
       </main>
     </div>
   );

@@ -37,12 +37,22 @@ function buildOverlayLabelStyle(layout?: OverlayLabelLayout): CSSProperties {
     transform: `translate(${merged.translateX}, ${merged.translateY})`,
     textAlign: merged.textAlign,
   };
-  if (layout?.right !== undefined) style.right = layout.right;
-  if (layout?.bottom !== undefined) style.bottom = layout.bottom;
-  if (layout?.width !== undefined) style.width = layout.width;
-  if (layout?.maxWidth !== undefined) style.maxWidth = layout.maxWidth;
-  if (layout?.fontSize !== undefined) style.fontSize = layout.fontSize;
-  if (layout?.lineHeight !== undefined) style.lineHeight = layout.lineHeight;
+  if (merged.right !== undefined) style.right = merged.right;
+  if (merged.bottom !== undefined) style.bottom = merged.bottom;
+  if (merged.width !== undefined) style.width = merged.width;
+  if (merged.maxWidth !== undefined) style.maxWidth = merged.maxWidth;
+  
+  if (merged.fontSize) {
+    if (merged.fontSize.endsWith("rem") && !merged.fontSize.startsWith("clamp")) {
+      const val = parseFloat(merged.fontSize);
+      style.fontSize = `clamp(${val * 0.55}rem, ${val * 1.8}vw, ${val}rem)`;
+    } else {
+      style.fontSize = merged.fontSize;
+    }
+  }
+  
+  if (merged.lineHeight !== undefined) style.lineHeight = merged.lineHeight;
+
   return style;
 }
 
@@ -131,6 +141,7 @@ const INDUSTRY_SHOWCASE: readonly {
         width: "min(22rem, 95vw)",
         fontSize: "2.8rem",
         lineHeight: "1.1",
+        lineBreakAt: 10,
       },
     },
     {
@@ -243,11 +254,11 @@ const showcaseLabelTypographySize =
 export default function CoreServices() {
   return (
     <section
-      className="relative z-10 bg-black px-8 pt-10 pb-10 md:px-12 md:pt-14 md:pb-18 lg:px-16 lg:pt-16 lg:pb-22"
+      className="relative z-10 bg-black px-[40px] pt-10 pb-10 md:px-[200px] md:pt-14 md:pb-18 lg:pt-16 lg:pb-22"
       aria-labelledby="core-services-heading"
     >
-      <div className="mx-auto w-full max-w-7xl">
-        <p className="mx-auto w-fit max-w-full text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[2.5rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]">
+      <div className="mx-auto w-full max-w-none">
+        <p className="mx-auto w-fit max-w-full text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26]">
           61C Studios is a creative production house crafting{" "}
 
           cinematic visual content across film, digital, print{" "}
@@ -303,10 +314,10 @@ export default function CoreServices() {
           })}
         </motion.ul>
         <div
-          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-yellow-400 md:mt-20 md:space-y-10 lg:mt-24"
+          className="mt-14 max-w-none space-y-8 text-left font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 text-base sm:text-2xl sm:leading-[1.28] md:mt-20 md:text-[1.55rem] md:leading-[1.26] md:space-y-10 lg:mt-24 lg:text-[2.55rem] lg:leading-[1.26]"
           aria-label="How we work across industries"
         >
-          <p className="text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)]">
+          <p>
             We craft end-to-end creative production solutions. That’s everything from concept development and creative direction to film production, videos, photography, branding & design, and social-first content.
 
 
@@ -336,7 +347,7 @@ export default function CoreServices() {
                 key={label}
                 className="w-full pb-0 pt-1 sm:pb-0 md:pb-0 lg:pb-0"
               >
-                <div className="relative mx-auto w-full max-w-37 overflow-visible sm:max-w-40 md:max-w-41 lg:max-w-44">
+                <div className="relative mx-auto w-full max-w-[140px] overflow-visible sm:max-w-[160px] md:max-w-[164px] lg:max-w-[176px]">
                   <div className="relative aspect-square w-full overflow-hidden">
                     <Image
                       src={image}
@@ -349,8 +360,8 @@ export default function CoreServices() {
                   </div>
                   <p
                     style={buildOverlayLabelStyle(labelLayout)}
-                    className={`pointer-events-none absolute z-10 px-2 text-pretty sm:px-2.5 md:px-3 ${showcaseLabelTypographyBase} ${hasCustomLabelFontSize(labelLayout) ? "" : showcaseLabelTypographySize
-                      } ${hasCustomLabelWidth(labelLayout) ? "" : SHOWCASE_LABEL_WIDTH_CLASS}`}
+                    className={`pointer-events-none absolute z-10 px-2 text-pretty sm:px-2.5 md:px-3 ${showcaseLabelTypographyBase} ${hasCustomLabelFontSize(labelLayout) ? "text-[clamp(1.4rem,4.5vw,2.8rem)] sm:text-inherit" : showcaseLabelTypographySize
+                      } ${hasCustomLabelWidth(labelLayout) ? "w-[min(100%,calc(100vw-3rem))] sm:w-auto" : SHOWCASE_LABEL_WIDTH_CLASS}`}
                   >
                     {renderOverlayLabel(label, labelLayout)}
                   </p>
@@ -361,16 +372,16 @@ export default function CoreServices() {
         </motion.div>
 
         <div
-          className="mt-14 max-w-none space-y-8 text-left font-semibold leading-[1.28] tracking-[-0.02em] text-yellow-400 md:mt-20 md:space-y-10 lg:mt-24"
+          className="mt-14 max-w-none space-y-8 text-left font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 text-base sm:text-2xl sm:leading-[1.28] md:mt-20 md:text-[1.55rem] md:leading-[1.26] md:space-y-10 lg:mt-24 lg:text-[2.55rem] lg:leading-[1.26]"
           aria-label="How we work across industries"
         >
-          <p className="text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)]">
+          <p>
             We work across a wide range of industries and formats including brand and corporate
             films, documentaries, music videos, hospitality, food &amp; beverage, products,
             fashion &amp; lifestyle, architecture &amp; real estate, automobiles, artist profiles,
             and events.
           </p>
-          <p className="text-[clamp(1.1rem,2.45vw+0.52rem,1.92rem)] sm:text-[clamp(1.15rem,2.05vw+0.58rem,2.2rem)] md:text-[clamp(1.28rem,1.72vw+0.62rem,2.55rem)] lg:text-[clamp(1.35rem,1.42vw+0.68rem,2.85rem)]">
+          <p>
             Every project is approached with a well defined creative vision and a clear understanding
             of audience connection. In a nutshell, our cinematic storytelling establishes your identity,
             purpose and ethos.

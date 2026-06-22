@@ -33,17 +33,17 @@ const CORE_VALUES = [
 ] as const;
 
 const valueTitleClass =
-  "text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)] font-extrabold leading-tight tracking-[-0.04em] text-[#FF499E]";
+  "text-base font-bold leading-[1.28] tracking-[-0.02em] text-[#FF499E] sm:text-2xl sm:leading-[1.28] md:text-[1.75rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26]";
 const valueBodyClass =
-  "text-xl font-medium leading-[1.4] tracking-[-0.02em] text-yellow-400 sm:text-2xl md:text-3xl";
+  "text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26]";
 
 export default function CoreValues() {
   return (
     <section
-      className="relative z-10 bg-black px-8 pb-0 md:px-12 md:pb-8 lg:px-16 lg:pb-0"
+      className="relative z-10 bg-black px-[40px] pb-0 md:px-[200px] md:pb-8 lg:pb-0"
       aria-labelledby="core-values-heading"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-none">
         <h2
           id="core-values-heading"
           className="text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400"
@@ -56,12 +56,12 @@ export default function CoreValues() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.12, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-0 grid grid-cols-1 gap-3 sm:mt-12 sm:gap-4 md:mt-18 md:grid-cols-3 md:gap-5 lg:gap-6"
+          className="mt-10 grid grid-cols-1 gap-3 sm:mt-12 sm:gap-4 md:mt-18 md:grid-cols-3 md:gap-5 lg:gap-6"
         >
           {COLLAGES.map(({ src, alt }) => (
             <div
               key={src}
-              className="relative h-[50vh] w-full overflow-hidden md:h-[38vh] lg:h-[50vh]"
+              className="relative h-[25vh] w-full overflow-hidden md:h-[38vh] lg:h-[50vh]"
             >
               <Image
                 src={src}

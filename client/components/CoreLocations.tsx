@@ -19,29 +19,29 @@ const REGIONAL_HUBS_IN = [
 export default function CoreLocations() {
   return (
     <section
-      className="relative z-10 bg-black"
+      className="relative z-10 bg-black px-[40px] md:px-[200px]"
       aria-labelledby="core-locations-heading"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full max-w-none">
         <h2
           id="core-locations-heading"
-          className="px-4 pt-16 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:px-10 md:pt-20"
+          className="pt-10 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:pt-20 pb-10"
         >
           Core Locations
         </h2>
 
-        <div className="relative h-[min(100dvh,56rem)] min-h-[240px] w-full md:h-[min(100dvh,56rem)]">
+        <div className="relative aspect-video min-h-[240px] w-full md:aspect-auto md:h-[min(100dvh,56rem)]">
           <Image
             src="/globalreach.jpg"
             alt="Stylized world map with the Gateway of India and Big Ben, representing global creative reach."
             fill
             className="object-contain object-center"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
 
-        <div className="px-4 text-yellow-400 md:px-10 pt-10">
-          <p className="max-w-none text-left text-[clamp(1.22rem,2.65vw+0.55rem,2.1rem)] sm:text-[clamp(1.3rem,2.25vw+0.62rem,2.42rem)] md:text-[clamp(1.45rem,1.9vw+0.68rem,2.8rem)] lg:text-[clamp(1.52rem,1.6vw+0.72rem,3.15rem)] xl:text-[clamp(1.58rem,1.35vw+0.75rem,3.35rem)] font-bold leading-[1.2] tracking-[-0.03em]">
+        <div className="text-yellow-400 pt-6 md:pt-10">
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26]">
             Working across the UK, India and rest of the world, we deliver
             content that feels elevated without losing authenticity. Our
             approach combines cinematic production with global sensibilities,
