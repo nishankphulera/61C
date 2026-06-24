@@ -183,7 +183,7 @@ const LINKS = [
   { href: "/", label: "Home", imageSrc: "/Homenav.webp" },
   { href: "/about", label: "About us", imageSrc: "/Aboutusnav.webp" },
   { href: "/films", label: "Films", imageSrc: "/Filmsnav.webp" },
-  { href: "/photography", label: "Photography", imageSrc: "/Photographynav.webp" },
+  { href: "/photography", label: "Photography", imageSrc: "/Photographynav.png" },
   { href: "/design", label: "Design", imageSrc: "/Design.webp" },
   { href: "/contact", label: "Contact", imageSrc: "/Contactnav.webp" },
 ];

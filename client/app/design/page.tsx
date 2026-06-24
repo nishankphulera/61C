@@ -28,32 +28,39 @@ export default function DesignPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden flex items-center justify-center">
+      <section className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden md:aspect-auto md:min-h-[100dvh]" aria-label="61C Studios Design">
         {/* Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
           <video
             autoPlay
-            loop
             muted
+            loop
             playsInline
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
           >
             <source src="/designshowreel.mp4" type="video/mp4" />
           </video>
         </div>
-
+        <div className="relative z-10 flex w-full flex-col items-center justify-center px-6 md:min-h-[100dvh] md:px-10 md:pb-16 md:pt-[4.5rem]">
+          <h1
+            className="max-w-[min(100%,66rem)] text-center text-[clamp(2.65rem,7.2vw,5.75rem)] font-bold uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(5.5rem,12.5vw,8.75rem)]"
+            style={{ fontFamily: '"The Battle Cont", sans-serif' }}
+          >
+            DESIGN
+          </h1>
+        </div>
 
       </section>
 
-      <main className="w-full px-6 md:px-10 py-16">
+      <main className="container mx-auto px-4 py-8 md:py-12">
         <Asset reverse={false} src="/Clapperboard.webp" className="w-[28rem] md:w-[28rem] opacity-50" rotate={0} position={{ top: "24%", left: "-8%" }} zIndex={0} />
         <Asset reverse={true} src="/Megaphone.webp" className="w-[28rem] md:w-[30rem] opacity-50" rotate={30} position={{ top: "35%", right: "-10%" }} zIndex={0} />
         <Asset reverse={true} src="/Pelicancase.webp" className="w-[14rem] md:w-[14rem] opacity-50" rotate={4} position={{ top: "56.4%", left: "46%" }} zIndex={0} />
         <Asset reverse={true} src="/Pot.webp" className="w-[20rem] md:w-[20rem] opacity-50" rotate={-20} position={{ top: "55%", right: "-10%" }} zIndex={0} />
         <Asset reverse={true} src="/Drone.gif" className="w-[40rem] md:w-[40rem] opacity-50" rotate={0} position={{ top: "58%", left: "15%" }} zIndex={0} />
         {/* Philosophy Statement */}
-        <section className="my-16 md:my-24 w-full max-w-[1400px]">
-          <p className="text-yellow-400 text-lg md:text-2xl lg:text-[1.9rem] xl:text-[2rem] leading-[1.3] md:leading-[1.3] font-medium tracking-wide">
+        <section className="my-8 md:my-12 w-full max-w-[1400px]">
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[0.03em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.5rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26] text-justify">
             At 61C Studios, design is an extension of expression and storytelling. It is not treated as a
             supporting function to grab attention. Every visual ecosystem we create begins with
             emotion and is led by context. It enhances the narrative, making it impressionable and
@@ -63,7 +70,7 @@ export default function DesignPage() {
         </section>
 
         {/* ALBUM ART */}
-        <section className="relative z-80 my-24 md:my-32">
+        <section className="relative z-80 my-14 md:my-20">
           <h2 className="relative z-80 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ALBUM ART
           </h2>
@@ -89,7 +96,7 @@ export default function DesignPage() {
         </section>
 
         {/* ANIMATION */}
-        <section className="relative z-10 my-24 md:my-32">
+        <section className="relative z-10 my-16 md:my-22">
           <h2 className="relative z-10 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ANIMATION
           </h2>
@@ -115,7 +122,7 @@ export default function DesignPage() {
         </section>
 
         {/* ILLUSTRATION */}
-        <section className="relative z-10 my-24 md:my-32">
+        <section className="relative z-10 my-16 md:my-22">
           <h2 className="relative z-10 text-[#FF00FF] text-4xl md:text-5xl font-bold tracking-tighter mb-8 md:mb-12 uppercase">
             ILLUSTRATION
           </h2>

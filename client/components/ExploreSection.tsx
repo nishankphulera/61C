@@ -25,11 +25,10 @@ const ExploreSection: React.FC = () => {
   return (
     <>
 
-      {/* Mobile: stacked nav cards (desktop uses parallax collage below) */}
+      {/* Mobile & Tablet: stacked nav cards (desktop uses parallax collage below) */}
       <section
-        className="sm:hidden space-y-8 max-w-lg mx-auto w-full pt-6 ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] pb-[max(4rem,calc(env(safe-area-inset-bottom)+2rem))]"
+        className="lg:hidden flex flex-col items-center max-w-xl mx-auto w-full ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] pb-[max(4rem,calc(env(safe-area-inset-bottom)+2rem))]"
         aria-label="Explore"
-        style={{ contain: "layout paint", contentVisibility: "auto" }}
       >
 
         <Card
@@ -46,7 +45,7 @@ const ExploreSection: React.FC = () => {
           imageSrc="/Photography.gif"
           onClick={() => router.push("/photography")}
           rotate={-6}
-          className="mx-auto w-full"
+          className="mx-auto w-full -mt-[22%]"
         />
         <Card
           layout="stacked"
@@ -54,14 +53,13 @@ const ExploreSection: React.FC = () => {
           imageSrc="/Design.gif"
           onClick={() => router.push("/design")}
           rotate={-7}
-          className="mx-auto w-full"
+          className="mx-auto w-full -mt-[14%]"
         />
       </section>
 
       <div
         ref={scrollRef}
-        className="hidden sm:block relative h-[200vh] bg-black"
-        style={{ contain: "layout paint", contentVisibility: "auto" }}
+        className="hidden lg:block relative h-[200vh] bg-black mt-[140px]"
       >
 
         {isSceneInView && (

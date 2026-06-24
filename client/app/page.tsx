@@ -45,14 +45,14 @@ export default function LandingPage() {
       </div>
       <div
         ref={tvSectionRef}
-        className="relative min-h-[100vh] md:min-h-[100vh]"
+        className="relative"
       >
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={isTVInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           // Out-expo curve (fast in, gentle settle) reads as a single seamless rise rather than an opacity+slide combo.
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative min-h-[100vh] md:min-h-[100vh] w-full will-change-[transform,opacity]"
+          className="relative min-h-[30vh] md:min-h-[30vh] w-full will-change-[transform,opacity] pt-[40px] sm:pt-[10px] md:pt-[10px] lg:pt-[10px] xl:pt-[10px] "
         >
           <TVDisplay />
         </motion.div>

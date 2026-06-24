@@ -53,9 +53,8 @@ export default function Header() {
 
         {/* Center: Title Image — fades out after scrolling */}
         <div
-          className={`absolute left-1/2 top-1/2 z-[490] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-out ${
-            titleHidden ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
+          className={`absolute left-1/2 top-1/2 z-[490] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-out ${titleHidden ? "pointer-events-none opacity-0" : "opacity-100"
+            }`}
           aria-hidden={titleHidden}
         >
           <Link
@@ -69,16 +68,16 @@ export default function Header() {
               alt="61C"
               width={200}
               height={40}
-              className="w-24 md:w-62 h-auto object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
+              className="w-50 md:w-62 h-auto object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
               priority
             />
           </Link>
         </div>
         {/* Right: Actions */}
-        <div className="relative z-[500] flex items-center gap-2 md:gap-4">
+        <div className="relative z-[500] flex items-center ">
           <button
             type="button"
-            className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="flex-shrink-0  rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             aria-label="Switch to UK view"
             onClick={() => router.push("/uk")}
           >
@@ -91,11 +90,11 @@ export default function Header() {
               aria-hidden
             />
           </button>
-          
+
           {/* Hamburger Menu */}
           <button
             type="button"
-            className="flex-shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="flex-shrink-0  rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls={navPanelId}

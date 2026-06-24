@@ -129,7 +129,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
     [items, itemsPerRow]
   );
 
-  console.log("imageRows",imageRows);
+  console.log("imageRows", imageRows);
 
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const rowRefs = React.useRef<(HTMLDivElement | null)[]>([]);
@@ -268,7 +268,7 @@ const ImageMarquee: React.FC<ImageMarqueeProps> = ({
   return (
     <section
       ref={sectionRef}
-      className="[--marquee-img:72px] md:[--marquee-img:140px] py-12 md:py-20 bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center z-10"
+      className="[--marquee-img:72px] md:[--marquee-img:140px] bg-[#050505] relative w-full overflow-hidden flex flex-col items-center justify-center z-10"
       style={{ contain: "layout paint style" }}
     >
       <h2 className="relative z-20 mb-8 md:mb-12 px-4 text-center text-2xl font-bold uppercase tracking-widest text-white/90 md:text-3xl">
