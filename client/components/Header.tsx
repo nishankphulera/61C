@@ -68,7 +68,7 @@ export default function Header() {
               alt="61C"
               width={200}
               height={40}
-              className="w-50 md:w-62 h-auto object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
+              className="w-60 md:w-80 h-50 object-contain drop-shadow-[0_2px_12px_rgba(255,200,0,0.25)]"
               priority
             />
           </Link>

@@ -33,17 +33,17 @@ const ExploreSection: React.FC = () => {
 
         <Card
           layout="stacked"
-          title="FILMS"
-          imageSrc="/Films.gif"
-          onClick={() => router.push("/films")}
+          title="PHOTOGRAPHY"
+          imageSrc="/Photography.gif"
+          onClick={() => router.push("/photography")}
           rotate={-3}
           className="mx-auto w-full"
         />
         <Card
           layout="stacked"
-          title="PHOTOGRAPHY"
-          imageSrc="/Photography.gif"
-          onClick={() => router.push("/photography")}
+          title="FILMS"
+          imageSrc="/Films.gif"
+          onClick={() => router.push("/films")}
           rotate={-6}
           className="mx-auto w-full -mt-[22%]"
         />
@@ -53,7 +53,7 @@ const ExploreSection: React.FC = () => {
           imageSrc="/Design.gif"
           onClick={() => router.push("/design")}
           rotate={-7}
-          className="mx-auto w-full -mt-[14%]"
+          className="mx-auto w-full -mt-[6%]"
         />
       </section>
 

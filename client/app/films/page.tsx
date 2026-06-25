@@ -274,7 +274,7 @@ export default function FilmsPage() {
           initial="hidden"
           animate={isDocumentariesInView ? "visible" : "hidden"}
         >
-          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries & Artist profiles</h1>
+          <h1 className="text-5xl md:text-6xl text-yellow-400 mb-12 text-left font-bold">Documentaries & Artist Films</h1>
           {shouldShowSectionLoader
             ? sectionLoader
             : filmsLandscapeCarousel(

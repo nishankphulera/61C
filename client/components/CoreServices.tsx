@@ -41,7 +41,7 @@ function buildOverlayLabelStyle(layout?: OverlayLabelLayout): CSSProperties {
   if (merged.bottom !== undefined) style.bottom = merged.bottom;
   if (merged.width !== undefined) style.width = merged.width;
   if (merged.maxWidth !== undefined) style.maxWidth = merged.maxWidth;
-  
+
   if (merged.fontSize) {
     if (merged.fontSize.endsWith("rem") && !merged.fontSize.startsWith("clamp")) {
       const val = parseFloat(merged.fontSize);
@@ -50,7 +50,7 @@ function buildOverlayLabelStyle(layout?: OverlayLabelLayout): CSSProperties {
       style.fontSize = merged.fontSize;
     }
   }
-  
+
   if (merged.lineHeight !== undefined) style.lineHeight = merged.lineHeight;
 
   return style;
@@ -97,23 +97,23 @@ const INDUSTRY_SHOWCASE: readonly {
   labelLayout?: OverlayLabelLayout;
 }[] = [
     {
-      label: "Brand films", image: "/brand films .jpg", labelLayout: {
+      label: "", image: "/brand films .png", labelLayout: {
         left: "82%",
         top: "28%",
         translateX: "-50%",
         translateY: "-50%",
-        width: "min(12rem, 55vw)",
+        width: "min(22rem, 95vw)",
         fontSize: "2.8rem",
         lineHeight: "1.1",
       },
     },
     {
-      label: "Documentaries", image: "/documentaries.jpeg", labelLayout: {
+      label: "", image: "/documentaries.png", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
         translateY: "-50%",
-        width: "min(12rem, 45vw)",
+        width: "min(22rem, 95vw)",
         fontSize: "2.8rem",
         lineHeight: "1.1",
         lineBreakAt: 4,
@@ -121,7 +121,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Music Videos", image: "/music videos.jpg", labelLayout: {
+      label: "", image: "/music videos.png", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
@@ -133,7 +133,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Fashion & Lifestyle", image: "/fashion & lifestyle.jpg", labelLayout: {
+      label: "", image: "/fashion & lifestyle.png", labelLayout: {
         left: "92%",
         top: "28%",
         translateX: "-50%",
@@ -145,7 +145,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Products", image: "/Products.jpg", labelLayout: {
+      label: "", image: "/Products.png", labelLayout: {
         left: "42%",
         top: "18%",
         translateX: "-50%",
@@ -156,7 +156,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Hospitality", image: "/hospitality.jpg", labelLayout: {
+      label: "", image: "/hospitality.png", labelLayout: {
         left: "78%",
         top: "28%",
         translateX: "-50%",
@@ -168,7 +168,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "F&B", image: "/f&b.jpg", labelLayout: {
+      label: "", image: "/f&b.png", labelLayout: {
         left: "100%",
         top: "18%",
         translateX: "-50%",
@@ -179,7 +179,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Architecture & Real estate", image: "/Arch & real estate.jpg", labelLayout: {
+      label: "", image: "/Arch & real estate.png", labelLayout: {
         left: "82%",
         top: "24%",
         translateX: "-50%",
@@ -191,7 +191,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Automotive", image: "/automotives.jpg", labelLayout: {
+      label: "", image: "/automotives.png", labelLayout: {
         left: "82%",
         top: "28%",
         translateX: "-50%",
@@ -203,7 +203,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Artist Profiles", image: "/artist profile.jpg", labelLayout: {
+      label: "", image: "/artist profile.png", labelLayout: {
         left: "72%",
         top: "28%",
         translateX: "-50%",
@@ -215,7 +215,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Events", image: "/events.jpg", labelLayout: {
+      label: "", image: "/events.png", labelLayout: {
         left: "82%",
         top: "16%",
         translateX: "-50%",
@@ -226,7 +226,7 @@ const INDUSTRY_SHOWCASE: readonly {
       },
     },
     {
-      label: "Corporate films", image: "/Corporate films.png", labelLayout: {
+      label: "", image: "/Corporate films.png", labelLayout: {
         left: "102%",
         top: "28%",
         translateX: "-50%",
@@ -294,7 +294,7 @@ export default function CoreServices() {
             // "Branding & Design" (cv5) has a wider intrinsic canvas (1645px vs 1475px).
             // We scale them up so their colored squares visually match the top row.
             let scaleClass = "";
-            if (image === "/cv5.png") scaleClass = "scale-[1.05] sm:scale-[1.11] -translate-x-4 sm:-translate-x-6 lg:-translate-x-8";
+
 
             return (
               <li
@@ -347,7 +347,7 @@ export default function CoreServices() {
                 key={label}
                 className="w-full pb-0 pt-1 sm:pb-0 md:pb-0 lg:pb-0"
               >
-                <div className="relative mx-auto w-full max-w-[140px] overflow-visible sm:max-w-[160px] md:max-w-[164px] lg:max-w-[176px]">
+                <div className="relative mx-auto w-full max-w-[209px] overflow-visible sm:max-w-[120px] md:max-w-[164px] lg:max-w-[240px]">
                   <div className="relative aspect-square w-full overflow-hidden">
                     <Image
                       src={image}

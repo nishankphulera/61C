@@ -29,19 +29,19 @@ const TVDisplay = () => {
       className="relative z-40 flex w-full justify-center ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] md:ps-12 md:pe-12 md:-mt-[min(22vh,12rem)] max-[599px]:-mt-16 max-[399px]:-mt-24"
     >
       {/* Wrapper preserves the TV.png intrinsic aspect ratio (1500x1613); percent-based overlay stays pixel-locked at every size. */}
-      <div className="relative inline-flex items-center justify-center w-[90%] h-[100%] ">
+      <div className="relative inline-flex items-center justify-center w-[100%] h-[100%] ">
         <Image
-          src="/tvstretched.webp"
+          src="/tvstretchedfinal.png"
           alt="Retro TV"
           width={1500}
           height={1613}
-          sizes="(min-width: 1100px) 1100px, 100vw"
+          sizes="(min-width: 1200px) 1100px, 100vw"
           className="object-contain z-10 w-full h-auto"
         />
 
         {/* --- VIDEO SCREEN OVERLAY --- */}
         <div
-          className="absolute overflow-hidden mix-blend-multiply top-[38%] left-[9%] w-[65%] h-[52%]"
+          className="absolute overflow-hidden mix-blend-multiply top-[36.5%] left-[6%] w-[72%] h-[56%]"
           style={{
             /* Rounded to match the CRT glass corners in the new TV asset. */
             borderRadius: "8% / 6%",

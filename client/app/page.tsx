@@ -28,7 +28,7 @@ export default function LandingPage() {
       {/* Section 0 */}
       {/* <TitleWithSurroundingAssets /> */}
       <div
-        className="relative w-full flex justify-center items-center"
+        className="relative sm:h-[200px] md:h-[400px] h-[300px] lg:h-[650px] xl:h-[650px] w-full flex justify-center items-center pd-20 lg:pb-[100px]"
         style={{
           contain: "layout paint",
           transform: "translateZ(0)",
@@ -52,7 +52,7 @@ export default function LandingPage() {
           animate={isTVInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
           // Out-expo curve (fast in, gentle settle) reads as a single seamless rise rather than an opacity+slide combo.
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative min-h-[30vh] md:min-h-[30vh] w-full will-change-[transform,opacity] pt-[40px] sm:pt-[10px] md:pt-[10px] lg:pt-[10px] xl:pt-[10px] "
+          className="relative min-h-[30vh] md:min-h-[30vh] w-full will-change-[transform,opacity] pt-[70px] sm:pt-[10px] md:pt-[10px] lg:pt-[10px] xl:pt-[10px] "
         >
           <TVDisplay />
         </motion.div>
