@@ -25,7 +25,7 @@ export default function CoreLocations() {
       <div className="mx-auto w-full max-w-none">
         <h2
           id="core-locations-heading"
-          className="pt-10 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:pt-20 pb-10"
+          className="text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 mt-20 mb-10"
         >
           Core Locations
         </h2>

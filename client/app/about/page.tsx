@@ -32,9 +32,9 @@ export default function AboutPage() {
           </div>
 
           <div className="relative z-10 flex w-full flex-col items-center justify-center px-[40px] md:min-h-[100dvh] md:px-[200px] md:pb-16 md:pt-[4.5rem]">
-            <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(1.2rem,3.5vw,2.25rem)] md:text-[clamp(2.25rem,5.5vw+0.75rem,6rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
-                Visual craft rooted in<br />
-                purpose, culture and design
+            <h1 className="w-full max-w-[min(96vw,80rem)] text-center text-[clamp(1rem,3.5vw,2rem)] md:text-[clamp(2rem,5.5vw+0.75rem,4rem)] font-black uppercase leading-[0.92] tracking-[-0.02em] text-yellow-400 drop-shadow-[0_2px_24px_rgba(0,0,0,0.85)] md:leading-[0.88]">
+              Visual craft rooted in<br />
+              purpose, culture and design
             </h1>
           </div>
         </section>

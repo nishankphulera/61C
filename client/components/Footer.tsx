@@ -219,15 +219,19 @@ const SOCIAL = [
  */
 function getShutterParams(viewportWidth: number) {
   if (viewportWidth < 640) {
-    // Mobile: open wider so all nav links are visible
-    return { spanMultiplier: 1.3, maxTranslate: 95, liftStart: 8, liftRange: 130 };
+    // Mobile: vertical shutter — portrait aspect means shorter translate range
+    return { spanMultiplier: 1.2, maxTranslate: 75, liftStart: 6, liftRange: 120 };
   }
   if (viewportWidth < 1024) {
-    // Tablet
-    return { spanMultiplier: 1.5, maxTranslate: 105, liftStart: 10, liftRange: 128 };
+    // Tablet: also uses vertical shutter — slightly wider viewport than mobile
+    return { spanMultiplier: 1.3, maxTranslate: 85, liftStart: 8, liftRange: 124 };
   }
-  // Desktop
-  return { spanMultiplier: 1.8, maxTranslate: 115, liftStart: 12, liftRange: 125 };
+  if (viewportWidth < 1440) {
+    // Desktop
+    return { spanMultiplier: 1.8, maxTranslate: 115, liftStart: 12, liftRange: 125 };
+  }
+  // Large desktop / ultra-wide — longer span so animation plays across more scroll
+  return { spanMultiplier: 2.0, maxTranslate: 120, liftStart: 14, liftRange: 120 };
 }
 
 export default function Footer() {
@@ -314,15 +318,24 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative isolate min-h-[100dvh] sm:min-h-[95dvh] md:min-h-[90dvh] lg:min-h-[min(85dvh,720px)] overflow-hidden"
+      className="relative isolate min-h-[100dvh] sm:min-h-[95dvh] md:min-h-[90dvh] lg:min-h-[min(85dvh,800px)] xl:min-h-[min(90dvh,900px)] overflow-hidden"
     >
       {/* ─── Background (shutterroll — what's revealed behind the shutter) ─── */}
       <div className="pointer-events-none absolute inset-0 z-0">
+        {/* Desktop (lg+): horizontal frame */}
         <Image
           src="/shutterroll.webp"
           alt=""
           fill
-          className="object-cover object-top"
+          className="hidden lg:block object-cover object-top"
+          sizes="100vw"
+        />
+        {/* Mobile + Tablet (< lg): vertical frame */}
+        <Image
+          src="/verticalshutter1.png"
+          alt=""
+          fill
+          className="block lg:hidden object-cover object-top"
           sizes="100vw"
         />
       </div>
@@ -370,11 +383,20 @@ export default function Footer() {
             backfaceVisibility: "hidden",
           }}
         >
+          {/* Desktop (lg+): horizontal shutter */}
           <Image
             src="/shutter.webp"
             alt=""
             fill
-            className="object-cover object-top"
+            className="hidden lg:block object-cover object-top"
+            sizes="100vw"
+          />
+          {/* Mobile + Tablet (< lg): vertical shutter */}
+          <Image
+            src="/verticalshutter2.png"
+            alt=""
+            fill
+            className="block lg:hidden object-cover object-top"
             sizes="100vw"
           />
         </div>
@@ -389,7 +411,8 @@ export default function Footer() {
           // 3-col only at lg (1024px+) — tablets stay single column
           "grid-cols-1 lg:grid-cols-3",
           "gap-6 sm:gap-8 lg:gap-10",
-          "px-5 sm:px-6 md:px-8 lg:px-10",
+          // Horizontal padding — must clear the vertical shutter side rails on mobile/tablet
+          "px-8 sm:px-[5%] md:px-[5%] lg:px-10",
           "pb-10 lg:pb-14",
           "pt-[min(8dvh,60px)] lg:pt-[min(10dvh,80px)]",
           "lg:items-end",

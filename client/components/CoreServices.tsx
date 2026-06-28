@@ -276,7 +276,7 @@ export default function CoreServices() {
 
         <h2
           id="core-services-heading"
-          className="mt-10 mb-2 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:mt-22 lg:mt-20 mb-20"
+          className="mt-10 mb-2 text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 md:mt-20 lg:mt-20 mb-20"
         >
           Core Services
         </h2>

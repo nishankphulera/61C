@@ -46,7 +46,7 @@ export default function CoreValues() {
       <div className="mx-auto w-full max-w-none">
         <h2
           id="core-values-heading"
-          className="text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400"
+          className="text-center text-[clamp(2.75rem,7vw,5rem)] font-black uppercase leading-[0.88] tracking-[-0.06em] text-yellow-400 mb-20"
         >
           Core Values
         </h2>
@@ -74,7 +74,7 @@ export default function CoreValues() {
           ))}
         </motion.div>
 
-        <ul className="flex max-w-7xl list-none flex-col gap-0 p-0 text-left md:gap-4 lg:gap-8 mt-[50px]">
+        <ul className="flex max-w-7xl list-none flex-col gap-0 p-0 text-left md:gap-4 lg:gap-8 mt-10">
           {CORE_VALUES.map(({ title, body }, idx) => {
             console.log("Loggin values", title, idx)
             return (

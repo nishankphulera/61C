@@ -85,7 +85,14 @@ export default function LoadingScreen() {
         src="/Final.gif"
         alt=""
         draggable={false}
-        className="absolute inset-0 h-full w-full object-cover select-none"
+        className="absolute inset-0 h-full w-full object-cover select-none hidden lg:block"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/Verticalloader.gif"
+        alt=""
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover select-none block lg:hidden"
       />
     </div>
   );
