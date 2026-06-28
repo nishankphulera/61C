@@ -293,7 +293,7 @@ export default function CoreServices() {
             // "Creative Direction" (cv6) has smaller drawn content to fit its long text. 
             // "Branding & Design" (cv5) has a wider intrinsic canvas (1645px vs 1475px).
             // We scale them up so their colored squares visually match the top row.
-            let scaleClass = "";
+            const scaleClass = "";
 
 
             return (
