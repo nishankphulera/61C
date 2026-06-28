@@ -335,7 +335,7 @@ export default function Footer() {
           src="/verticalshutter1.png"
           alt=""
           fill
-          className="block lg:hidden object-cover object-top"
+          className="block lg:hidden object-fill"
           sizes="100vw"
         />
       </div>
@@ -396,7 +396,7 @@ export default function Footer() {
             src="/verticalshutter2.png"
             alt=""
             fill
-            className="block lg:hidden object-cover object-top"
+            className="block lg:hidden object-fill"
             sizes="100vw"
           />
         </div>
