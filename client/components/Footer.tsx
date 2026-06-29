@@ -327,7 +327,7 @@ export default function Footer() {
           src="/shutterroll.webp"
           alt=""
           fill
-          className="hidden lg:block object-cover object-top"
+          className="hidden lg:block object-fill object-top"
           sizes="100vw"
         />
         {/* Mobile + Tablet (< lg): vertical frame */}
@@ -388,7 +388,7 @@ export default function Footer() {
             src="/shutter.webp"
             alt=""
             fill
-            className="hidden lg:block object-cover object-top"
+            className="hidden lg:block object-fill object-top"
             sizes="100vw"
           />
           {/* Mobile + Tablet (< lg): vertical shutter */}
@@ -407,7 +407,7 @@ export default function Footer() {
         className={[
           "relative z-10 mx-auto grid max-w-7xl",
           // Vertical push — content sits below the shutter reveal zone
-          "mt-[55dvh] sm:mt-[50dvh] md:mt-[48dvh] lg:mt-[50dvh]",
+          "mt-[55dvh] sm:mt-[50dvh] md:mt-[48dvh] lg:mt-[min(45dvh,350px)] xl:mt-[min(45dvh,400px)]",
           // 3-col only at lg (1024px+) — tablets stay single column
           "grid-cols-1 lg:grid-cols-3",
           "gap-6 sm:gap-8 lg:gap-10",

@@ -114,7 +114,7 @@ export default function QueriesContactSection({
           </h3>
           <div className="mt-8 flex flex-col items-center justify-center gap-0">
             <div className="text-center">
-              <ul className="flex flex-col text-xl md:text-2xl text-[#FF009D]">
+              <ul className="flex flex-col md:text-2xl text-[#FF009D] text-base not-italic tracking-wide">
                 <li>Manchester</li>
                 <li>Liverpool</li>
                 <li>Leeds</li>

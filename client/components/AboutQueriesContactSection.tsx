@@ -117,7 +117,7 @@ export default function AboutQueriesContactSection({
             <address className="mt-2 md:mt-3 text-sm not-italic leading-relaxed md:text-2xl text-[#FF009D] font-semibold break-words">
               House No.55,
               <br />
-              Second Floor, Gali No 2,
+              2nd Floor, Gali No 2,
               <br />
               Saidullajab Village,
               <br />
