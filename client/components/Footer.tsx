@@ -412,14 +412,14 @@ export default function Footer() {
           "grid-cols-1 lg:grid-cols-3",
           "gap-6 sm:gap-8 lg:gap-10",
           // Horizontal padding — must clear the vertical shutter side rails on mobile/tablet
-          "px-8 sm:px-[5%] md:px-[5%] lg:px-10",
+          "px-15 sm:px-[5%] md:px-[5%] lg:px-20 xl:px-20",
           "pb-10 lg:pb-14",
           "pt-[min(8dvh,60px)] lg:pt-[min(10dvh,80px)]",
           "lg:items-end",
         ].join(" ")}
       >
         {/* ── Left: Connect + social + email ── */}
-        <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left">
+        <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8 items-center lg:items-start text-center lg:text-left ">
           <Link
             href="/contact"
             className="inline-block max-w-full rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80"
@@ -474,13 +474,19 @@ export default function Footer() {
                 className="h-8 sm:h-10 lg:h-12 w-auto object-contain"
               />
             </Link>
+
           </div>
 
           <a
             href="mailto:hello@61cstudios.com"
-            className="text-yellow-400 text-xs sm:text-sm md:text-base lg:text-lg"
+            className="group flex flex-col gap-1 transition-colors hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E509]/80 mb-2 md:mb-0 items-center lg:items-start text-center lg:text-left"
           >
-            hello@61cstudios.com
+            <span className="text-md lg:text-2xl font-normal" style={{ color: "#FF009D" }}>
+              Get in touch for a quote
+            </span>
+            <span className="text-xl lg:text-2xl font-bold tracking-wide text-yellow-400">
+              hello@61cstudios.com
+            </span>
           </a>
         </div>
 
