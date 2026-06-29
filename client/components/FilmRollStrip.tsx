@@ -83,7 +83,7 @@ export default function FilmRollStrip({
   return (
     <div className={`relative w-full ${className} flex items-center justify-center mb-20 mt-20`}>
       {/* Desktop View (Horizontal) */}
-      <div className="relative w-[86%] hidden md:block">
+      <div className="relative w-[94%] hidden md:block">
         {renderFrames(FRAME_SLOTS)}
         <Image
           src={FILM_ROLL_SRC}
@@ -97,16 +97,16 @@ export default function FilmRollStrip({
       </div>
 
       {/* Mobile View (Vertical) */}
-      <div className="relative h-[100vh] aspect-[822/1330] block md:hidden">
+      <div className="relative w-[85%] sm:w-[70%] max-w-sm block md:hidden mx-auto">
         {renderFrames(MOBILE_FRAME_SLOTS)}
         <Image
           src={VERTICAL_FILM_ROLL_SRC}
           alt={filmAlt}
           width={822}
           height={1330}
-          className="relative z-10 h-full w-full select-none pointer-events-none"
+          className="relative z-10 h-auto w-full select-none pointer-events-none"
           priority
-          sizes="100vh"
+          sizes="100vw"
         />
       </div>
     </div>

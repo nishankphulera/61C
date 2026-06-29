@@ -65,7 +65,7 @@ export default function LandingPage() {
       <ExploreSection />
 
       {/* Image Marquee below the TV */}
-      <div className="relative z-10 w-full bg-black">
+      <div className="relative z-10 w-full bg-black sm:mt-0 lg:mt-80 lg:mb-30 sm:mb-20 mb-10 xl:mt-80">
         <ImageMarquee title="Brands We Work With" imageSize={120} rows={3} />
         {/* Giant Background Asset overlapping the Marquee */}
       </div>
