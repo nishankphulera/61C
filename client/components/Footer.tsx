@@ -220,7 +220,7 @@ const SOCIAL = [
 function getShutterParams(viewportWidth: number) {
   if (viewportWidth < 640) {
     // Mobile: vertical shutter — portrait aspect means shorter translate range
-    return { spanMultiplier: 1.2, maxTranslate: 75, liftStart: 6, liftRange: 120 };
+    return { spanMultiplier: 1.2, maxTranslate: 75, liftStart: -3, liftRange: 110 };
   }
   if (viewportWidth < 1024) {
     // Tablet: also uses vertical shutter — slightly wider viewport than mobile
@@ -321,21 +321,25 @@ export default function Footer() {
       className="relative isolate min-h-[100dvh] sm:min-h-[95dvh] md:min-h-[90dvh] lg:min-h-[min(85dvh,800px)] xl:min-h-[min(90dvh,900px)] overflow-hidden"
     >
       {/* ─── Background (shutterroll — what's revealed behind the shutter) ─── */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
         {/* Desktop (lg+): horizontal frame */}
         <Image
           src="/shutterroll.webp"
           alt=""
           fill
-          className="hidden lg:block object-fill object-top"
+          className="object-fill object-top"
           sizes="100vw"
         />
+      </div>
+
+      {/* ─── Foreground frame (mobile) ─── */}
+      <div className="pointer-events-none absolute inset-0 z-30 lg:hidden">
         {/* Mobile + Tablet (< lg): vertical frame */}
         <Image
           src="/verticalshutter1.png"
           alt=""
           fill
-          className="block lg:hidden object-fill"
+          className="object-fill"
           sizes="100vw"
         />
       </div>
