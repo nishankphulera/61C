@@ -12,8 +12,8 @@ export default function PrivacyPolicyPage() {
       <Header />
 
       <main className="relative mx-auto max-w-4xl px-6 pb-24 pt-[8rem] md:pt-[10rem] md:px-10">
-        <h1 className="text-4xl font-extrabold uppercase tracking-tight text-[#F7E509] md:text-5xl lg:text-6xl">
-          Privacy & Cookies Policy
+        <h1 className="text-4xl font-extrabold uppercase tracking-tight text-yellow-400 md:text-5xl lg:text-6xl">
+          Privacy &amp; Cookies Policy
         </h1>
         <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-white/50">
           Last Updated: May 2026
@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
             At 61C Studios UK LTD, we are committed to protecting your privacy and handling your personal information responsibly, transparently, and securely.
           </p>
           <p>
-            This Privacy & Cookies Policy explains how we collect, use, process, and protect your personal data when you interact with our website, services, productions, communications, and creative projects.
+            This Privacy &amp; Cookies Policy explains how we collect, use, process, and protect your personal data when you interact with our website, services, productions, communications, and creative projects.
           </p>
           <p>
             By using our website or engaging with our services, you agree to the practices outlined in this policy.
@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 1 */}
         <section className="mt-16" aria-labelledby="section-1">
-          <h2 id="section-1" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-1" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             1. Principles of Our Privacy Policy
           </h2>
           <div className="mt-8 space-y-8">
@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 2 */}
         <section className="mt-16" aria-labelledby="section-2">
-          <h2 id="section-2" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-2" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             2. Company Information
           </h2>
           <div className="mt-6 text-lg leading-relaxed text-white/80">
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
             <p>United Kingdom</p>
             <p className="mt-4">
               Email:{" "}
-              <a href="mailto:admin@61cstudios.com" className="text-[#F7E509] underline hover:text-[#F7E509]/80 transition-colors">
+              <a href="mailto:admin@61cstudios.com" className="text-yellow-400 underline hover:text-yellow-400/80 transition-colors">
                 admin@61cstudios.com
               </a>
             </p>
@@ -98,7 +98,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 3 */}
         <section className="mt-16" aria-labelledby="section-3">
-          <h2 id="section-3" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-3" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             3. What Information We Collect
           </h2>
           <p className="mt-6 text-lg text-white/80 leading-relaxed">
@@ -106,7 +106,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <div className="mt-8 space-y-8">
             <div>
-              <h3 className="text-xl font-semibold text-white">3.1 Website Enquiries & Contact Forms</h3>
+              <h3 className="text-xl font-semibold text-white">3.1 Website Enquiries &amp; Contact Forms</h3>
               <p className="mt-2 text-white/80">
                 When you contact us through our website, email, or enquiry forms, we may collect:
               </p>
@@ -122,7 +122,7 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">3.2 Client & Business Information</h3>
+              <h3 className="text-xl font-semibold text-white">3.2 Client &amp; Business Information</h3>
               <p className="mt-2 text-white/80">
                 When working with clients, collaborators, agencies, suppliers, or partners, we may process:
               </p>
@@ -138,7 +138,7 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">3.3 Website Usage & Analytics</h3>
+              <h3 className="text-xl font-semibold text-white">3.3 Website Usage &amp; Analytics</h3>
               <p className="mt-2 text-white/80">
                 We may automatically collect technical information including:
               </p>
@@ -161,8 +161,8 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 4 */}
         <section className="mt-16" aria-labelledby="section-4">
-          <h2 id="section-4" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
-            4. Photography, Film & Content Production Privacy Notice
+          <h2 id="section-4" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
+            4. Photography, Film &amp; Content Production Privacy Notice
           </h2>
           <p className="mt-6 text-lg text-white/80 leading-relaxed">
             As a creative production company, 61C Studios UK LTD may capture, process, store, edit, and distribute photography, video, audio, and related media content during the delivery of our services.
@@ -233,7 +233,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">4.5 Public & Event Photography</h3>
+              <h3 className="text-xl font-semibold text-white">4.5 Public &amp; Event Photography</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
                 For public events, hospitality environments, launches, activations, exhibitions, or large-scale productions, photography and filming may take place in areas where individuals are incidentally captured.
               </p>
@@ -245,7 +245,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">4.6 Talent, Contributors & Model Releases</h3>
+              <h3 className="text-xl font-semibold text-white">4.6 Talent, Contributors &amp; Model Releases</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
                 For commercial campaigns, branded productions, interviews, or featured appearances, we may use model releases, contributor agreements, or appearance consent forms where appropriate.
               </p>
@@ -254,7 +254,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">4.7 Content Storage & Retention</h3>
+              <h3 className="text-xl font-semibold text-white">4.7 Content Storage &amp; Retention</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
                 Production files, photographs, raw footage, edited deliverables, and related media assets may be securely stored for operational, archival, backup, portfolio, legal, or contractual purposes.
               </p>
@@ -270,7 +270,7 @@ export default function PrivacyPolicyPage() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">4.8 Third-Party Platforms & Distribution</h3>
+              <h3 className="text-xl font-semibold text-white">4.8 Third-Party Platforms &amp; Distribution</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
                 Content created by 61C Studios UK LTD may be published or distributed through:
               </p>
@@ -288,7 +288,7 @@ export default function PrivacyPolicyPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-white">4.9 AI, Editing & Creative Processing</h3>
+              <h3 className="text-xl font-semibold text-white">4.9 AI, Editing &amp; Creative Processing</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
                 Creative content may undergo editing, colour grading, retouching, resizing, formatting, transcription, enhancement, or other post-production processing.
               </p>
@@ -301,7 +301,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 5 */}
         <section className="mt-16" aria-labelledby="section-5">
-          <h2 id="section-5" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-5" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             5. How We Use Your Information
           </h2>
           <p className="mt-4 text-white/80">
@@ -323,7 +323,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 6 */}
         <section className="mt-16" aria-labelledby="section-6">
-          <h2 id="section-6" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-6" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             6. Marketing Communications
           </h2>
           <p className="mt-4 text-white/80">
@@ -339,7 +339,7 @@ export default function PrivacyPolicyPage() {
           </ul>
           <p className="mt-6 text-white/80">
             You may opt out at any time by contacting:{" "}
-            <a href="mailto:admin@61cstudios.com" className="text-[#F7E509] underline hover:text-[#F7E509]/80 transition-colors">
+            <a href="mailto:admin@61cstudios.com" className="text-yellow-400 underline hover:text-yellow-400/80 transition-colors">
               admin@61cstudios.com
             </a>
           </p>
@@ -347,7 +347,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 7 */}
         <section className="mt-16" aria-labelledby="section-7">
-          <h2 id="section-7" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-7" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             7. Sharing Your Information
           </h2>
           <p className="mt-4 text-white/80">
@@ -369,7 +369,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 8 */}
         <section className="mt-16" aria-labelledby="section-8">
-          <h2 id="section-8" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-8" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             8. Cookies
           </h2>
           <p className="mt-4 text-white/80">
@@ -388,7 +388,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 9 */}
         <section className="mt-16" aria-labelledby="section-9">
-          <h2 id="section-9" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-9" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             9. Data Security
           </h2>
           <p className="mt-4 text-white/80">
@@ -409,7 +409,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 10 */}
         <section className="mt-16" aria-labelledby="section-10">
-          <h2 id="section-10" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-10" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             10. International Data Transfers
           </h2>
           <p className="mt-4 text-white/80 leading-relaxed">
@@ -422,7 +422,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 11 */}
         <section className="mt-16" aria-labelledby="section-11">
-          <h2 id="section-11" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-11" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             11. Data Retention
           </h2>
           <p className="mt-4 text-white/80">
@@ -439,7 +439,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 12 */}
         <section className="mt-16" aria-labelledby="section-12">
-          <h2 id="section-12" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-12" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             12. Your Rights
           </h2>
           <p className="mt-4 text-white/80">
@@ -457,13 +457,13 @@ export default function PrivacyPolicyPage() {
           </ul>
           <p className="mt-6 text-white/80">
             To exercise your rights, contact:{" "}
-            <a href="mailto:admin@61cstudios.com" className="text-[#F7E509] underline hover:text-[#F7E509]/80 transition-colors">
+            <a href="mailto:admin@61cstudios.com" className="text-yellow-400 underline hover:text-yellow-400/80 transition-colors">
               admin@61cstudios.com
             </a>
           </p>
           <p className="mt-3 text-white/80">
             ICO Website:{" "}
-            <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" className="text-[#F7E509] underline hover:text-[#F7E509]/80 transition-colors">
+            <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" className="text-yellow-400 underline hover:text-yellow-400/80 transition-colors">
               https://ico.org.uk
             </a>
           </p>
@@ -471,11 +471,11 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 13 */}
         <section className="mt-16" aria-labelledby="section-13">
-          <h2 id="section-13" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-13" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             13. Changes to This Policy
           </h2>
           <p className="mt-4 text-white/80 leading-relaxed">
-            We may update this Privacy & Cookies Policy periodically to reflect operational, legal, or regulatory changes.
+            We may update this Privacy &amp; Cookies Policy periodically to reflect operational, legal, or regulatory changes.
           </p>
           <p className="mt-3 text-white/80 leading-relaxed">
             Updated versions will be published on this page with a revised effective date.
@@ -484,7 +484,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Section 14 */}
         <section className="mt-16" aria-labelledby="section-14">
-          <h2 id="section-14" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-[#F7E509] md:text-3xl">
+          <h2 id="section-14" className="border-b border-white/10 pb-3 text-2xl font-bold uppercase tracking-wide text-yellow-400 md:text-3xl">
             14. Contact Information
           </h2>
           <div className="mt-6 text-lg leading-relaxed text-white/80">
@@ -496,7 +496,7 @@ export default function PrivacyPolicyPage() {
             <p>United Kingdom</p>
             <p className="mt-4">
               Email:{" "}
-              <a href="mailto:admin@61cstudios.com" className="text-[#F7E509] underline hover:text-[#F7E509]/80 transition-colors">
+              <a href="mailto:admin@61cstudios.com" className="text-yellow-400 underline hover:text-yellow-400/80 transition-colors">
                 admin@61cstudios.com
               </a>
             </p>
