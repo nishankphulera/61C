@@ -31,17 +31,25 @@ const TVDisplay = () => {
       {/* Wrapper preserves the TV.png intrinsic aspect ratio (1500x1613); percent-based overlay stays pixel-locked at every size. */}
       <div className="relative inline-flex items-center justify-center w-[100%] h-[100%] ">
         <Image
+          src="/tvMobile.png"
+          alt="Retro TV Mobile"
+          width={969}
+          height={939}
+          sizes="100vw"
+          className="sm:hidden object-contain z-10 w-full h-auto"
+        />
+        <Image
           src="/tvstretchedfinal.png"
           alt="Retro TV"
           width={1500}
           height={1613}
           sizes="(min-width: 1200px) 1100px, 100vw"
-          className="object-contain z-10 w-full h-auto"
+          className="hidden sm:block object-contain z-10 w-full h-auto"
         />
 
         {/* --- VIDEO SCREEN OVERLAY --- */}
         <div
-          className="absolute overflow-hidden mix-blend-multiply top-[36.5%] left-[6%] w-[72%] h-[56%]"
+          className="absolute overflow-hidden mix-blend-multiply top-[32.7%] sm:top-[36.5%] left-[10.1%] sm:left-[6%] w-[80.1%] sm:w-[72%] h-[46.5%] sm:h-[56%]"
           style={{
             /* Rounded to match the CRT glass corners in the new TV asset. */
             borderRadius: "8% / 6%",
@@ -72,7 +80,7 @@ const TVDisplay = () => {
             onClick={toggleMute}
             aria-label={isMuted ? "Unmute video" : "Mute video"}
             aria-pressed={!isMuted}
-            className="absolute z-30 bottom-[12%] right-[29%] inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm shadow-lg ring-1 ring-white/15 transition-colors hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+            className="absolute z-30 bottom-[25%] sm:bottom-[12%] right-[17%] sm:right-[29%] inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm shadow-lg ring-1 ring-white/15 transition-colors hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
           >
             {isMuted ? (
               <SpeakerXMarkIcon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
