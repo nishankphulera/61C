@@ -26,7 +26,7 @@ const TVDisplay = () => {
   return (
     <div
       ref={wrapperRef}
-      className="relative z-40 flex w-full justify-center ps-[max(1rem,env(safe-area-inset-left))] pe-[max(1rem,env(safe-area-inset-right))] md:ps-12 md:pe-12 md:-mt-[min(22vh,12rem)] max-[599px]:-mt-16 max-[399px]:-mt-24"
+      className="relative z-40 flex w-full justify-center sm:ps-[max(1rem,env(safe-area-inset-left))] sm:pe-[max(1rem,env(safe-area-inset-right))] md:ps-12 md:pe-12 md:-mt-[min(22vh,12rem)] max-[599px]:-mt-16 max-[399px]:-mt-24"
     >
       {/* Wrapper preserves the TV.png intrinsic aspect ratio (1500x1613); percent-based overlay stays pixel-locked at every size. */}
       <div className="relative inline-flex items-center justify-center w-[100%] h-[100%] ">

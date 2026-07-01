@@ -113,11 +113,7 @@ export default function UkPage() {
         >
 
           <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify mt-[20px]">
-            From London and Manchester to Leeds, Liverpool, Sheffield and
-
-            Birmingham, we help businesses tell their stories in a way that
-
-            feels modern, considered and built for today&apos;s audiences.
+            From London, Manchester, Liverpool to Leeds, Sheffield and Birmingham, we help you and your brand tell your stories in a way that feels relevant, considered and built for today's audiences. Memorable.
           </p>
 
           <div className="w-full">
@@ -192,9 +188,7 @@ export default function UkPage() {
           </p>
 
           <p className="mt-8 max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
-            If you&apos;re looking for creative support across video, photography,
-            branding or design anywhere in the UK, get in touch today for a tailored
-            quote.
+            If you're looking for creative support across video, photography, branding or design, get in touch today with your lovely ideas for a tailored quote.
           </p>
         </section>
 

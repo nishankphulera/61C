@@ -67,7 +67,7 @@ const ExploreSection: React.FC = () => {
 
         {isSceneInView && (
           <>
-            <div className="absolute inset-0 z-0 pointer-events-none flex items-start justify-center">
+            <div className="absolute inset-0 z-0 pointer-events-none flex items-start justify-center pb-10">
               <img src="/ipadAssetBackground.png" alt="" className="w-full h-full lg:hidden" />
               <img src="/desktopAssetBackground.png" alt="" className="hidden lg:block w-full h-auto" />
             </div>
