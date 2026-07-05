@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import nodemailer from "nodemailer";
 import { ensureMongoForRead } from "../lib/mongoReady";
 import ContactSubmission from "../models/ContactSubmission";
 
@@ -36,6 +37,36 @@ export async function createContactSubmission(req: Request, res: Response): Prom
     phone: body.phone?.trim() ?? "",
     message: body.message!.trim(),
   });
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS, // User must configure this in server/.env
+      },
+    });
+
+    const mailOptions = {
+      from: `"${doc.fullName}" <${doc.email}>`,
+      replyTo: doc.email,
+      to: "hello@61cstudios.com",
+      subject: "New Contact Form Submission - 61C Studios",
+      text: `New query received from 61C Studios contact form:
+
+Name: ${doc.fullName}
+Email: ${doc.email}
+Phone: ${doc.phone || "N/A"}
+
+Message:
+${doc.message}
+`,
+    };
+
+    await transporter.sendMail(mailOptions);
+  } catch (err) {
+    console.error("Error sending contact email:", err);
+  }
 
   res.status(201).json({
     id: String(doc._id),
