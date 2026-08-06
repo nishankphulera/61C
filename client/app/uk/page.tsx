@@ -24,6 +24,8 @@ export const metadata: Metadata = {
 };
 
 export default function UkPage() {
+  // notFound()
+
   notFound()
   // return (
   //   <div className="relative w-full bg-black text-white">
