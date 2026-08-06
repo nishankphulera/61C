@@ -75,7 +75,7 @@ export default function Header() {
         </div>
         {/* Right: Actions */}
         <div className="relative z-[500] flex items-center ">
-          <button
+          {/* <button
             type="button"
             className="flex-shrink-0  rounded-lg hover:bg-white/10 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
             aria-label="Switch to UK view"
@@ -89,7 +89,7 @@ export default function Header() {
               className="h-7 w-10 object-contain md:h-10 md:w-14 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)]"
               aria-hidden
             />
-          </button>
+          </button> */}
 
           {/* Hamburger Menu */}
           <button
