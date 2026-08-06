@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Privacy & Cookies Policy | 61C Studios",
-  description: "Privacy & Cookies Policy for 61C Studios UK LTD.",
+  description: "Privacy & Cookies Policy for 61C STUDIOS.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="mt-12 space-y-6 text-lg leading-relaxed text-white/80">
           <p>
-            At 61C Studios UK LTD, we are committed to protecting your privacy and handling your personal information responsibly, transparently, and securely.
+            At 61C STUDIOS, we are committed to protecting your privacy and handling your personal information responsibly, transparently, and securely.
           </p>
           <p>
             This Privacy &amp; Cookies Policy explains how we collect, use, process, and protect your personal data when you interact with our website, services, productions, communications, and creative projects.
@@ -70,7 +70,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h3 className="text-xl font-semibold text-white">1.6 Data Controller</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
-                61C Studios UK LTD acts as the data controller for personal information processed through our business operations and website.
+                61C STUDIOS acts as the data controller for personal information processed through our business operations and website.
               </p>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function PrivacyPolicyPage() {
             2. Company Information
           </h2>
           <div className="mt-6 text-lg leading-relaxed text-white/80">
-            <p className="font-bold text-white">61C Studios UK LTD</p>
+            <p className="font-bold text-white">61C STUDIOS</p>
             <p>71-75 Shelton Street</p>
             <p>Covent Garden</p>
             <p>London WC2H 9JQ</p>
@@ -165,7 +165,7 @@ export default function PrivacyPolicyPage() {
             4. Photography, Film &amp; Content Production Privacy Notice
           </h2>
           <p className="mt-6 text-lg text-white/80 leading-relaxed">
-            As a creative production company, 61C Studios UK LTD may capture, process, store, edit, and distribute photography, video, audio, and related media content during the delivery of our services.
+            As a creative production company, 61C STUDIOS may capture, process, store, edit, and distribute photography, video, audio, and related media content during the delivery of our services.
           </p>
           <p className="mt-4 text-lg text-white/80 leading-relaxed">
             This section explains how personal data may be processed within productions, shoots, campaigns, events, and creative projects.
@@ -229,7 +229,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h3 className="text-xl font-semibold text-white">4.4 Client Responsibility</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
-                Where clients engage 61C Studios UK LTD to capture content involving employees, talent, attendees, customers, or participants, clients may be responsible for ensuring that appropriate permissions, notices, releases, or consents have been obtained where legally required.
+                Where clients engage 61C STUDIOS to capture content involving employees, talent, attendees, customers, or participants, clients may be responsible for ensuring that appropriate permissions, notices, releases, or consents have been obtained where legally required.
               </p>
             </div>
             <div>
@@ -272,7 +272,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h3 className="text-xl font-semibold text-white">4.8 Third-Party Platforms &amp; Distribution</h3>
               <p className="mt-2 text-white/80 leading-relaxed">
-                Content created by 61C Studios UK LTD may be published or distributed through:
+                Content created by 61C STUDIOS may be published or distributed through:
               </p>
               <ul className="mt-3 list-disc pl-6 space-y-1.5 text-white/80">
                 <li>Client platforms</li>
@@ -413,7 +413,7 @@ export default function PrivacyPolicyPage() {
             10. International Data Transfers
           </h2>
           <p className="mt-4 text-white/80 leading-relaxed">
-            Some service providers or platforms used by 61C Studios UK LTD may process data outside the United Kingdom or EEA.
+            Some service providers or platforms used by 61C STUDIOS may process data outside the United Kingdom or EEA.
           </p>
           <p className="mt-3 text-white/80 leading-relaxed">
             Where this occurs, appropriate legal safeguards will be implemented in accordance with UK GDPR requirements.
@@ -489,7 +489,7 @@ export default function PrivacyPolicyPage() {
           </h2>
           <div className="mt-6 text-lg leading-relaxed text-white/80">
             <p className="font-bold text-white">For questions regarding this policy or how your information is handled, please contact:</p>
-            <p className="mt-3 font-semibold text-white">61C Studios UK LTD</p>
+            <p className="mt-3 font-semibold text-white">61C STUDIOS</p>
             <p>71-75 Shelton Street</p>
             <p>Covent Garden</p>
             <p>London WC2H 9JQ</p>

@@ -213,7 +213,7 @@ export default function ContactView() {
               </p>
             </div>
         </div> */}
-        <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
+        {/* <div className="mx-auto mt-14 flex max-w-4xl flex-col gap-10 md:mt-20 md:flex-row md:items-stretch md:justify-center md:gap-0">
           <div className="flex-1 md:pr-8 md:text-right">
             <p className="text-xl font-bold uppercase tracking-wide md:text-5xl">
               UK Studio
@@ -266,7 +266,7 @@ export default function ContactView() {
             </p>
           </div>
 
-        </div>
+        </div> */}
 
         {/* Form */}
         <form onSubmit={onSubmit} className="mt-10 max-w-4xl space-y-6 md:mt-14">
