@@ -191,19 +191,19 @@ const LINKS = [
 const SOCIAL = [
   {
     label: "Instagram",
-    href: "[instagram.com](https://www.instagram.com/)",
+    href: "https://www.instagram.com/studio.61c/",
     srcWebm: "/Instagram.webm",
     srcMp4: "/Instagram.mp4",
   },
   {
     label: "LinkedIn",
-    href: "[linkedin.com](https://www.linkedin.com/)",
+    href: "https://in.linkedin.com/company/61cstudios",
     srcWebm: "/Linkedin.webm",
     srcMp4: "/Linkedin.mp4",
   },
   {
     label: "YouTube",
-    href: "[youtube.com](https://www.youtube.com/)",
+    href: "https://www.youtube.com/@61CStudios",
     srcWebm: "/Youtube.webm",
     srcMp4: "/Youtube.mp4",
   },

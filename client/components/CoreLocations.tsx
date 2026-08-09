@@ -42,7 +42,7 @@ export default function CoreLocations() {
 
         <div className="text-yellow-400 pt-6 md:pt-10">
           <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26]">
-            Working across the UK, India and rest of the world, we deliver
+            Working across the India and rest of the world, we deliver
             content that feels elevated without losing authenticity. Our
             approach combines cinematic production with global sensibilities,
             creating visuals designed to stand out across different channels and
