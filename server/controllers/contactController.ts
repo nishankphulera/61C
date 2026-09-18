@@ -48,7 +48,7 @@ export async function createContactSubmission(req: Request, res: Response): Prom
     });
 
     const mailOptions = {
-      from: `"${doc.fullName}" <${doc.email}>`,
+      from: `"${doc.fullName}" <${process.env.SMTP_USER}>`,
       replyTo: doc.email,
       to: "hello@61cstudios.com",
       subject: "New Contact Form Submission - 61C Studios",

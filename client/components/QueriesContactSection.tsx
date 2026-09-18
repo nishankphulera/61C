@@ -82,7 +82,7 @@ export default function QueriesContactSection({
       className="relative z-10 bg-black text-white"
       aria-label="Studios and contact form"
     >
-      {/* <div className="mx-auto max-w-7xl px-6 md:px-10 text-yellow-400">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 text-yellow-400">
         <div className="mx-auto mt-14 flex max-w-4xl items-center justify-center gap-0 text-[#ffef00] md:mt-20">
           <div className="flex-1 text-center">
             <p className="text-xl font-extrabold uppercase tracking-wide md:text-4xl text-yellow-400 mb-[26px]">
@@ -126,7 +126,7 @@ export default function QueriesContactSection({
 
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Queries header */}
       <div className="mx-auto mt-10 max-w-7xl flex flex-col items-center gap-4 text-center lg:flex-row lg:flex-wrap lg:justify-center lg:text-left lg:gap-0">
