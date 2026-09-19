@@ -24,172 +24,172 @@ export const metadata: Metadata = {
 };
 
 export default function UkPage() {
+
+
   // notFound()
+  return (
+    <div className="relative w-full bg-black text-white">
+      <Header />
 
-  notFound()
-  // return (
-  //   <div className="relative w-full bg-black text-white">
-  //     <Header />
+      <main className="relative flex w-full flex-col">
 
-  //     <main className="relative flex w-full flex-col">
+        <section className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden md:aspect-auto md:min-h-[100dvh]" aria-label="61C Studios UK">
+          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover object-center"
+            >
+              <source src="/UKshowreel.mp4" type="video/mp4" />
+            </video>
+          </div>
 
-  //       <section className="relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden md:aspect-auto md:min-h-[100dvh]" aria-label="61C Studios UK">
-  //         <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
-  //           <video
-  //             autoPlay
-  //             muted
-  //             loop
-  //             playsInline
-  //             className="h-full w-full object-cover object-center"
-  //           >
-  //             <source src="/UKshowreel.mp4" type="video/mp4" />
-  //           </video>
-  //         </div>
+          <div className="relative z-10 flex w-full flex-col items-center justify-center px-6 md:min-h-[100dvh] md:px-10 md:pb-16 md:pt-[4.5rem]">
+            <h1 className="max-w-[min(100%,56rem)] text-center text-[clamp(1.35rem,7.2vw,3.75rem)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-yellow-400 drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(1.5rem,8.5vw,4.75rem)]">
+              RIGHT, LET&apos;S CRACK ON!
+            </h1>
+          </div>
+        </section>
+        <section
+          className="relative z-10 bg-black px-[40px] pt-6 md:px-[200px] md:pb-10 md:pt-16 lg:px-[200px] lg:pb-12 "
+          aria-labelledby="uk-intro-heading"
+        >
+          <h2 id="uk-intro-heading" className="sr-only">
+            About 61C Studios UK
+          </h2>
 
-  //         <div className="relative z-10 flex w-full flex-col items-center justify-center px-6 md:min-h-[100dvh] md:px-10 md:pb-16 md:pt-[4.5rem]">
-  //           <h1 className="max-w-[min(100%,56rem)] text-center text-[clamp(1.35rem,7.2vw,3.75rem)] font-black uppercase leading-[0.92] tracking-[-0.03em] text-yellow-400 drop-shadow-[0_4px_28px_rgba(0,0,0,0.45)] sm:leading-[0.9] md:text-[clamp(1.5rem,8.5vw,4.75rem)]">
-  //             RIGHT, LET&apos;S CRACK ON!
-  //           </h1>
-  //         </div>
-  //       </section>
-  //       <section
-  //         className="relative z-10 bg-black px-[40px] pt-6 md:px-[200px] md:pb-10 md:pt-16 lg:px-[200px] lg:pb-12 "
-  //         aria-labelledby="uk-intro-heading"
-  //       >
-  //         <h2 id="uk-intro-heading" className="sr-only">
-  //           About 61C Studios UK
-  //         </h2>
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[0.03em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.5rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26] text-justify">
+            61C Studios is a creative production house
 
-  //         <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[0.03em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.5rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26] text-justify">
-  //           61C Studios is a creative production house
+            creating cinematic content across film, digital,
 
-  //           creating cinematic content across film, digital,
+            print and branded media for clients across the UK.
 
-  //           print and branded media for clients across the UK.
+            We work with artists, brands, corporates and
 
-  //           We work with artists, brands, corporates and
+            growing businesses to make content that feels
 
-  //           growing businesses to make content that feels
+            visually sharp, culturally in tune and genuinely
 
-  //           visually sharp, culturally in tune and genuinely
+            engaging.
+          </p>
 
-  //           engaging.
-  //         </p>
+          <div className="mt-10 w-full md:mt-14 lg:mt-16">
+            {UK_INTRO_IMAGE_SRC ? (
+              <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
+                <Image
+                  src={UK_INTRO_IMAGE_SRC}
+                  alt=""
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+              </div>
+            ) : (
+              <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
+            )}
+          </div>
+        </section>
 
-  //         <div className="mt-10 w-full md:mt-14 lg:mt-16">
-  //           {UK_INTRO_IMAGE_SRC ? (
-  //             <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
-  //               <Image
-  //                 src={UK_INTRO_IMAGE_SRC}
-  //                 alt=""
-  //                 fill
-  //                 className="object-cover object-center"
-  //                 sizes="(max-width: 768px) 100vw, 1200px"
-  //               />
-  //             </div>
-  //           ) : (
-  //             <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
-  //           )}
-  //         </div>
-  //       </section>
+        <section
+          className="relative z-10 bg-black px-[40px] md:px-[200px] "
+          aria-labelledby="uk-regions-heading"
+        >
 
-  //       <section
-  //         className="relative z-10 bg-black px-[40px] md:px-[200px] "
-  //         aria-labelledby="uk-regions-heading"
-  //       >
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify mt-[20px]">
+            From London, Manchester, Liverpool to Leeds, Sheffield and Birmingham, we help you and your brand tell your stories in a way that feels relevant, considered and built for today&apos;s audiences. Memorable.
+          </p>
 
-  //         <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify mt-[20px]">
-  //           From London, Manchester, Liverpool to Leeds, Sheffield and Birmingham, we help you and your brand tell your stories in a way that feels relevant, considered and built for today&apos;s audiences. Memorable.
-  //         </p>
+          <div className="w-full">
+            {UK_REGIONS_IMAGE_SRC ? (
+              <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
+                <Image
+                  src={UK_REGIONS_IMAGE_SRC}
+                  alt=""
+                  fill
+                  unoptimized
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+              </div>
+            ) : (
+              <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
+            )}
+          </div>
+        </section>
 
-  //         <div className="w-full">
-  //           {UK_REGIONS_IMAGE_SRC ? (
-  //             <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
-  //               <Image
-  //                 src={UK_REGIONS_IMAGE_SRC}
-  //                 alt=""
-  //                 fill
-  //                 unoptimized
-  //                 className="object-cover object-center"
-  //                 sizes="(max-width: 768px) 100vw, 1200px"
-  //               />
-  //             </div>
-  //           ) : (
-  //             <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
-  //           )}
-  //         </div>
-  //       </section>
+        <section
+          className="relative z-10 bg-black px-[40px] pb-20 pt-4 md:px-[200px] md:pb-28 md:pt-10 lg:px-[200px] lg:pb-32"
+          aria-labelledby="uk-creative-process-heading"
+        >
+          <h2 id="uk-creative-process-heading" className="sr-only">
+            Creative process
+          </h2>
 
-  //       <section
-  //         className="relative z-10 bg-black px-[40px] pb-20 pt-4 md:px-[200px] md:pb-28 md:pt-10 lg:px-[200px] lg:pb-32"
-  //         aria-labelledby="uk-creative-process-heading"
-  //       >
-  //         <h2 id="uk-creative-process-heading" className="sr-only">
-  //           Creative process
-  //         </h2>
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
+            We handle the full creative process from ideas and creative
+            direction through to video production, photography, branding, design
+            and social-first content.
+          </p>
 
-  //         <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
-  //           We handle the full creative process from ideas and creative
-  //           direction through to video production, photography, branding, design
-  //           and social-first content.
-  //         </p>
+          <p className="mt-8 max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.01em] text-yellow-400 sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
+            Whether it&apos;s a brand film, campaign shoot, documentary, music
+            video or social content, we focus on creating visuals
+            that not only looks great, but actually connect with people. Every
+            project is shaped around your identity, audience and story.
 
-  //         <p className="mt-8 max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.01em] text-yellow-400 sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
-  //           Whether it&apos;s a brand film, campaign shoot, documentary, music
-  //           video or social content, we focus on creating visuals
-  //           that not only looks great, but actually connect with people. Every
-  //           project is shaped around your identity, audience and story.
+          </p>
 
-  //         </p>
+          <div className="mt-20 w-full md:mt-30 lg:mt-32">
+            {UK_CREATIVE_PROCESS_IMAGE_SRC ? (
+              <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
+                <Image
+                  src={UK_CREATIVE_PROCESS_IMAGE_SRC}
+                  alt=""
+                  fill
+                  unoptimized
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                />
+              </div>
+            ) : (
+              <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
+            )}
+          </div>
+        </section>
+        <section
+          className="relative z-10 bg-black px-[40px]  md:px-[200px] "
+          aria-labelledby="uk-services-heading"
+        >
+          <h2 id="uk-services-heading" className="sr-only">
+            Services across the UK
+          </h2>
 
-  //         <div className="mt-20 w-full md:mt-30 lg:mt-32">
-  //           {UK_CREATIVE_PROCESS_IMAGE_SRC ? (
-  //             <div className="relative aspect-[1241/698] w-full overflow-hidden bg-[#D9D9D9]">
-  //               <Image
-  //                 src={UK_CREATIVE_PROCESS_IMAGE_SRC}
-  //                 alt=""
-  //                 fill
-  //                 unoptimized
-  //                 className="object-cover object-center"
-  //                 sizes="(max-width: 768px) 100vw, 1200px"
-  //               />
-  //             </div>
-  //           ) : (
-  //             <div className="aspect-[1241/698] w-full bg-[#D9D9D9]" aria-hidden />
-  //           )}
-  //         </div>
-  //       </section>
-  //       <section
-  //         className="relative z-10 bg-black px-[40px]  md:px-[200px] "
-  //         aria-labelledby="uk-services-heading"
-  //       >
-  //         <h2 id="uk-services-heading" className="sr-only">
-  //           Services across the UK
-  //         </h2>
+          <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
+            We work across hospitality, food &amp; beverage, fashion, lifestyle,
+            architecture, real estate, automotive, events, products and artist
+            profiles, bringing a cinematic approach to every brief.
+          </p>
 
-  //         <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
-  //           We work across hospitality, food &amp; beverage, fashion, lifestyle,
-  //           architecture, real estate, automotive, events, products and artist
-  //           profiles, bringing a cinematic approach to every brief.
-  //         </p>
+          <p className="mt-8 max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
+            If you&apos;re looking for creative support across video, photography, branding or design, get in touch today with your lovely ideas for a tailored quote.
+          </p>
+        </section>
 
-  //         <p className="mt-8 max-w-none text-left text-base font-medium leading-[1.28] tracking-[-0.02em] text-yellow-400 sm:mt-10 sm:text-2xl sm:leading-[1.28] md:mt-12 md:text-[1.55rem] md:leading-[1.26] lg:text-[2.75rem] lg:leading-[1.26] text-justify">
-  //           If you&apos;re looking for creative support across video, photography, branding or design, get in touch today with your lovely ideas for a tailored quote.
-  //         </p>
-  //       </section>
+        <section
+          className="relative z-10 bg-black px-8 md:px-12 lg:px-16"
+          aria-labelledby="uk-contact-heading"
+        >
+          <h2 id="uk-contact-heading" className="sr-only">
+            Contact 61C Studios UK
+          </h2>
 
-  //       <section
-  //         className="relative z-10 bg-black px-8 md:px-12 lg:px-16"
-  //         aria-labelledby="uk-contact-heading"
-  //       >
-  //         <h2 id="uk-contact-heading" className="sr-only">
-  //           Contact 61C Studios UK
-  //         </h2>
+        </section>
 
-  //       </section>
-
-  //       <QueriesContactSection showHeader={false} variant="uk" />
-  //     </main>
-  //   </div>
-  // );
+        <QueriesContactSection showHeader={false} variant="uk" />
+      </main>
+    </div>
+  );
 }

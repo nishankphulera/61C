@@ -265,7 +265,7 @@ export default function CoreServices() {
 
           and branded media. Built on over a decade of{" "}
 
-          experience, we partner with artists, corporate,{" "}
+          experience, we partner with artists,{" "}
 
           brands and small businesses to create work that{" "}
 
@@ -383,8 +383,7 @@ export default function CoreServices() {
           </p>
           <p>
             Every project is approached with a well defined creative vision and a clear understanding
-            of audience connection. In a nutshell, our cinematic storytelling establishes your identity,
-            purpose and ethos.
+            of audience connection.
           </p>
         </div>
       </div>

@@ -20,7 +20,7 @@ const CORE_VALUES = [
   },
   {
     title: "Culture is king",
-    body: "Our work draws from the pulse of contemporary narrative. We believe culture sets the context for everything.",
+    body: "Our work draws from the pulse of contemporary narrative. Culture sets the context for everything.",
   },
   {
     title: "Keep experimenting",

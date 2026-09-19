@@ -61,11 +61,7 @@ export default function DesignPage() {
         {/* Philosophy Statement */}
         <section className="my-8 md:my-12 w-full max-w-[1400px]">
           <p className="max-w-none text-left text-base font-medium leading-[1.28] tracking-[0.03em] text-yellow-400 sm:text-2xl sm:leading-[1.28] md:text-[1.5rem] md:leading-[1.26] lg:text-[2.55rem] lg:leading-[1.26] text-justify">
-            At 61C Studios, design is an extension of expression and storytelling. It is not treated as a
-            supporting function to grab attention. Every visual ecosystem we create begins with
-            emotion and is led by context. It enhances the narrative, making it impressionable and
-            truly influential. Whether it&apos;s an album cover, animation, illustration, print or digital brand
-            assets, we craft designs that feel culturally relevant and creatively stimulating.
+            At 61C Studios, design is an extension of identity and storytelling. Every visual ecosystem we create begins with root emotions and is layered with context. It enhances the narrative, making it impressionable and truly influential. Whether it's an album cover, animation, illustration or print/digital asset, we craft designs that feel culturally relevant and stimulating.
           </p>
         </section>
 
