@@ -278,7 +278,7 @@ export default function QueriesContactSection({
           className="text-yellow-400 mt-10 space-y-4 text-center text-base leading-relaxed md:mt-14 md:text-lg lg:text-xl"
 
         >
-          {/* <p className="font-bold text-sm md:text-sm lg:text-sm">
+          <p className="font-bold text-sm md:text-sm lg:text-sm">
             61C STUDIOS UK LTD (Company Number: 17200017)
             <span style={{ color: LINK_BLUE }}>
               {" – "}
@@ -299,7 +299,7 @@ export default function QueriesContactSection({
           <p className="font-bold text-sm md:text-sm lg:text-sm">
             Copyright © {COPYRIGHT_YEAR} – 61C STUDIOS (&) 61C STUDIOS UK LTD. All
             Rights Reserved
-          </p> */}
+          </p>
         </div>
       </div>
     </section>
